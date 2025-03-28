@@ -1,9 +1,14 @@
 import { Sequelize } from 'sequelize'
 
-DBConnection = new Sequelize('Chat_bot', 'root', null, {
+const DBname = process.env.DB_NAME 
+const DBuser = process.env.DB_USER
+const DBpassword = process.env.DB_PASSWORD
+const DBport = process.env.DB_PORT
+
+const DBConnection = new Sequelize(DBname, DBuser, DBpassword, {
   host: 'localhost',
-  port: 3306,
-  dialect: 'mysql',
+  dialect: 'mariadb',
+  port: DBport,
   logging: false
 })
 
@@ -12,7 +17,7 @@ const testConnection = async() => {
         await DBConnection.authenticate()
         console.log("Database connected sucessfully")
     } catch (error) {
-        console.log("Database Connection Error", error)
+        console.log("Database Connection Error |", error)
     }
 }
 
