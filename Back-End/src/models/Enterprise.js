@@ -26,3 +26,5 @@ const Enterprise = DBConnection.define('Enterprise', {
     allowNull: false,
   }
 })
+
+export default Enterprise

@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize'
 import DBConnection from '../database/database'
+import Enterprise from './Enterprise.js'
 
 const Recruiter = DBConnection.define('Recruiter', {
   id: {
@@ -27,9 +28,18 @@ const Recruiter = DBConnection.define('Recruiter', {
   role: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  enterprise_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Enterprise,
+      key: 'id'
+    }
   }
 })
 
-
+Enterprise.hasMany(Recruiter)
+Recruiter.belongsTo(Enterprise)
 
 export default Recruiter
