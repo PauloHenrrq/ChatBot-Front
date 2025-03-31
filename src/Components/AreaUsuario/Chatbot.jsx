@@ -48,7 +48,7 @@ export default function ChatBot() {
         {/* Exibindo as mensagens */}
         {messages.map((msg, index) => (
             
-          <div key={index} className={`max-w-xs p-3 rounded-lg overflow-auto ${msg.sender === "user" ? "bg-orange-400 text-white ml-auto" : "bg-white text-black"}`}>
+          <div key={index} className={`max-w-xs break-words whitespace-normal p-3 rounded-lg overflow-auto ${msg.sender === "user" ? "bg-orange-400 text-white ml-auto" : "bg-white text-black"}`}>
             {msg.text}
           </div>
           
