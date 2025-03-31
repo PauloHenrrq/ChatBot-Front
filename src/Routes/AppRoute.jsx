@@ -3,6 +3,7 @@ import Login from '../Components/Login'
 import Candidatos from '../Pages/Candidatos'
 import ProtectRoute from '../Routes/ProtectRoute'
 import Vagas from '../Pages/Vagas'
+import ChatBot from '../Components/AreaUsuario/Chatbot'
 export default function AppRoute() {
 
     return (
@@ -15,7 +16,7 @@ export default function AppRoute() {
                         <Route path="/candidatos" element={<Candidatos />} />
                         <Route path='/vagas' element={<Vagas />}></Route>
                     </Route>
-                    
+                    <Route path='/chatbot' element={<ChatBot />}></Route>
                 </Routes>
             </BrowserRouter>
         </>

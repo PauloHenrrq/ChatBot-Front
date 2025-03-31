@@ -1,41 +1,35 @@
-import { useState } from "react";
 
 import Header from "../Layout/Header"
+import VagasCard from '../Components/Cadastro-Login/VagasCard'
+import CadastroVagaModal from '../Components/Cadastro-Login/CadastroVagaModal'
 
 export default function Vagas() {
-
-    const [vagas, setVagas] = useState([
-        { titulo: "Desenvolvedor Web", descricao: "Desenvolvimento de aplicações web responsivas." },
-        { titulo: "Analista de Dados", descricao: "Análise de dados e geração de insights." },
-    ]);
-
-    function criarVaga(event) {
-        event.preventDefault();
-        const titulo = event.target.tituloVaga.value;
-        const descricao = event.target.descricaoVaga.value;
-        setVagas([...vagas, { titulo, descricao }]);
-        event.target.reset();
-    }
-
     return (
-        <div className="min-h-screen bg-gray-100">
-            <Header />
+        <>
+            <div className="min-h-screen bg-gray-100">
+                <Header />
+
+                <div>
+                    <div className="flex items-center justify-center mt-6 mb-4">
+                        <h1 className="text-3xl font-bold text-center text-gray-800">Vagas</h1>
+                    </div>
+                    
+                    <p className="text-gray-600 text-center">Veja as vagas cadastradas no nosso sistema.</p>
+
+                    <div className="flex justify-center gap-4 mt-6">
+                        <CadastroVagaModal />
+                        <button className="bg-orange-500/40 hover:bg-orange-500 transition-all cursor-pointer px-3 py-1 text-white font-semibold rounded-lg">Visualizar todas as vagas</button>
+                        <button className="bg-orange-500/40 hover:bg-orange-500 transition-all cursor-pointer px-3 py-1 text-white font-semibold rounded-lg">Filtrar vagas</button>
+                    </div>
+                </div>
+
+
                 <div className="w-[80%] mx-auto mt-6">
-                    <h2 className="text-2xl font-semibold mb-4">Vagas</h2>
-                    <form className="mb-3" onSubmit={criarVaga}>
-                        <input type="text" className="w-full p-2 border rounded mb-2" name="tituloVaga" placeholder="Título da Vaga" required />
-                        <textarea className="w-full p-2 border rounded mb-2" name="descricaoVaga" placeholder="Descrição" required></textarea>
-                        <button type="submit" className="bg-orange-500 hover:bg-orange-400 cursor-pointer transition-all text-white px-4 py-2 rounded w-full">Criar Vaga</button>
-                    </form>
-                    <ul className="bg-white p-4 rounded shadow">
-                        {vagas.map((vaga, index) => (
-                            <li key={index} className="border-b p-3">
-                                <h3 className="font-semibold">{vaga.titulo}</h3>
-                                <p>{vaga.descricao}</p>
-                            </li>
-                        ))}
+                    <ul className="bg-white p-4 rounded-lg shadow">
+                        <VagasCard />
                     </ul>
                 </div>
-        </div>
+            </div>
+        </>
     );
 }

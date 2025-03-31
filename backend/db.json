@@ -4,13 +4,44 @@
       "id": 1,
       "name": "Levi Duarte Lima",
       "email": "levi@gmail.com",
-      "password": "12345678"
+      "password": "12345678",
+      "permissions": "admin"
     },
     {
       "id": "8eb3",
       "name": "Levi Duarte Lima",
       "email": "duartelevi1@gmail.com",
-      "password": "13102004"
+      "password": "13102004",
+      "permissions": "user"
+    }
+  ],
+  "vagas": [
+    {
+      "id": 1,
+      "titulo": "Desenvolvedor Frontend",
+      "empresa": "Tech Solutions",
+      "localizacao": "Remoto",
+      "descricao": "Buscamos um desenvolvedor frontend para criar interfaces modernas e responsivas...",
+      "descricaodetalhada": "Estamos à procura de um Desenvolvedor Frontend talentoso para se juntar à nossa equipe de tecnologia. O candidato ideal deve ter experiência com React, Tailwind CSS e desenvolvimento responsivo.\n\n**Responsabilidades:**\n- Desenvolver interfaces modernas e responsivas;\n- Colaborar com designers e back-end developers para criar soluções inovadoras;\n- Escrever código limpo e reutilizável.\n\n**Requisitos:**\n- Experiência com React.js e Tailwind CSS;\n- Conhecimento de JavaScript (ES6+);\n- Experiência com integração de APIs REST;\n- Familiaridade com controle de versão (Git).\n\n**Diferenciais:**\n- Experiência com TypeScript;\n- Conhecimento em Next.js;\n- Experiência com testes automatizados.\n\n**Benefícios:**\n- Salário: R$ 8.000,00 a R$ 12.000,00;\n- Plano de saúde e odontológico;\n- Horário flexível e possibilidade de trabalho remoto.\n\nSe você se encaixa no perfil, envie seu currículo e faça parte do nosso time!",
+      "salario": "R$ 8.000,00"
+    },
+    {
+      "id": 2,
+      "titulo": "Desenvolvedor Backend",
+      "empresa": "Tech Solutions",
+      "localizacao": "Remoto",
+      "descricao": "Buscamos um desenvolvedor backend para trabalhar com Node.js, Express.js, MongoDB, e outras tecnologias relacionadas...",
+      "descricaodetalhada": "Estamos a procura de um desenvolvedor backend para trabalhar com Node.js, Express.js, Mongo DB...",
+      "salario": "R$ 10.000,00"
+    },
+    {
+      "id": "edb2",
+      "titulo": "Biribonsons",
+      "empresa": "Eu",
+      "localizacao": "algum canto",
+      "descricao": "tomi tomi",
+      "descricaodetalhada": "",
+      "salario": "50 centavos"
     }
   ]
 }

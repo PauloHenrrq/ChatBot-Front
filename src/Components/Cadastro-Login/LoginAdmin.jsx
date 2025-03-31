@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import * as yup from "yup"; // Importando Yup
 import { Formik, Form, Field, ErrorMessage } from "formik";

@@ -5,6 +5,7 @@ import {
 } from '@heroicons/react/16/solid'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import UserLogout from '../Components/Logout/UserLogout'
 export default function Header() {
 
     const [secaoAtiva, setSecaoAtiva] = useState("candidatos");
@@ -60,7 +61,7 @@ export default function Header() {
                             Vagas
                         </button>
                     </Link>
-
+                    <UserLogout />
                 </div>
             </nav>
 
