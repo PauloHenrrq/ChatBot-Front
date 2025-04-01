@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import UserLogout from "../Logout/UserLogout";
 
 
 export default function ChatBot() {
@@ -46,6 +47,10 @@ export default function ChatBot() {
     <div className="h-screen flex flex-col bg-gray-100">
       <header className="bg-orange-500 text-white p-4 text-center text-lg font-bold">
         Chat com a IA
+        <div className="fixed right-3 top-3">
+          <UserLogout />
+        </div>
+        
       </header>
 
       <div className="flex-1 w-1/2 max-lg:w-lg max-md:w-md max-sm:w-sm transition-all mx-auto shadow-2xl my-6 p-4 space-y-2">
@@ -71,7 +76,7 @@ export default function ChatBot() {
           placeholder="Digite sua mensagem..."
           className="flex-1 p-2 border rounded-lg overflow-auto text-wrap"
         />
-        <button onClick={sendMessage} className="ml-2 bg-orange-500 text-white px-4 py-2 rounded-lg">
+        <button  className="ml-2 bg-orange-500 text-white px-4 py-2 rounded-lg">
           Enviar
         </button>
       </div>
