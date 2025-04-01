@@ -7,34 +7,40 @@ export default function ChatBot() {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
-  const sendMessage = async () => {
-    if (!input.trim()) return;
-    
-    const userMessage = { sender: "user", text: input };
-    setMessages((prev) => [...prev, userMessage]);
-    setInput("");
-    setIsTyping(true);
+  // const sendMessage = async () => {
+  //   if (!input.trim()) return;
+  
+  //   const userMessage = { sender: "user", text: input };
+  //   setMessages((prev) => [...prev, userMessage]);
+  //   setInput("");
+  //   setIsTyping(true);
+  
+  //   try {
+  //     const response = await axios.post(
+  //       "https://api.openai.com/v1/chat/completions",
+  //       {
+  //         model: "gpt-4o-mini",
+  //         messages: [{ role: "user", content: input }],
+  //       },
+  //       {
+  //         headers: {
+  //           "Authorization": `Bearer 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`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  
+  //     const botMessage = { sender: "bot", text: response.data.choices[0].message.content || "Desculpe, não entendi." };
+  //     setMessages((prev) => [...prev, botMessage]);
+  //   } catch (error) {
+  //     console.error("Erro ao chamar a IA", error);
+  //   }
+  
+  //   setIsTyping(false);
+  // };
 
-    try {
-      const response = await axios.post(
-        "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill",
-        { inputs: input },
-        {
-          headers: {
-            "Authorization": `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`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      
-      const botMessage = { sender: "bot", text: response.data.generated_text || "Desculpe, não entendi." };
-      setMessages((prev) => [...prev, botMessage]);
-    } catch (error) {
-      console.error("Erro ao chamar a IA", error);
-    }
 
-    setIsTyping(false);
-  };
+  
 
   return (
     <div className="h-screen flex flex-col bg-gray-100">

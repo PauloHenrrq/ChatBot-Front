@@ -1,7 +1,7 @@
 {
   "usersname": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Levi Duarte Lima",
       "email": "levi@gmail.com",
       "password": "12345678",
@@ -13,11 +13,17 @@
       "email": "duartelevi1@gmail.com",
       "password": "13102004",
       "permissions": "user"
+    },
+    {
+      "id": "ec19",
+      "name": "Nicole Fátima",
+      "email": "nicole@gmail.com",
+      "password": "12345678"
     }
   ],
   "vagas": [
     {
-      "id": 1,
+      "id": "1",
       "titulo": "Desenvolvedor Frontend",
       "empresa": "Tech Solutions",
       "localizacao": "Remoto",
@@ -26,7 +32,7 @@
       "salario": "R$ 8.000,00"
     },
     {
-      "id": 2,
+      "id": "2",
       "titulo": "Desenvolvedor Backend",
       "empresa": "Tech Solutions",
       "localizacao": "Remoto",

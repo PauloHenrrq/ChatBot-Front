@@ -62,7 +62,7 @@ export default function LoginAdmin() {
       })
       .then(() => {
         // Após o cadastro, redireciona para o login ou outra página
-        navigate("/login");
+        navigate("/chatbot");
       })
       .catch((error) => {
         console.error("Erro no cadastro", error);
