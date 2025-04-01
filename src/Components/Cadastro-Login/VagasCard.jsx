@@ -46,9 +46,9 @@ export default function VagasCard() {
     });
 
     return (
-        <div className="h-full grid grid-cols-3 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 justify-center gap-5">
+        <div className="h-full grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 mx-auto gap-5">
             {vagas.map((vaga) => (
-                <div className="bg-linear-to-b from-orange-200 to-white shadow-md rounded-lg p-4 w-full max-w-md flex flex-col justify-between" key={vaga.id}>
+                <div className="bg-gradient-to-b from-orange-200 to-white shadow-md rounded-lg p-4 w-full max-w-md flex flex-col justify-between mx-auto" key={vaga.id}>
                     <div className="flex flex-col items-start h-fit">
                         <h3 className="text-xl font-semibold">{vaga.titulo}</h3>
                         <h1 className="text-gray-600">{vaga.empresa}</h1>
@@ -58,7 +58,7 @@ export default function VagasCard() {
                     <div className="flex items-center justify-center h-fit mt-8">
                         <p className="text-gray-600 w-1/2">{vaga.salario}</p>
                         <button
-                            className="w-1/2 py-1 bg-orange-500 text-white rounded"
+                            className="w-1/2 py-1 bg-orange-500 hover:bg-orange-400 text-white rounded cursor-pointer"
                             onClick={() => setModalAberto(vaga.id)}
                         >
                             Editar
@@ -66,65 +66,63 @@ export default function VagasCard() {
                     </div>
 
                     {modalAberto === vaga.id && (
-                        <div className="fixed inset-0 flex items-center justify-center bg-black/50 p-4">
-                            <div className="bg-zinc-100 p-6 rounded shadow-lg max-w-5xl flex flex-col justify-center h-full w-full">
-                                <div className="bg-white h-full content-center rounded-2xl shadow-lg">
+                        <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
+                            <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-5xl w-full flex flex-col justify-center">
+                                <Formik
+                                    enableReinitialize
+                                    initialValues={vaga}
+                                    validationSchema={validationSchema}
+                                    onSubmit={salvarDados}
+                                >
+                                    <Form className="space-y-6">
+                                        <div className="flex gap-4">
+                                            <div className="w-full">
+                                                <label htmlFor="titulo" className="text-sm font-semibold">Cargo</label>
+                                                <Field type="text" name="titulo" className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                                                <ErrorMessage name="titulo" component="div" className="text-red-600 text-sm mt-1" />
+                                            </div>
 
+                                            <div className="w-full">
+                                                <label htmlFor="empresa" className="text-sm font-semibold">Nome Empresarial</label>
+                                                <Field type="text" name="empresa" className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                                                <ErrorMessage name="empresa" component="div" className="text-red-600 text-sm mt-1" />
+                                            </div>
+                                        </div>
 
-                                    <div className="m-6 mx-auto">
+                                        <div className="space-y-4">
+                                            <label htmlFor="localizacao" className="text-sm font-semibold">Localização</label>
+                                            <Field type="text" name="localizacao" className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                                            <ErrorMessage name="localizacao" component="div" className="text-red-600 text-sm mt-1" />
 
-
-                                        <Formik
-                                            enableReinitialize
-                                            initialValues={vaga}
-                                            validationSchema={validationSchema}
-                                            onSubmit={salvarDados}
-                                        >
-                                            <Form className="px-4">
-                                                <div className="flex gap-2">
-                                                    <div className="w-full">
-                                                        <label htmlFor="titulo">Cargo</label>
-                                                        <Field type="text" name="titulo" className="w-full p-2 border rounded mb-1" />
-                                                        <ErrorMessage name="titulo" component="div" className="text-red-600" />
-                                                    </div>
-
-                                                    <div className="w-full">
-                                                        <label htmlFor="empresa">Nome Empresarial</label>
-                                                        <Field type="text" name="empresa" className="w-full p-2 border rounded mb-1" />
-                                                        <ErrorMessage name="empresa" component="div" className="text-red-600" />
-                                                    </div>
+                                            <div className="flex gap-4">
+                                                <div className="w-full">
+                                                    <label htmlFor="descricao" className="text-sm font-semibold">Descrição simplificada</label>
+                                                    <Field as={Textarea} name="descricao" className="w-full h-40 resize-none p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                                                    <ErrorMessage name="descricao" component="div" className="text-red-600 text-sm mt-1" />
                                                 </div>
 
-
-                                                <label htmlFor="localizacao">Localização</label>
-                                                <Field type="text" name="localizacao" className="w-full p-2 border rounded mb-1" />
-                                                <ErrorMessage name="localizacao" component="div" className="text-red-600" />
-
-                                                <div className="flex h-4 gap-2 mb-8">
-                                                    <div className="w-full">
-                                                        <label htmlFor="descricao">Descrição simplificada</label>
-                                                        <Field as={Textarea} name="descricao" className="w-full h-full resize-none p-2 border rounded mb-1" />
-                                                        <ErrorMessage name="descricao" component="div" className="text-red-600" />
-                                                    </div>
-                                                    <div className="w-full">
-                                                        <label htmlFor="descricaodetalhada">Descrição detalhada</label>
-                                                        <Field as={Textarea} name="descricaodetalhada" className="w-full h-full resize-none p-2 border rounded mb-1" />
-                                                        <ErrorMessage name="descricaodetalhada" component="div" className="text-red-600" />
-                                                    </div>
+                                                <div className="w-full">
+                                                    <label htmlFor="descricaodetalhada" className="text-sm font-semibold">Descrição detalhada</label>
+                                                    <Field as={Textarea} name="descricaodetalhada" className="w-full h-40 resize-none p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                                                    <ErrorMessage name="descricaodetalhada" component="div" className="text-red-600 text-sm mt-1" />
                                                 </div>
-                                                <label htmlFor="salario">Salário</label>
-                                                <Field type="number" name="salario" className="w-full p-2 border rounded mb-1" />
+                                            </div>
 
-                                                <button type="submit" className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded w-full cursor-pointer">
-                                                    Salvar
-                                                </button>
-                                            </Form>
-                                        </Formik>
-                                    </div>
-                                </div>
-                                <div className="flex gap-5 px-4">
-                                    <button className="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded w-1/2 cursor-pointer" onClick={() => setModalAberto(null)}>Fechar</button>
-                                    <button className="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded w-1/2 cursor-pointer" onClick={() => delVagas(vaga.id)}>Deletar</button>
+                                            <div className="w-full">
+                                                <label htmlFor="salario" className="text-sm font-semibold">Salário</label>
+                                                <Field type="text" name="salario" className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                                                <ErrorMessage name="salario" component="div" className="text-red-600 text-sm mt-1" />
+                                            </div>
+
+                                            <button type="submit" className="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-md w-full transition-colors duration-300">
+                                                Salvar
+                                            </button>
+                                        </div>
+                                    </Form>
+                                </Formik>
+                                <div className="flex gap-4 mt-6">
+                                    <button className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-md w-1/2" onClick={() => setModalAberto(null)}>Fechar</button>
+                                    <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md w-1/2" onClick={() => delVagas(vaga.id)}>Deletar</button>
                                 </div>
                             </div>
                         </div>

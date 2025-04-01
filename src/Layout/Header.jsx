@@ -14,7 +14,7 @@ export default function Header() {
         <>
 
             <nav className="bg-orange-500 shadow-md p-4 flex flex-col sm:flex-row justify-between items-center">
-                <h1 className="text-xl text-white font-bold">Painel RH</h1>
+                <h1 className="text-xl text-white font-bold cursor-pointer">Painel RH</h1>
                 <div className="w-52 text-right hidden max-sm:flex max-sm:justify-center max-sm:mt-4">
                     <Menu>
                         <MenuButton className="inline-flex items-center gap-2 rounded-md bg-zinc-200 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-orange-200 data-[open]:bg-orange-100 data-[focus]:outline-1 data-[focus]:outline-white">

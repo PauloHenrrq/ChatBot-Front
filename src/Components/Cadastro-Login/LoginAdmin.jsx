@@ -118,7 +118,7 @@ export default function LoginAdmin() {
                     <Field type="password" name="password" placeholder="Senha" className="w-full border border-zinc-500 p-2 mt-2 rounded" />
                     <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
                   </div>
-                  <button type="submit" className="w-full bg-orange-600 hover:bg-orange-500 text-white py-2 mt-4 rounded" disabled={isSubmitting}>Entrar</button>
+                  <button type="submit" className="w-full bg-orange-600 hover:bg-orange-500 text-white py-2 mt-4 rounded cursor-pointer" disabled={isSubmitting}>Entrar</button>
                 </Form>
               )}
             </Formik>
