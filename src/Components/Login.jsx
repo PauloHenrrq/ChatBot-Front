@@ -1,4 +1,4 @@
-import LoginAdmin from './Cadastro-Login/LoginAdmin'
+import LoginAdmin from '../Pages/LoginAdmin'
 export default function Login() {
 
     return(

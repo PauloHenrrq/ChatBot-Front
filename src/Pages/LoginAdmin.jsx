@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import * as yup from "yup"; // Importando Yup
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { api } from "../../Routes/api";
+import { api } from "../Routes/api";
 
 // Definindo o esquema de validação para login
 const loginValidationSchema = yup.object({
@@ -38,7 +38,7 @@ export default function LoginAdmin() {
       const { email, password } = values;
 
       // Requisição GET para verificar se o usuário existe
-      const response = await api.get("/usersname", {
+      const response = await api.get("/users", {
         params: {
           email: email,
           password: password,
@@ -54,7 +54,7 @@ export default function LoginAdmin() {
         if (user.role === "admin") {
           navigate("/vagas");
         } else {
-          navigate("/chatbot");
+          navigate("/home");
         }
       } else {
         alert("E-mail ou senha inválidos");
@@ -67,7 +67,7 @@ export default function LoginAdmin() {
 
   async function handleCadastro(values, { setSubmitting }) {
     try {
-      await api.post("/usersname", {
+      await api.post("/users", {
         name: values.nome,
         email: values.email,
         password: values.password,

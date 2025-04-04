@@ -1,10 +1,9 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useNavigate } from 'react-router-dom'
 
 const navigation = [
     { name: 'Home', href: '/home', current: true },
-    { name: 'Vagas', href: '/local-candidato', current: false },
-    
 ]
 
 function classNames(...classes) {
@@ -13,8 +12,15 @@ function classNames(...classes) {
 
 
 
+
 export default function HeaderCandidato() {
 
+    const navigate = useNavigate();
+
+    function removeLocalStorage() {
+        localStorage.removeItem('authToken');
+        navigate('/');
+    }
     return (
         <>
             <Disclosure as="nav" className="bg-orange-700">
@@ -31,7 +37,7 @@ export default function HeaderCandidato() {
                         </div>
                         <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                             <div className="flex shrink-0 items-center text-white text-2xl font-semibold">
-                                <h1>Painel RH</h1>
+                                <h1>Painel Vagas</h1>
                             </div>
                             <div className="hidden sm:ml-6 sm:block">
                                 <div className="flex space-x-4 text-white">
@@ -95,12 +101,12 @@ export default function HeaderCandidato() {
                                         </a>
                                     </MenuItem>
                                     <MenuItem>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                                        <button
+                                            onClick={removeLocalStorage}
+                                            className="block w-full text-left cursor-pointer px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                                         >
                                             Sign out
-                                        </a>
+                                        </button>
                                     </MenuItem>
                                 </MenuItems>
                             </Menu>

@@ -3,8 +3,8 @@ import Login from '../Components/Login'
 import Candidatos from '../Pages/Candidatos'
 import ProtectRoute from '../Routes/ProtectRoute'
 import Vagas from '../Pages/Vagas'
-import HomeCandidato from '../Components/AreaUsuario/HomeCandidato'
-import VagaCandidato from '../Pages/PaginaCandidato/VagaCandidato'
+import HomeCandidato from '../Pages/PaginaCandidato/HomeCandidato'
+
 export default function AppRoute() {
 
     return (
@@ -17,7 +17,6 @@ export default function AppRoute() {
                         <Route path="/candidatos" element={<Candidatos />} />
                         <Route path='/vagas' element={<Vagas />}></Route>
                     </Route>
-                    <Route path='/local-candidato' element={<VagaCandidato /> } />
                     <Route path='/home' element={<HomeCandidato />}></Route>
                 </Routes>
             </BrowserRouter>

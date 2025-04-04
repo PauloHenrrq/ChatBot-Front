@@ -137,7 +137,7 @@ export default function BarraPesquisa({ onSearch }) {
         </div>
 
         <button
-          className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-lg ml-2 w-1/2"
+          className="bg-orange-600 hover:bg-orange-700 text-white font-bold px-4 py-2 rounded-lg ml-2 w-1/2 cursor-pointer"
           onClick={buscarVagas}
         >
           Achar vagas

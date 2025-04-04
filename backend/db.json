@@ -1,23 +1,96 @@
 {
+  "candidaturas": [
+    {
+      "id": "4199",
+      "vagaId": 1,
+      "vagaTitulo": "Desenvolvedor Frontend",
+      "nome": "LEVI DUARTE LIMA",
+      "email": "duartelevi1@gmail.com",
+      "dataNascimento": "2004-10-13",
+      "telefone": "85985155690",
+      "endereco": {
+        "rua": "Rua",
+        "numero": "13",
+        "bairro": "Vila velha",
+        "cidade": "Fortaleza",
+        "estado": "CE",
+        "cep": "60348010"
+      },
+      "mensagem": "",
+      "curriculo": "Levi_Curriculo.pdf",
+      "status": "Aprovado para entrevista"
+    }
+  ],
   "users": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Levi Duarte Lima",
       "email": "levi@gmail.com",
+      "data_nascimento": "01/01/2000",
+      "endereço": [
+        {
+          "rua": "Pirimboles",
+          "numero": 123,
+          "bairro": "Vila Nova",
+          "cidade": "São Paulo",
+          "estado": "SP",
+          "cep": "01452-000",
+          "telefones": [
+            {
+              "numero": 987654321,
+              "tipo": "celular"
+            }
+          ]
+        }
+      ],
       "password": "12345678",
       "role": "admin"
     },
     {
-      "id": "8eb3",
+      "id": 2,
       "name": "Levi Duarte Lima",
       "email": "duartelevi1@gmail.com",
+      "data_nascimento": "01/03/2000",
+      "endereço": [
+        {
+          "rua": "Pirimboles",
+          "numero": 123,
+          "bairro": "Vila Nova",
+          "cidade": "São Paulo",
+          "estado": "SP",
+          "cep": "01452-000",
+          "telefones": [
+            {
+              "numero": 987654321,
+              "tipo": "celular"
+            }
+          ]
+        }
+      ],
       "password": "13102004",
       "role": "user"
     },
     {
-      "id": "ec19",
+      "id": 3,
       "name": "Nicole Fátima",
       "email": "nicole@gmail.com",
+      "data_nascimento": "01/02/2000",
+      "endereço": [
+        {
+          "rua": "Pirimboles",
+          "numero": 123,
+          "bairro": "Vila Nova",
+          "cidade": "São Paulo",
+          "estado": "SP",
+          "cep": "01452-000",
+          "telefones": [
+            {
+              "numero": 987654321,
+              "tipo": "celular"
+            }
+          ]
+        }
+      ],
       "password": "12345678",
       "role": "admin"
     }
@@ -29,18 +102,20 @@
       "empresa": "Tech Solutions",
       "localizacao": "Remoto",
       "descricao": "Buscamos um desenvolvedor frontend para criar interfaces modernas e responsivas...",
-      "descricaodetalhada": [
-        {
-          "requisitos": [
-            "**Requisitos:**",
-            " Experiência com React.js e Tailwind CSS;",
-            " Conhecimento de JavaScript (ES6+);",
-            " Experiência com integração de APIs REST;",
-            " Familiaridade com controle de versão (Git)."
-          ]
-        }
+      "requisitos": [
+        "**Requisitos:**",
+        "Experiência com React.js e Tailwind CSS;",
+        "Conhecimento de JavaScript (ES6+);",
+        "Experiência com integração de APIs REST;",
+        "Familiaridade com controle de versão (Git)."
       ],
-      
+      "responsabilidades": [
+        "**Responsabilidades:**",
+        "Desenvolver interfaces modernas e responsivas;",
+        "Colaborar com designers e backend;",
+        "Garantir boas práticas de UI/UX;",
+        "Otimizar a performance do frontend."
+      ],
       "beneficios": [
         "Plano de saúde e odontológico",
         "Horário flexível",
@@ -50,173 +125,217 @@
       "informacoes_adicionais": "Trabalhamos com um ambiente dinâmico e inovador, onde incentivamos a troca de conhecimento entre os colaboradores."
     },
     {
-      "id": "2",
       "titulo": "Desenvolvedor Backend",
       "empresa": "Tech Solutions",
       "localizacao": "Remoto",
       "descricao": "Buscamos um desenvolvedor backend para trabalhar com Node.js, Express.js, MongoDB...",
-      "descricaodetalhada": [
-        {
-          "requisitos": [
-            "**Requisitos:**",
-            "Experiência com Node.js e Express.js;",
-            "Conhecimento de bancos de dados NoSQL;",
-            "Experiência com arquitetura de microsserviços."
-          ]
-        }
+      "salario": "R$ 10.000,00",
+      "informacoes_adicionais": "Nossa empresa valoriza a diversidade e inclusão, oferecendo um ambiente acolhedor para todos os profissionais.",
+      "requisitos": [
+        "Experiência com Node.js",
+        "Banco de dados MongoDB"
+      ],
+      "responsabilidades": [
+        "Criar APIs RESTful",
+        "Manter sistemas escaláveis"
       ],
       "beneficios": [
-        "Vale alimentação",
-        "Seguro de vida",
-        "Bônus por desempenho"
+        "Bônus por performance",
+        "Plano de saúde"
       ],
-      "salario": "R$ 10.000,00",
-      "informacoes_adicionais": "Nossa empresa valoriza a diversidade e inclusão, oferecendo um ambiente acolhedor para todos os profissionais."
+      "id": "2"
     },
     {
       "id": "3",
-      "titulo": "Atendente de Loja",
-      "empresa": "Rede de Farmácias Pague Menos",
-      "localizacao": "Fortaleza, CE",
-      "descricao": "Estamos em busca de um Atendente de Loja para prestar suporte no atendimento ao cliente e organização da loja.",
-      "descricaodetalhada": [
-        {
-          "Responsabilidades": [
-            "**Responsabilidades:**",
-            " Atender clientes e prestar suporte nas dúvidas;",
-            " Organizar os produtos nas prateleiras;",
-            " Auxiliar no caixa e nas vendas de produtos;",
-            " Garantir a limpeza e organização da loja."
-          ]
-        }
-      ],
-      "beneficios": [
-        "Vale-transporte",
-        "Seguro de vida",
-        "Descontos em farmácias da rede"
-      ],
-      "salario": "R$ 1.500,00",
-      "informacoes_adicionais": "Oferecemos um ambiente amigável e treinamentos internos para capacitação contínua dos nossos funcionários."
-    },
-    {
-      "id": "4",
-      "titulo": "Jovem Aprendiz - Administrativo",
-      "empresa": "Banco Central",
+      "titulo": "Analista de Dados",
+      "empresa": "Data Insights",
       "localizacao": "São Paulo, SP",
-      "descricao": "Oportunidade para jovens que desejam ingressar no mercado de trabalho.",
-      "descricaodetalhada": [
-        {
-          "Responsabilidades": [
-            "**Responsabilidades:**",
-            " Auxiliar nas atividades administrativas;",
-            " Organizar documentos e arquivos;",
-            " Atendimento telefônico e suporte ao time."
-          ]
-        }
+      "descricao": "Buscamos um Analista de Dados para transformar dados brutos em insights valiosos...",
+      "requisitos": [
+        "Experiência com SQL e Python;",
+        "Conhecimento em ferramentas de BI como Power BI ou Tableau;",
+        "Familiaridade com modelagem de dados."
       ],
-      "beneficios": [
-        "Vale-transporte",
-        "Seguro de vida",
-        "Curso de capacitação"
-      ],
-      "salario": "R$ 980,00",
-      "informacoes_adicionais": "Vaga exclusiva para jovens entre 16 e 22 anos, cursando ensino médio ou já formado."
-    },
-    {
-      "id": "5",
-      "titulo": "Analista de Suporte Técnico (Home Office)",
-      "empresa": "CloudTech Solutions",
-      "localizacao": "100% Home Office",
-      "descricao": "Procuramos um analista de suporte técnico para atendimento remoto aos clientes.",
-      "descricaodetalhada": [
-        {
-          "requisitos": [
-            "**Requisitos:**",
-            " Experiência com suporte técnico e atendimento ao cliente;",
-            " Conhecimento em redes e sistemas operacionais;",
-            " Boa comunicação e resolução de problemas."
-          ]
-        }
-      ],
-      "beneficios": [
-        "Trabalho remoto",
-        "Vale refeição",
-        "Bônus por desempenho"
-      ],
-      "salario": "R$ 3.500,00",
-      "informacoes_adicionais": "Vaga 100% remota. Requer um ambiente adequado para trabalho e boa conexão com a internet."
-    },
-    {
-      "id": "6",
-      "titulo": "Estagiário de Marketing Digital",
-      "empresa": "Agência Criativa",
-      "localizacao": "Rio de Janeiro, RJ",
-      "descricao": "Buscamos um estagiário criativo para ajudar em campanhas e redes sociais.",
-      "descricaodetalhada": [
-        {
-          "Responsabilidades": [
-            "**Responsabilidades:**",
-            " Criar conteúdo para redes sociais;",
-            " Auxiliar no planejamento de campanhas;",
-            " Monitorar métricas de engajamento."
-          ]
-        }
-      ],
-      "beneficios": [
-        "Bolsa auxílio",
-        "Vale-transporte",
-        "Treinamentos internos"
-      ],
-      "salario": "R$ 1.200,00",
-      "informacoes_adicionais": "Oportunidade para estudantes de Publicidade, Marketing ou áreas relacionadas."
-    },
-    {
-      "id": "7",
-      "titulo": "Operador de Produção (Setor Industrial)",
-      "empresa": "Indústria Metalúrgica Nacional",
-      "localizacao": "Contagem, MG",
-      "descricao": "Responsável por operar máquinas e manter a produção em funcionamento.",
-      "descricaodetalhada": [
-        {
-          "Responsabilidades": [
-            "**Responsabilidades:**",
-            " Operar e ajustar máquinas industriais;",
-            " Manter o controle de qualidade na produção;",
-            " Seguir normas de segurança no trabalho."
-          ]
-        }
+      "responsabilidades": [
+        "Analisar grandes volumes de dados;",
+        "Criar dashboards e relatórios;",
+        "Apoiar a tomada de decisões com insights baseados em dados."
       ],
       "beneficios": [
         "Plano de saúde",
-        "Vale-alimentação",
-        "Seguro de vida"
+        "Vale-refeição",
+        "Auxílio home office"
       ],
-      "salario": "R$ 2.800,00",
-      "informacoes_adicionais": "Trabalho presencial em regime CLT. Exige disponibilidade para turnos noturnos."
+      "salario": "R$ 7.500,00",
+      "informacoes_adicionais": "Trabalho híbrido com horário flexível."
+    },
+    {
+      "id": "4",
+      "titulo": "Engenheiro de Software",
+      "empresa": "InnovateTech",
+      "localizacao": "Belo Horizonte, MG",
+      "descricao": "Procuramos um engenheiro de software para desenvolver sistemas escaláveis...",
+      "requisitos": [
+        "Sólidos conhecimentos em Java e Spring Boot;",
+        "Experiência com bancos de dados relacionais;",
+        "Familiaridade com arquitetura de microsserviços."
+      ],
+      "responsabilidades": [
+        "Desenvolver APIs escaláveis;",
+        "Participar da definição da arquitetura do sistema;",
+        "Trabalhar em colaboração com times de produto."
+      ],
+      "beneficios": [
+        "Plano odontológico",
+        "Vale-transporte",
+        "Participação nos lucros"
+      ],
+      "salario": "R$ 12.000,00",
+      "informacoes_adicionais": "Ambiente inovador e colaborativo."
+    },
+    {
+      "id": "5",
+      "titulo": "Product Manager",
+      "empresa": "Agile Solutions",
+      "localizacao": "Remoto",
+      "descricao": "Buscamos um Product Manager para liderar o desenvolvimento de produtos digitais...",
+      "requisitos": [
+        "Experiência com metodologias ágeis;",
+        "Habilidade em análise de mercado;",
+        "Boa comunicação e gestão de stakeholders."
+      ],
+      "responsabilidades": [
+        "Definir roadmap do produto;",
+        "Coordenar equipes de desenvolvimento e design;",
+        "Analisar métricas de desempenho."
+      ],
+      "beneficios": [
+        "Plano de saúde e odontológico",
+        "Stock options",
+        "Auxílio home office"
+      ],
+      "salario": "R$ 15.000,00",
+      "informacoes_adicionais": "Empresa com cultura de inovação e aprendizado contínuo."
+    },
+    {
+      "id": "6",
+      "titulo": "UX/UI Designer",
+      "empresa": "DesignCraft",
+      "localizacao": "Florianópolis, SC",
+      "descricao": "Procuramos um designer UX/UI para criar interfaces intuitivas e modernas...",
+      "requisitos": [
+        "Experiência com Figma ou Adobe XD;",
+        "Conhecimento em heurísticas de usabilidade;",
+        "Familiaridade com design system."
+      ],
+      "responsabilidades": [
+        "Criar wireframes e protótipos;",
+        "Conduzir testes de usabilidade;",
+        "Colaborar com desenvolvedores frontend."
+      ],
+      "beneficios": [
+        "Plano de saúde",
+        "Auxílio academia",
+        "Ambiente descontraído"
+      ],
+      "salario": "R$ 8.500,00",
+      "informacoes_adicionais": "Escritório pet-friendly."
+    },
+    {
+      "id": "7",
+      "titulo": "DevOps Engineer",
+      "empresa": "Cloud Experts",
+      "localizacao": "Remoto",
+      "descricao": "Buscamos um DevOps Engineer para otimizar pipelines de CI/CD e infraestrutura em nuvem...",
+      "requisitos": [
+        "Experiência com Docker e Kubernetes;",
+        "Conhecimento em AWS ou Azure;",
+        "Automação de infraestrutura com Terraform ou Ansible."
+      ],
+      "responsabilidades": [
+        "Gerenciar infraestrutura como código;",
+        "Melhorar processos de deployment;",
+        "Garantir alta disponibilidade dos sistemas."
+      ],
+      "beneficios": [
+        "Bônus anual",
+        "Horário flexível",
+        "Plano de saúde"
+      ],
+      "salario": "R$ 13.000,00",
+      "informacoes_adicionais": "Empresa focada em cultura DevOps e automação."
     },
     {
       "id": "8",
-      "titulo": "Gerente de Vendas",
-      "empresa": "Comércio Atacadista Brasil",
-      "localizacao": "Belo Horizonte, MG",
-      "descricao": "Buscamos um gerente de vendas experiente para liderar equipe comercial.",
-      "descricaodetalhada": [
-        {
-          "requisitos": [
-            "**Requisitos:**",
-            " Experiência comprovada em gestão de equipes de vendas;",
-            " Habilidades de negociação e fechamento de contratos;",
-            " Conhecimento de CRM e análise de mercado."
-          ]
-        }
+      "titulo": "Marketing Digital",
+      "empresa": "GrowthTech",
+      "localizacao": "São Paulo, SP",
+      "descricao": "Estamos em busca de um especialista em Marketing Digital para expandir nossa marca...",
+      "requisitos": [
+        "Experiência com Google Ads e Facebook Ads;",
+        "SEO e Marketing de Conteúdo;",
+        "Conhecimento em análise de métricas e funil de conversão."
+      ],
+      "responsabilidades": [
+        "Criar e otimizar campanhas de marketing;",
+        "Gerenciar redes sociais e conteúdo digital;",
+        "Analisar resultados e propor melhorias."
       ],
       "beneficios": [
-        "Salário fixo + comissão",
-        "Plano de carreira",
-        "Bônus por metas alcançadas"
+        "Vale-alimentação",
+        "Plano odontológico",
+        "Auxílio educação"
       ],
-      "salario": "R$ 5.500,00 + Comissão",
-      "informacoes_adicionais": "Oportunidade para quem busca crescimento profissional no setor comercial."
+      "salario": "R$ 6.500,00",
+      "informacoes_adicionais": "Equipe jovem e ambiente descontraído."
+    },
+    {
+      "id": "9",
+      "titulo": "QA Tester",
+      "empresa": "SafeTech",
+      "localizacao": "Curitiba, PR",
+      "descricao": "Precisamos de um QA Tester para garantir a qualidade dos nossos produtos digitais...",
+      "requisitos": [
+        "Experiência com testes automatizados;",
+        "Conhecimento em Selenium e Cypress;",
+        "Familiaridade com metodologias ágeis."
+      ],
+      "responsabilidades": [
+        "Criar planos de teste;",
+        "Executar testes automatizados e manuais;",
+        "Trabalhar com equipe de desenvolvimento para corrigir bugs."
+      ],
+      "beneficios": [
+        "Plano de saúde e odontológico",
+        "Vale-transporte",
+        "Bônus por desempenho"
+      ],
+      "salario": "R$ 7.000,00",
+      "informacoes_adicionais": "Cultura de inovação e melhoria contínua."
+    },
+    {
+      "id": "10",
+      "titulo": "Tech Recruiter",
+      "empresa": "TalentHub",
+      "localizacao": "Rio de Janeiro, RJ",
+      "descricao": "Estamos buscando um Tech Recruiter para atrair os melhores talentos para nossa empresa...",
+      "requisitos": [
+        "Experiência com recrutamento de tecnologia;",
+        "Conhecimento de plataformas como LinkedIn Recruiter;",
+        "Familiaridade com entrevistas técnicas."
+      ],
+      "responsabilidades": [
+        "Gerenciar processos seletivos;",
+        "Mapear talentos no mercado;",
+        "Trabalhar junto com os times técnicos."
+      ],
+      "beneficios": [
+        "Plano de saúde",
+        "Vale-refeição",
+        "Flexibilidade de horário"
+      ],
+      "salario": "R$ 8.000,00",
+      "informacoes_adicionais": "Cultura colaborativa e desafios constantes."
     }
   ]
 }
