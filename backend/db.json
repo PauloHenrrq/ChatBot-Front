@@ -1,5 +1,5 @@
 {
-  "usersname": [
+  "users": [
     {
       "id": "1",
       "name": "Levi Duarte Lima",
@@ -29,26 +29,194 @@
       "empresa": "Tech Solutions",
       "localizacao": "Remoto",
       "descricao": "Buscamos um desenvolvedor frontend para criar interfaces modernas e responsivas...",
-      "descricaodetalhada": "Estamos à procura de um Desenvolvedor Frontend talentoso para se juntar à nossa equipe de tecnologia. O candidato ideal deve ter experiência com React, Tailwind CSS e desenvolvimento responsivo.\n\n**Responsabilidades:**\n- Desenvolver interfaces modernas e responsivas;\n- Colaborar com designers e back-end developers para criar soluções inovadoras;\n- Escrever código limpo e reutilizável.\n\n**Requisitos:**\n- Experiência com React.js e Tailwind CSS;\n- Conhecimento de JavaScript (ES6+);\n- Experiência com integração de APIs REST;\n- Familiaridade com controle de versão (Git).\n\n**Diferenciais:**\n- Experiência com TypeScript;\n- Conhecimento em Next.js;\n- Experiência com testes automatizados.\n\n**Benefícios:**\n- Salário: R$ 8.000,00 a R$ 12.000,00;\n- Plano de saúde e odontológico;\n- Horário flexível e possibilidade de trabalho remoto.\n\nSe você se encaixa no perfil, envie seu currículo e faça parte do nosso time!",
-      "salario": "R$ 9.000,00"
+      "descricaodetalhada": [
+        {
+          "requisitos": [
+            "**Requisitos:**",
+            " Experiência com React.js e Tailwind CSS;",
+            " Conhecimento de JavaScript (ES6+);",
+            " Experiência com integração de APIs REST;",
+            " Familiaridade com controle de versão (Git)."
+          ]
+        }
+      ],
+      
+      "beneficios": [
+        "Plano de saúde e odontológico",
+        "Horário flexível",
+        "Possibilidade de trabalho remoto"
+      ],
+      "salario": "R$ 9.000,00",
+      "informacoes_adicionais": "Trabalhamos com um ambiente dinâmico e inovador, onde incentivamos a troca de conhecimento entre os colaboradores."
     },
     {
       "id": "2",
       "titulo": "Desenvolvedor Backend",
       "empresa": "Tech Solutions",
       "localizacao": "Remoto",
-      "descricao": "Buscamos um desenvolvedor backend para trabalhar com Node.js, Express.js, MongoDB, e outras tecnologias relacionadas...",
-      "descricaodetalhada": "Estamos a procura de um desenvolvedor backend para trabalhar com Node.js, Express.js, Mongo DB...",
-      "salario": "R$ 10.000,00"
+      "descricao": "Buscamos um desenvolvedor backend para trabalhar com Node.js, Express.js, MongoDB...",
+      "descricaodetalhada": [
+        {
+          "requisitos": [
+            "**Requisitos:**",
+            "Experiência com Node.js e Express.js;",
+            "Conhecimento de bancos de dados NoSQL;",
+            "Experiência com arquitetura de microsserviços."
+          ]
+        }
+      ],
+      "beneficios": [
+        "Vale alimentação",
+        "Seguro de vida",
+        "Bônus por desempenho"
+      ],
+      "salario": "R$ 10.000,00",
+      "informacoes_adicionais": "Nossa empresa valoriza a diversidade e inclusão, oferecendo um ambiente acolhedor para todos os profissionais."
     },
     {
-      "id": "497d",
-      "titulo": "a",
-      "empresa": "a",
-      "localizacao": "a",
-      "descricao": "a",
-      "descricaodetalhada": "a",
-      "salario": "a"
+      "id": "3",
+      "titulo": "Atendente de Loja",
+      "empresa": "Rede de Farmácias Pague Menos",
+      "localizacao": "Fortaleza, CE",
+      "descricao": "Estamos em busca de um Atendente de Loja para prestar suporte no atendimento ao cliente e organização da loja.",
+      "descricaodetalhada": [
+        {
+          "Responsabilidades": [
+            "**Responsabilidades:**",
+            " Atender clientes e prestar suporte nas dúvidas;",
+            " Organizar os produtos nas prateleiras;",
+            " Auxiliar no caixa e nas vendas de produtos;",
+            " Garantir a limpeza e organização da loja."
+          ]
+        }
+      ],
+      "beneficios": [
+        "Vale-transporte",
+        "Seguro de vida",
+        "Descontos em farmácias da rede"
+      ],
+      "salario": "R$ 1.500,00",
+      "informacoes_adicionais": "Oferecemos um ambiente amigável e treinamentos internos para capacitação contínua dos nossos funcionários."
+    },
+    {
+      "id": "4",
+      "titulo": "Jovem Aprendiz - Administrativo",
+      "empresa": "Banco Central",
+      "localizacao": "São Paulo, SP",
+      "descricao": "Oportunidade para jovens que desejam ingressar no mercado de trabalho.",
+      "descricaodetalhada": [
+        {
+          "Responsabilidades": [
+            "**Responsabilidades:**",
+            " Auxiliar nas atividades administrativas;",
+            " Organizar documentos e arquivos;",
+            " Atendimento telefônico e suporte ao time."
+          ]
+        }
+      ],
+      "beneficios": [
+        "Vale-transporte",
+        "Seguro de vida",
+        "Curso de capacitação"
+      ],
+      "salario": "R$ 980,00",
+      "informacoes_adicionais": "Vaga exclusiva para jovens entre 16 e 22 anos, cursando ensino médio ou já formado."
+    },
+    {
+      "id": "5",
+      "titulo": "Analista de Suporte Técnico (Home Office)",
+      "empresa": "CloudTech Solutions",
+      "localizacao": "100% Home Office",
+      "descricao": "Procuramos um analista de suporte técnico para atendimento remoto aos clientes.",
+      "descricaodetalhada": [
+        {
+          "requisitos": [
+            "**Requisitos:**",
+            " Experiência com suporte técnico e atendimento ao cliente;",
+            " Conhecimento em redes e sistemas operacionais;",
+            " Boa comunicação e resolução de problemas."
+          ]
+        }
+      ],
+      "beneficios": [
+        "Trabalho remoto",
+        "Vale refeição",
+        "Bônus por desempenho"
+      ],
+      "salario": "R$ 3.500,00",
+      "informacoes_adicionais": "Vaga 100% remota. Requer um ambiente adequado para trabalho e boa conexão com a internet."
+    },
+    {
+      "id": "6",
+      "titulo": "Estagiário de Marketing Digital",
+      "empresa": "Agência Criativa",
+      "localizacao": "Rio de Janeiro, RJ",
+      "descricao": "Buscamos um estagiário criativo para ajudar em campanhas e redes sociais.",
+      "descricaodetalhada": [
+        {
+          "Responsabilidades": [
+            "**Responsabilidades:**",
+            " Criar conteúdo para redes sociais;",
+            " Auxiliar no planejamento de campanhas;",
+            " Monitorar métricas de engajamento."
+          ]
+        }
+      ],
+      "beneficios": [
+        "Bolsa auxílio",
+        "Vale-transporte",
+        "Treinamentos internos"
+      ],
+      "salario": "R$ 1.200,00",
+      "informacoes_adicionais": "Oportunidade para estudantes de Publicidade, Marketing ou áreas relacionadas."
+    },
+    {
+      "id": "7",
+      "titulo": "Operador de Produção (Setor Industrial)",
+      "empresa": "Indústria Metalúrgica Nacional",
+      "localizacao": "Contagem, MG",
+      "descricao": "Responsável por operar máquinas e manter a produção em funcionamento.",
+      "descricaodetalhada": [
+        {
+          "Responsabilidades": [
+            "**Responsabilidades:**",
+            " Operar e ajustar máquinas industriais;",
+            " Manter o controle de qualidade na produção;",
+            " Seguir normas de segurança no trabalho."
+          ]
+        }
+      ],
+      "beneficios": [
+        "Plano de saúde",
+        "Vale-alimentação",
+        "Seguro de vida"
+      ],
+      "salario": "R$ 2.800,00",
+      "informacoes_adicionais": "Trabalho presencial em regime CLT. Exige disponibilidade para turnos noturnos."
+    },
+    {
+      "id": "8",
+      "titulo": "Gerente de Vendas",
+      "empresa": "Comércio Atacadista Brasil",
+      "localizacao": "Belo Horizonte, MG",
+      "descricao": "Buscamos um gerente de vendas experiente para liderar equipe comercial.",
+      "descricaodetalhada": [
+        {
+          "requisitos": [
+            "**Requisitos:**",
+            " Experiência comprovada em gestão de equipes de vendas;",
+            " Habilidades de negociação e fechamento de contratos;",
+            " Conhecimento de CRM e análise de mercado."
+          ]
+        }
+      ],
+      "beneficios": [
+        "Salário fixo + comissão",
+        "Plano de carreira",
+        "Bônus por metas alcançadas"
+      ],
+      "salario": "R$ 5.500,00 + Comissão",
+      "informacoes_adicionais": "Oportunidade para quem busca crescimento profissional no setor comercial."
     }
   ]
 }
