@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { api } from '../../Routes/api';
 import { Form, Formik, Field } from "formik";
 import * as Yup from 'yup';
-import { Textarea } from "@headlessui/react";
 
 export default function VagasCard() {
     const [modalAberto, setModalAberto] = useState(null);

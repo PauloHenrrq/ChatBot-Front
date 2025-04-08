@@ -18,12 +18,31 @@
       },
       "mensagem": "",
       "curriculo": "Levi_Curriculo.pdf",
-      "status": "Aprovado para entrevista"
+      "status": "Em análise"
+    },
+    {
+      "id": "1c34",
+      "vagaId": "7",
+      "vagaTitulo": "DevOps Engineer",
+      "nome": "Biribonsom Juribeide",
+      "email": "Biribonsom@gmilson.com",
+      "dataNascimento": "9210-09-04",
+      "telefone": "85999999999",
+      "endereco": {
+        "rua": "Rua do Pidão",
+        "numero": "01",
+        "bairro": "Tudo Deles, Nada Nosso",
+        "cidade": "Cidade Dos Brelips",
+        "estado": "Xindopenda",
+        "cep": "88890910"
+      },
+      "mensagem": "",
+      "curriculo": "Levi_Curriculo.pdf"
     }
   ],
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Levi Duarte Lima",
       "email": "levi@gmail.com",
       "data_nascimento": "01/01/2000",
@@ -47,7 +66,7 @@
       "role": "admin"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Levi Duarte Lima",
       "email": "duartelevi1@gmail.com",
       "data_nascimento": "01/03/2000",
@@ -71,7 +90,7 @@
       "role": "user"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Nicole Fátima",
       "email": "nicole@gmail.com",
       "data_nascimento": "01/02/2000",
@@ -92,6 +111,30 @@
         }
       ],
       "password": "12345678",
+      "role": "admin"
+    },
+    {
+      "id": "702a",
+      "name": "admin",
+      "email": "admin@admin.com",
+      "data_nascimento": "2025-01-01",
+      "password": "admin@123",
+      "endereco": [
+        {
+          "rua": "",
+          "numero": "",
+          "bairro": "",
+          "cidade": "",
+          "estado": "",
+          "cep": "",
+          "telefones": [
+            {
+              "numero": "",
+              "tipo": "celular"
+            }
+          ]
+        }
+      ],
       "role": "admin"
     }
   ],

@@ -6,6 +6,8 @@ export default function Candidatos() {
   const [candidatos, setCandidatos] = useState([]);
   const [modalAberto, setModalAberto] = useState(false);
   const [candidatoSelecionado, setCandidatoSelecionado] = useState(null);
+  const [vagaDetalhada, setVagaDetalhada] = useState(null);
+  const [aba, setAba] = useState("candidato");
 
   useEffect(() => {
     const carregarCandidatos = async () => {
@@ -32,9 +34,17 @@ export default function Candidatos() {
     }
   };
 
-  const abrirModal = (candidato) => {
+  const abrirModal = async (candidato) => {
     setCandidatoSelecionado(candidato);
     setModalAberto(true);
+    setAba("candidato");
+
+    try {
+      const response = await api.get(`/vagas/${candidato.vagaId}`);
+      setVagaDetalhada(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar detalhes da vaga:", error);
+    }
   };
 
   return (
@@ -88,43 +98,101 @@ export default function Candidatos() {
 
       {/* MODAL */}
       {modalAberto && candidatoSelecionado && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h2 className="text-xl font-bold">{candidatoSelecionado.nome}</h2>
-            <p className="text-gray-700 mt-2">📧 {candidatoSelecionado.email}</p>
-            <p className="text-gray-700">📞 {candidatoSelecionado.telefone}</p>
-            <p className="text-gray-700">📅 {candidatoSelecionado.dataNascimento}</p>
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between mb-4">
+              <button
+                onClick={() => setAba("candidato")}
+                className={`px-4 py-2 rounded-lg ${
+                  aba === "candidato" ? "bg-orange-500 text-white" : "bg-gray-200"
+                }`}
+              >
+                Candidato
+              </button>
+              <button
+                onClick={() => setAba("vaga")}
+                className={`px-4 py-2 rounded-lg ${
+                  aba === "vaga" ? "bg-orange-500 text-white" : "bg-gray-200"
+                }`}
+              >
+                Vaga
+              </button>
+            </div>
 
-            <h3 className="text-lg font-semibold mt-4">📌 Vaga Inscrita</h3>
-            <p className="text-gray-700 font-bold">{candidatoSelecionado.vagaTitulo}</p>
+            {aba === "candidato" && (
+              <div>
+                <h2 className="text-xl font-bold">{candidatoSelecionado.nome}</h2>
+                <p className="text-gray-700 mt-2">📧 {candidatoSelecionado.email}</p>
+                <p className="text-gray-700">📞 {candidatoSelecionado.telefone}</p>
+                <p className="text-gray-700">📅 {candidatoSelecionado.dataNascimento}</p>
 
-            <h3 className="text-lg font-semibold mt-4">📍 Endereço</h3>
-            <p className="text-gray-700">
-              {candidatoSelecionado.endereco.rua}, {candidatoSelecionado.endereco.numero}, {candidatoSelecionado.endereco.bairro}
-            </p>
-            <p className="text-gray-700">
-              {candidatoSelecionado.endereco.cidade} - {candidatoSelecionado.endereco.estado}, {candidatoSelecionado.endereco.cep}
-            </p>
+                <h3 className="text-lg font-semibold mt-4">📌 Vaga Inscrita</h3>
+                <p className="text-gray-700 font-bold">{candidatoSelecionado.vagaTitulo}</p>
 
-            {/* Link para visualizar o currículo */}
-            {candidatoSelecionado.curriculo && (
-              <div className="mt-4">
-                <h3 className="text-lg font-semibold">📄 Currículo</h3>
-                <a
-                  href={candidatoSelecionado.curriculo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 underline"
-                >
-                  Visualizar Currículo
-                </a>
+                <h3 className="text-lg font-semibold mt-4">📍 Endereço</h3>
+                <p className="text-gray-700">
+                  {candidatoSelecionado.endereco.rua}, {candidatoSelecionado.endereco.numero},{" "}
+                  {candidatoSelecionado.endereco.bairro}
+                </p>
+                <p className="text-gray-700">
+                  {candidatoSelecionado.endereco.cidade} - {candidatoSelecionado.endereco.estado},{" "}
+                  {candidatoSelecionado.endereco.cep}
+                </p>
+
+                {candidatoSelecionado.curriculo && (
+                  <div className="mt-4">
+                    <h3 className="text-lg font-semibold">📄 Currículo</h3>
+                    <a
+                      href={candidatoSelecionado.curriculo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 underline"
+                    >
+                      Visualizar Currículo
+                    </a>
+                  </div>
+                )}
               </div>
             )}
 
-            {/* BOTÕES DO MODAL */}
+            {aba === "vaga" && vagaDetalhada && (
+              <div>
+                <h2 className="text-xl font-bold mb-2">{vagaDetalhada.titulo}</h2>
+                <p className="text-gray-700 mb-1">🏢 {vagaDetalhada.empresa}</p>
+                <p className="text-gray-700 mb-1">📍 {vagaDetalhada.localizacao}</p>
+                <p className="text-gray-700 mb-4">{vagaDetalhada.descricao}</p>
+
+                <h3 className="font-semibold">💼 Responsabilidades:</h3>
+                <ul className="list-disc list-inside mb-2">
+                  {vagaDetalhada.responsabilidades?.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+
+                <h3 className="font-semibold">📌 Requisitos:</h3>
+                <ul className="list-disc list-inside mb-2">
+                  {vagaDetalhada.requisitos?.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+
+                <h3 className="font-semibold">🎁 Benefícios:</h3>
+                <ul className="list-disc list-inside mb-2">
+                  {vagaDetalhada.beneficios?.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+
+                <p className="text-gray-700 mt-2">💰 <strong>Salário:</strong> {vagaDetalhada.salario}</p>
+                <p className="text-gray-700 mt-1">
+                  📎 <strong>Informações adicionais:</strong> {vagaDetalhada.informacoes_adicionais}
+                </p>
+              </div>
+            )}
+
             <div className="flex justify-end mt-4">
               <button
-                className="px-4 py-2 bg-gray-400 hover:bg-gray-500 text-white rounded-lg cursor-pointer"
+                className="px-4 py-2 bg-gray-400 hover:bg-gray-500 text-white rounded-lg"
                 onClick={() => setModalAberto(false)}
               >
                 Fechar

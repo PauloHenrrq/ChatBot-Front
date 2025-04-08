@@ -4,6 +4,7 @@ import Candidatos from '../Pages/Candidatos'
 import ProtectRoute from '../Routes/ProtectRoute'
 import Vagas from '../Pages/Vagas'
 import HomeCandidato from '../Pages/PaginaCandidato/HomeCandidato'
+import CadastroLoginAdm from '../Components/CadastroLoginAdm'
 
 export default function AppRoute() {
 
@@ -14,6 +15,7 @@ export default function AppRoute() {
                 <Routes>
                     <Route path="/" element={<Login />} />
                     <Route element={<ProtectRoute />}>
+                        <Route path='/cadastro-adm' element={<CadastroLoginAdm />} />
                         <Route path="/candidatos" element={<Candidatos />} />
                         <Route path='/vagas' element={<Vagas />}></Route>
                     </Route>

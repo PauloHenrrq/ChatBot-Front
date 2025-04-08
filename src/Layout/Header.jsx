@@ -54,6 +54,13 @@ export default function Header() {
                     </Menu>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2 mt-2 sm:mt-0 text-white font-semibold max-sm:hidden">
+
+                    <Link to={"/cadastro-adm"}>
+                        <button className='group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/50 hover:bg-orange-400 cursor-pointer'>
+                            Cadastro Admin
+                        </button>
+                    </Link>
+
                     <Link to={"/candidatos"}>
                         <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/50 hover:bg-orange-400 cursor-pointer">
                             Candidatos
