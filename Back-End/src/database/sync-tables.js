@@ -1,10 +1,10 @@
-import Candidate from "../models/candidate.js"
-import Enterprise from "../models/Enterprise.js"
+import Candidate from "../models/Candidate.js"
+import Job from "../models/Job.js"
 import Recruiter from "../models/Recruiter.js"
 
 const syncTables = async() => {
-    Candidate.sync(),
-    Enterprise.sync(),
+    Candidate.sync(/*{ alter: true }*/),
+    Job.sync(),
     Recruiter.sync()
 }
 

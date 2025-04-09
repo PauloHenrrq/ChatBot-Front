@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize'
-import DBConnection from '../database/database'
-import Enterprise from './Enterprise.js'
+import DBConnection from '../database/database.js'
+import Candidate from './Candidate.js'
 
 const Recruiter = DBConnection.define('Recruiter', {
   id: {
@@ -29,17 +29,17 @@ const Recruiter = DBConnection.define('Recruiter', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  enterprise_id: {
+  recruiter_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: Enterprise,
+      model: Candidate,
       key: 'id'
     }
   }
 })
 
-Enterprise.hasMany(Recruiter)
-Recruiter.belongsTo(Enterprise)
+Candidate.hasMany(Recruiter, { foreignKey: 'recruiter_id' })
+Recruiter.belongsTo(Candidate, { foreignKey: 'recruiter_id' })
 
 export default Recruiter
