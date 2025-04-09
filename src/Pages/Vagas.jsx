@@ -18,8 +18,8 @@ export default function Vagas() {
 
                     <div className="flex items-center max-md:flex-col justify-center gap-4 mt-6">
                         <CadastroVagaModal />
-                        <button className="bg-orange-500/70 hover:bg-orange-500 transition-all cursor-pointer max-md:w-1/3 px-5 py-2 text-white font-semibold rounded-lg shadow-md hover:shadow-lg">Visualizar todas as vagas</button>
-                        <button className="bg-orange-500/70 hover:bg-orange-500 transition-all cursor-pointer max-md:w-1/3 px-5 py-2 text-white font-semibold rounded-lg shadow-md hover:shadow-lg">Filtrar vagas</button>
+                        {/* <button className="bg-orange-500/70 hover:bg-orange-500 transition-all cursor-pointer max-md:w-1/3 px-5 py-2 text-white font-semibold rounded-lg shadow-md hover:shadow-lg">Visualizar todas as vagas</button>
+                        <button className="bg-orange-500/70 hover:bg-orange-500 transition-all cursor-pointer max-md:w-1/3 px-5 py-2 text-white font-semibold rounded-lg shadow-md hover:shadow-lg">Filtrar vagas</button> */}
                     </div>
                 </div>
 

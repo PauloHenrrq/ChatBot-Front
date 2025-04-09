@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { api } from "../Routes/api";
 import Header from "../Layout/Header";
+import BuscaVaga from "../Components/AreaAdmin/BuscaVaga";
 
 export default function Candidatos() {
   const [candidatos, setCandidatos] = useState([]);
@@ -8,6 +9,8 @@ export default function Candidatos() {
   const [candidatoSelecionado, setCandidatoSelecionado] = useState(null);
   const [vagaDetalhada, setVagaDetalhada] = useState(null);
   const [aba, setAba] = useState("candidato");
+  const [busca, setBusca] = useState("");
+
 
   useEffect(() => {
     const carregarCandidatos = async () => {
@@ -50,6 +53,23 @@ export default function Candidatos() {
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
+
+      {/* Barra de Pesquisa */}
+      <div className="w-full flex flex-col items-center justify-center mt-6 gap-4 border-b border-zinc-300 pb-8 ">
+        <h1 className="text-2xl font-semibold">
+          Filtre aqui os candidatos.
+        </h1>
+        <BuscaVaga
+          candidatos={candidatos}
+          busca={busca}
+          setBusca={setBusca}
+        />
+      </div>
+      
+
+      {/* Tabela de usuários */}
+
+
       <div className="p-6 max-w-6xl mx-auto">
         <h2 className="text-2xl font-semibold mb-4">Candidatos Inscritos</h2>
         <div className="overflow-x-auto">
@@ -64,32 +84,34 @@ export default function Candidatos() {
               </tr>
             </thead>
             <tbody>
-              {candidatos.map((cand) => (
-                <tr key={cand.id} className="border-b">
-                  <td className="p-3 whitespace-nowrap">{cand.nome}</td>
-                  <td className="p-3 whitespace-nowrap">{cand.email}</td>
-                  <td className="p-3 whitespace-nowrap">{cand.vagaTitulo}</td>
-                  <td className="p-3">
-                    <select
-                      className="border p-1 rounded w-full cursor-pointer"
-                      value={cand.status || "Em análise"}
-                      onChange={(e) => atualizarStatus(cand.id, e.target.value)}
-                    >
-                      <option value="Em análise">Em análise</option>
-                      <option value="Aprovado para entrevista">Aprovado para entrevista</option>
-                      <option value="Contratado">Contratado</option>
-                      <option value="Reprovado">Reprovado</option>
-                    </select>
-                  </td>
-                  <td className="p-3">
-                    <button
-                      className="bg-orange-500 hover:bg-orange-400 transition-all text-white px-3 py-1 rounded w-full cursor-pointer"
-                      onClick={() => abrirModal(cand)}
-                    >
-                      Visualizar Currículo
-                    </button>
-                  </td>
-                </tr>
+              {candidatos.filter((cand) =>
+                cand.vagaTitulo.toLowerCase().includes(busca.toLowerCase())
+              ).map((cand) => (
+              <tr key={cand.id} className="border-b">
+                <td className="p-3 whitespace-nowrap">{cand.nome}</td>
+                <td className="p-3 whitespace-nowrap">{cand.email}</td>
+                <td className="p-3 whitespace-nowrap">{cand.vagaTitulo}</td>
+                <td className="p-3">
+                  <select
+                    className="border p-1 rounded w-full cursor-pointer"
+                    value={cand.status || "Em análise"}
+                    onChange={(e) => atualizarStatus(cand.id, e.target.value)}
+                  >
+                    <option value="Em análise">Em análise</option>
+                    <option value="Aprovado para entrevista">Aprovado para entrevista</option>
+                    <option value="Contratado">Contratado</option>
+                    <option value="Reprovado">Reprovado</option>
+                  </select>
+                </td>
+                <td className="p-3">
+                  <button
+                    className="bg-orange-500 hover:bg-orange-400 transition-all text-white px-3 py-1 rounded w-full cursor-pointer"
+                    onClick={() => abrirModal(cand)}
+                  >
+                    Visualizar Currículo
+                  </button>
+                </td>
+              </tr>
               ))}
             </tbody>
           </table>
@@ -103,17 +125,15 @@ export default function Candidatos() {
             <div className="flex justify-between mb-4">
               <button
                 onClick={() => setAba("candidato")}
-                className={`px-4 py-2 rounded-lg ${
-                  aba === "candidato" ? "bg-orange-500 text-white" : "bg-gray-200"
-                }`}
+                className={`px-4 py-2 rounded-lg ${aba === "candidato" ? "bg-orange-500 text-white" : "bg-gray-200"
+                  }`}
               >
                 Candidato
               </button>
               <button
                 onClick={() => setAba("vaga")}
-                className={`px-4 py-2 rounded-lg ${
-                  aba === "vaga" ? "bg-orange-500 text-white" : "bg-gray-200"
-                }`}
+                className={`px-4 py-2 rounded-lg ${aba === "vaga" ? "bg-orange-500 text-white" : "bg-gray-200"
+                  }`}
               >
                 Vaga
               </button>
