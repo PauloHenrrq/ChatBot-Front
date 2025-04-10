@@ -1,6 +1,6 @@
 // ... imports
 import { useState, useEffect } from "react";
-import { api } from "../Routes/api";
+import { api } from "../Routes/server/api";
 import Header from "../Layout/Header";
 
 export default function CadastroLoginAdm() {

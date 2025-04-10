@@ -1,4 +1,4 @@
-import LoginAdmin from '../Pages/LoginAdmin'
+import LoginAdmin from '../Pages/PaginaAdmin/LoginAdmin'
 export default function Login() {
 
     return(

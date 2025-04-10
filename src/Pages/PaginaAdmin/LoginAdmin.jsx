@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import * as yup from "yup"; // Importando Yup
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { api } from "../Routes/api";
+import { api } from "../../Routes/server/api";
 
 // Definindo o esquema de validação para login
 const loginValidationSchema = yup.object({

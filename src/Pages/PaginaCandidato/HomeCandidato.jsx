@@ -1,6 +1,6 @@
 import HeaderCandidato from "../../Layout/HeaderCandidato";
 import { useState, useEffect } from "react";
-import { api } from "../../Routes/api";
+import { api } from "../../Routes/server/api";
 import BarraPesquisa from "../../Components/AreaUsuario/BarraPesquisa";
 
 export default function HomeCandidato() {
@@ -89,8 +89,7 @@ export default function HomeCandidato() {
     }
   };
 
-
-
+  
   return (
     <>
       <HeaderCandidato />

@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from '../Components/Login'
-import Candidatos from '../Pages/Candidatos'
+import Candidatos from '../Pages/PaginaAdmin/Candidatos'
 import ProtectRoute from '../Routes/ProtectRoute'
-import Vagas from '../Pages/Vagas'
+import Vagas from '../Pages/PaginaAdmin/Vagas'
 import HomeCandidato from '../Pages/PaginaCandidato/HomeCandidato'
 import CadastroLoginAdm from '../Components/CadastroLoginAdm'
 

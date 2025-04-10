@@ -88,6 +88,13 @@
       ],
       "password": "13102004",
       "role": "user"
+    },
+    {
+      "id": "f767",
+      "name": "Paulo Henrique",
+      "email": "henriquepaulo@gmail.com",
+      "password": "12345678",
+      "role": "user"
     }
   ],
   "vagas": [

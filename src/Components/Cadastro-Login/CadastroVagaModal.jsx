@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { api } from '../../Routes/api';
+import { api } from '../../Routes/server/api';
 
 export default function CadastroVagaModal() {
     const [mostrarCadastroModal, setMostrarCadastroModal] = useState(false);
