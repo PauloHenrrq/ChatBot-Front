@@ -1,4 +1,4 @@
-# Site Candidatura com IA 🤖
+# Site Candidatura com IA 
 <!-- Esperando imagens... -->
 ## 📍Objetivo
 > - Criação de um Site com o objetivo de empregabilidade (Candidato/Empresa) utilizando a implementação de uma IA.
