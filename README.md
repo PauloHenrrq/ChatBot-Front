@@ -1,5 +1,5 @@
 # Site Candidatura com IA
-<!-- Waiting Images... -->
+<!-- Esperando imagens... -->
 ## Objetivo
 > - Criação de um Site com o objetivo de empregabilidade (Candidato/Empresa) utilizando a implementação de uma IA.
 ## Clone e Utilização:
@@ -15,8 +15,7 @@
 5. **Selecione o Banco de Dados**  
 ```cd backend```
 
-6. **Ative o Banco de Dados**
-###### Em breve será utilizado um BD externo  
+6. **Ative o Banco de Dados** <!-- Em breve será utilizado um BD externo -->
 ```npx json-server --watch db.json```
 
 8. **Execute o Projeto**  
