@@ -9,7 +9,7 @@
 3. **Entre no diretório | Execute-o**  
 ```cd ChatBot```
 
-4. **Instale as depedências**  
+4. **Instale as dependências**  
 ```npm install```
 
 5. **Selecione o Banco de Dados**  
