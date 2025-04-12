@@ -12,7 +12,7 @@
 4. **Instale as depedências**  
 ```npm install```
 
-5. **Selecione o Banco de Dados** 
+5. **Selecione o Banco de Dados**  
 ```cd backend```
 
 6. **Ative o Banco de Dados** -# Em breve será utilizado um BD externo  
