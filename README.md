@@ -15,7 +15,7 @@
 5. **Selecione o Banco de Dados**  
 ```cd backend```
 
-6. **Ative o Banco de Dados** -# Em breve será utilizado um BD externo  
+6. **Ative o Banco de Dados** ###### Em breve será utilizado um BD externo  
 ```npx json-server --watch db.json```
 
 7. **Execute o Projeto**  
