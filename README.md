@@ -1,8 +1,8 @@
-# Site Candidatura com IA
+# Site Candidatura com IA 🤖
 <!-- Esperando imagens... -->
-## Objetivo
+## 📍Objetivo
 > - Criação de um Site com o objetivo de empregabilidade (Candidato/Empresa) utilizando a implementação de uma IA.
-## Clone e Utilização:
+## 🔌Clone e Utilização
 1. **Clonagem de Repositório**  
 ```git clone https://github.com/PauloHenrrq/ChatBot.git```
 
