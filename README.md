@@ -6,7 +6,7 @@
 1. **Clonagem de Repositório**  
 ```git clone https://github.com/PauloHenrrq/ChatBot.git```
 
-3. **Entre no diretório -> Execute-o**  
+3. **Entre no diretório | Execute-o**  
 ```cd ChatBot```
 
 4. **Instale as depedências**  
