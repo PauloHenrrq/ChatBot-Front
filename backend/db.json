@@ -19,25 +19,6 @@
       "mensagem": "",
       "curriculo": "Levi_Curriculo.pdf",
       "status": "Em análise"
-    },
-    {
-      "id": "1c34",
-      "vagaId": null,
-      "vagaTitulo": "DevOps Engineer",
-      "nome": "Biribonsom Juribeide",
-      "email": "Biribonsom@gmilson.com",
-      "dataNascimento": "9210-09-04",
-      "telefone": "85999999999",
-      "endereco": {
-        "rua": "Rua do Pidão",
-        "numero": "01",
-        "bairro": "Tudo Deles, Nada Nosso",
-        "cidade": "Cidade Dos Brelips",
-        "estado": "Xindopenda",
-        "cep": "88890910"
-      },
-      "mensagem": "",
-      "curriculo": "Levi_Curriculo.pdf"
     }
   ],
   "users": [
@@ -105,14 +86,12 @@
       "localizacao": "Remoto",
       "descricao": "Buscamos um desenvolvedor frontend para criar interfaces modernas e responsivas...",
       "requisitos": [
-        "**Requisitos:**",
         "Experiência com React.js e Tailwind CSS;",
         "Conhecimento de JavaScript (ES6+);",
         "Experiência com integração de APIs REST;",
         "Familiaridade com controle de versão (Git)."
       ],
       "responsabilidades": [
-        "**Responsabilidades:**",
         "Desenvolver interfaces modernas e responsivas;",
         "Colaborar com designers e backend;",
         "Garantir boas práticas de UI/UX;",
@@ -120,7 +99,7 @@
       ],
       "beneficios": [
         "Plano de saúde e odontológico",
-        "Horário flexível",
+        "Horário flexível e bom",
         "Possibilidade de trabalho remoto"
       ],
       "salario": "R$ 9.000,00",
@@ -194,6 +173,80 @@
       ],
       "salario": "R$ 8.500,00",
       "informacoes_adicionais": "Escritório pet-friendly."
+    },
+    {
+      "id": "83f9",
+      "titulo": "Teste",
+      "empresa": "Empresa testial",
+      "localizacao": "Testa de boi",
+      "descricao": "testinha",
+      "descricaodetalhada": "",
+      "salario": "R$ 2.600",
+      "requisitos": [
+        "Ser testudo"
+      ],
+      "responsabilidades": [
+        "Testudar todos"
+      ],
+      "beneficios": [
+        "Testa grande"
+      ],
+      "informacoes_adicionais": ":p"
+    },
+    {
+      "id": "273a",
+      "titulo": "a",
+      "empresa": "a",
+      "localizacao": "a",
+      "descricao": "a",
+      "requisitos": [
+        "a"
+      ],
+      "responsabilidades": [
+        "a"
+      ],
+      "beneficios": [
+        "a"
+      ],
+      "salario": "a",
+      "informacoes_adicionais": "a"
+    },
+    {
+      "id": "9810",
+      "titulo": "b",
+      "empresa": "b",
+      "localizacao": "b",
+      "descricao": "b",
+      "requisitos": [
+        "b"
+      ],
+      "responsabilidades": [
+        "b"
+      ],
+      "beneficios": [
+        "b"
+      ],
+      "salario": "b",
+      "informacoes_adicionais": "b",
+      "ultimaVaga": "b"
+    },
+    {
+      "id": "e87a",
+      "titulo": "c",
+      "empresa": "c",
+      "localizacao": "c",
+      "descricao": "cccccc",
+      "requisitos": [
+        "c"
+      ],
+      "responsabilidades": [
+        "c"
+      ],
+      "beneficios": [
+        "c"
+      ],
+      "salario": "c",
+      "informacoes_adicionais": "c"
     }
   ]
 }

@@ -141,6 +141,7 @@ export default function CadastroLoginAdm() {
       <div className="max-w-xl mx-auto p-6 bg-white mt-6 rounded-lg shadow-md">
         <h2 className="text-2xl font-semibold mb-4 text-orange-500">Cadastro de Administrador</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Fazer map: */}
           <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Nome" className="w-full p-2 border rounded" required />
           <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" className="w-full p-2 border rounded" required />
           <input type="date" name="data_nascimento" value={formData.data_nascimento} onChange={handleChange} className="w-full p-2 border rounded" required />
@@ -204,6 +205,7 @@ export default function CadastroLoginAdm() {
             <button onClick={() => setEditUser(null)} className="absolute bg-red-500 hover:bg-red-600 top-2 right-2 text-white text-xl cursor-pointer">×</button>
 
             <div className="space-y-3">
+              {/* Fazer Map: */}
               <input name="name" value={editUser.name} onChange={handleUpdateChange} className="w-full p-2 border rounded" />
               <input name="email" value={editUser.email} onChange={handleUpdateChange} className="w-full p-2 border rounded" />
               <input name="data_nascimento" type="date" value={editUser.data_nascimento} onChange={handleUpdateChange} className="w-full p-2 border rounded" />

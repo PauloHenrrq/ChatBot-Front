@@ -3,6 +3,24 @@ import { useState, useEffect } from "react";
 import { api } from "../../Routes/server/api";
 import BarraPesquisa from "../../Components/AreaUsuario/BarraPesquisa";
 
+const vagaMap = {
+  part1: [
+    { type: "text", name: "nome", placeholder: "Nome Completo" },
+    { type: "email", name: "email", placeholder: "E-mail" },
+    { type: "date", name: "dataNascimento", placeholder: "Data de Nascimento" },
+    { type: "text", name: "telefone", placeholder: "Telefone" }
+  ],
+  part2: [
+    { type: "text", name: "endereco.rua", placeholder: "Rua" },
+    { type: "number", name: "endereco.numero", placeholder: "Número" },
+    { type: "text", name: "endereco.bairro", placeholder: "Bairro" },
+    { type: "text", name: "endereco.cidade", placeholder: "Cidade" },
+    { type: "text", name: "endereco.estado", placeholder: "Estado" },
+    { type: "text", name: "endereco.cep", placeholder: "CEP" }
+  ]
+  
+};
+
 export default function HomeCandidato() {
   const [vagas, setVagas] = useState([]);
   const [vagaSelecionada, setVagaSelecionada] = useState(null);
@@ -194,19 +212,30 @@ export default function HomeCandidato() {
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
             <h2 className="text-xl font-bold">Candidatar-se à vaga</h2>
             <p className="text-gray-700 mt-2">{vagaSelecionada?.titulo}</p>
-
-            <input type="text" name="nome" placeholder="Nome Completo" value={formData.nome} onChange={handleChange} className="w-full mt-4 p-2 border rounded-lg" />
-            <input type="email" name="email" placeholder="E-mail" value={formData.email} onChange={handleChange} className="w-full mt-4 p-2 border rounded-lg" />
-            <input type="date" name="dataNascimento" placeholder="Data de Nascimento" value={formData.dataNascimento} onChange={handleChange} className="w-full mt-4 p-2 border rounded-lg" />
-            <input type="text" name="telefone" placeholder="Telefone" value={formData.telefone} onChange={handleChange} className="w-full mt-4 p-2 border rounded-lg" />
+            {vagaMap.part1.map((input, index) => (
+              <input 
+              key={index}
+              type={input.type}
+              name={input.name}
+              placeholder={input.placeholder}
+              value={formData[input.name]}
+              onChange={handleChange}
+              className="w-full mt-4 p-2 border rounded lg"
+              />
+            ))}
 
             <h3 className="text-lg font-semibold mt-4">Endereço</h3>
-            <input type="text" name="endereco.rua" placeholder="Rua" value={formData.endereco.rua} onChange={handleChange} className="w-full mt-2 p-2 border rounded-lg" />
-            <input type="number" name="endereco.numero" placeholder="Número" value={formData.endereco.numero} onChange={handleChange} className="w-full mt-2 p-2 border rounded-lg" />
-            <input type="text" name="endereco.bairro" placeholder="Bairro" value={formData.endereco.bairro} onChange={handleChange} className="w-full mt-2 p-2 border rounded-lg" />
-            <input type="text" name="endereco.cidade" placeholder="Cidade" value={formData.endereco.cidade} onChange={handleChange} className="w-full mt-2 p-2 border rounded-lg" />
-            <input type="text" name="endereco.estado" placeholder="Estado" value={formData.endereco.estado} onChange={handleChange} className="w-full mt-2 p-2 border rounded-lg" />
-            <input type="text" name="endereco.cep" placeholder="CEP" value={formData.endereco.cep} onChange={handleChange} className="w-full mt-2 p-2 border rounded-lg" />
+            {vagaMap.part2.map((input, index) => (
+              <input  
+              key={index}
+              type={input.type}
+              name={input.name}
+              placeholder={input.placeholder}
+              value={formData.endereco[input.name]}
+              onChange={handleChange}
+              className="w-full mt-2 p-2 border rounded-lg"
+              />
+            ))}
 
             {/* Input para Upload do Currículo */}
             <h3 className="text-lg font-semibold mt-4">📄 Anexar Currículo (PDF)</h3>

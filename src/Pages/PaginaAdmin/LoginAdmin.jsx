@@ -82,23 +82,33 @@ export default function LoginAdmin() {
     setSubmitting(false);
   }
 
+  
+  const loginMap = {
+    button: [
+      {className: `px-4 py-2 cursor-pointer rounded-full transition-colors text-white ${isLogin ? "bg-orange-500" : "bg-orange-600"}` ,onClick: () => setIsLogin(true), text: 'Entrar'},
+      {className: `px-4 py-2 cursor-pointer rounded-full transition-colors text-white ${!isLogin ? "bg-orange-500" : "bg-orange-600"}` ,onClick: () => setIsLogin(false), text: 'Cadastrar'}
+    ],
+    form: [
+      {type: "text", name:"nome", placeholder: "Nome completo"},
+      {type: "email", name: "email", placeholder: "E-mail"},
+      {type: "password", name: "password", placeholder: "Senha"}
+    ]
+  }
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-orange-500 to-orange-400">
       <div className="bg-white rounded-xl shadow-lg flex max-lg:flex-col w-[50%] max-sm:w-[70%] transition-all overflow-hidden">
         <div className="w-1/2 max-lg:w-full px-8 py-12">
           <div className="flex justify-center gap-4 mb-6">
-            <button
-              className={`px-4 py-2 cursor-pointer rounded-full transition-colors text-white ${isLogin ? "bg-orange-500" : "bg-orange-600"}`}
-              onClick={() => setIsLogin(true)}
-            >
-              Entrar
-            </button>
-            <button
-              className={`px-4 py-2 cursor-pointer rounded-full transition-colors text-white ${!isLogin ? "bg-orange-500" : "bg-orange-600"}`}
-              onClick={() => setIsLogin(false)}
-            >
-              Cadastrar
-            </button>
+            {loginMap.button.map((button, index) => (
+              <button
+                key={index}
+                className={button.className}
+                onClick={button.onClick} 
+              >
+              {button.text}
+              </button>
+            ))}
           </div>
 
           {isLogin ? (
@@ -110,14 +120,21 @@ export default function LoginAdmin() {
               {({ isSubmitting }) => (
                 <Form>
                   <h2 className="text-3xl font-semibold text-center text-orange-600">Login</h2>
-                  <div className="mb-4">
-                    <Field type="email" name="email" placeholder="E-mail" className="w-full border border-zinc-500 p-2 mt-4 rounded" />
-                    <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
-                  </div>
-                  <div className="mb-4">
-                    <Field type="password" name="password" placeholder="Senha" className="w-full border border-zinc-500 p-2 mt-2 rounded" />
-                    <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
-                  </div>
+                  {loginMap.form.slice(1, 3).map((form, index) => (
+                    <div className="mb-4" key={index}>
+                      <Field 
+                        type={form.type}
+                        name={form.name}
+                        placeholder={form.placeholder}
+                        className="w-full border border-zinc-500 p-2 mt-4 rounded"    
+                      />
+                      <ErrorMessage 
+                        name={form.name}
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+                  ))}
                   <button type="submit" className="w-full bg-orange-600 hover:bg-orange-500 text-white py-2 mt-4 rounded cursor-pointer" disabled={isSubmitting}>Entrar</button>
                 </Form>
               )}
@@ -131,18 +148,21 @@ export default function LoginAdmin() {
               {({ isSubmitting }) => (
                 <Form>
                   <h2 className="text-3xl font-semibold text-center text-orange-600">Cadastrar</h2>
-                  <div className="mb-4">
-                    <Field type="text" name="nome" placeholder="Nome completo" className="w-full border border-zinc-500 p-2 mt-4 rounded" />
-                    <ErrorMessage name="nome" component="div" className="text-red-500 text-sm" />
-                  </div>
-                  <div className="mb-4">
-                    <Field type="email" name="email" placeholder="E-mail" className="w-full border border-zinc-500 p-2 mt-2 rounded" />
-                    <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
-                  </div>
-                  <div className="mb-4">
-                    <Field type="password" name="password" placeholder="Senha" className="w-full border border-zinc-500 p-2 mt-2 rounded" />
-                    <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
-                  </div>
+                  {loginMap.form.map((form, index) => (
+                    <div className="mb-4" key={index}>
+                      <Field 
+                        type={form.type}
+                        name={form.name}
+                        placeholder={form.placeholder}
+                        className="w-full border border-zinc-500 p-2 mt-4 rounded"
+                      />
+                      <ErrorMessage 
+                        name={form.name}
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+                  ))}
                   <button type="submit" className="w-full bg-orange-600 hover:bg-orange-500 text-white py-2 mt-4 rounded" disabled={isSubmitting}>Cadastrar</button>
                 </Form>
               )}

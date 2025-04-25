@@ -1,4 +1,3 @@
-
 import Header from "../../Layout/Header"
 import VagasCard from '../../Components/Cadastro-Login/VagasCard'
 import CadastroVagaModal from '../../Components/Cadastro-Login/CadastroVagaModal'
