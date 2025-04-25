@@ -199,7 +199,12 @@ export default function VagasCard () {
                       <>
                         {vagaMap.part1.map((vaga, index) => (
                           <div key={index}>
-                            <label htmlFor={vaga.name} className='text-xl font-medium'>{vaga.label}</label>
+                            <label
+                              htmlFor={vaga.name}
+                              className='text-xl font-medium'
+                            >
+                              {vaga.label}
+                            </label>
                             {vaga.as ? (
                               <Field
                                 as={vaga.as}
@@ -227,7 +232,12 @@ export default function VagasCard () {
                       <>
                         {vagaMap.part2.map((vaga, index) => (
                           <div key={index}>
-                            <label htmlFor={vaga.toLowerCase()} className='text-xl font-medium'>{vaga}</label>
+                            <label
+                              htmlFor={vaga.toLowerCase()}
+                              className='text-xl font-medium'
+                            >
+                              {vaga}
+                            </label>
                             <Field
                               as='textarea'
                               name={vaga.toLowerCase()}
@@ -262,7 +272,12 @@ export default function VagasCard () {
                       <>
                         {vagaMap.part3.map((vaga, index) => (
                           <div key={index}>
-                            <label htmlFor={vaga.name} className='text-xl font-medium'>{vaga.label}</label>
+                            <label
+                              htmlFor={vaga.name}
+                              className='text-xl font-medium'
+                            >
+                              {vaga.label}
+                            </label>
                             <Field
                               type={vaga.type}
                               as={vaga.as}
@@ -281,7 +296,7 @@ export default function VagasCard () {
                           </button>
                           <button
                             type='submit'
-                            className='bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md w-1/2 cursor-pointer w-full'
+                            className='bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md cursor-pointer w-full'
                           >
                             Salvar
                           </button>
