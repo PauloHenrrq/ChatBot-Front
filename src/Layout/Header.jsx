@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom'
 import UserLogout from '../Components/Logout/UserLogout'
 export default function Header() {
 
+    // GLUGLUGLUGLULUGLUGLUGGLU
+
     const [secaoAtiva, setSecaoAtiva] = useState("candidatos");
 
     return (
