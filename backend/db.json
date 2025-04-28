@@ -71,11 +71,20 @@
       "role": "user"
     },
     {
-      "id": "f767",
-      "name": "Paulo Henrique",
-      "email": "henriquepaulo@gmail.com",
+      "id": "2152",
+      "name": "PH",
+      "email": "ph@gmail.com",
       "password": "12345678",
-      "role": "user"
+      "role": "user",
+      "data_nascimento": ""
+    },
+    {
+      "id": "9ca8",
+      "name": "teste testado",
+      "email": "teste@gmail.com",
+      "data_nascimento": "02/03/2005",
+      "password": "testando",
+      "role": "admin"
     }
   ],
   "vagas": [
@@ -229,24 +238,6 @@
       "salario": "b",
       "informacoes_adicionais": "b",
       "ultimaVaga": "b"
-    },
-    {
-      "id": "e87a",
-      "titulo": "c",
-      "empresa": "c",
-      "localizacao": "c",
-      "descricao": "cccccc",
-      "requisitos": [
-        "c"
-      ],
-      "responsabilidades": [
-        "c"
-      ],
-      "beneficios": [
-        "c"
-      ],
-      "salario": "c",
-      "informacoes_adicionais": "c"
     }
   ]
 }
