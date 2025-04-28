@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+.inputNovaVaga {
+    @apply bg-zinc-100 p-2 rounded-lg overflow-auto
+}
+
+.fieldText {
+    @apply w-full p-3 border border-gray-300 rounded-md shadow-sm
+}
+
+.fieldArea {
+    @apply w-full h-40 resize-none p-3 border border-gray-300 rounded-md shadow-sm
+}
