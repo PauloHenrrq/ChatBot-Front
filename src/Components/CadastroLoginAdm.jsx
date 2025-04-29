@@ -3,15 +3,19 @@ import { api } from '../Routes/server/api'
 import Header from '../Layout/Header'
 
 export default function CadastroLoginAdm () {
-const formatarData = () => {
-  const partes = valorInicialNascimento.split('/'); // ["01", "01", "2000"]
+  const formatarData = () => {
+    if (editUser.data_nascimento) {
+      const partes = valorInicialNascimento.split('/') // ["01", "01", "2000"]
 
-  if (partes.length !== 3) return valorInicialNascimento;
+      if (partes.length !== 3) return valorInicialNascimento
 
-  const [dia, mes, ano] = partes;
+      const [dia, mes, ano] = partes
 
-  return `${ano}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`;
-};
+      return `${ano}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`
+    } else {
+      return `0000-00-00`
+    }
+  }
 
   const [formData, setFormData] = useState({
     name: '',
@@ -20,10 +24,11 @@ const formatarData = () => {
     password: ''
   })
 
+  const [inputModify, setInputModify] = useState('')
   const [usuarios, setUsuarios] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [editUser, setEditUser] = useState(null)
-  const [valorInicialNascimento, setValorInicialNascimento] = useState('');
+  const [valorInicialNascimento, setValorInicialNascimento] = useState('')
 
   useEffect(() => {
     if (showModal) {
@@ -39,10 +44,16 @@ const formatarData = () => {
   }, [showModal])
 
   useEffect(() => {
-    if (editUser?.data_nascimento) {
-      setValorInicialNascimento(editUser.data_nascimento);
+    if (!editUser) {
+      setInputModify('password')
     }
-  }, [editUser, valorInicialNascimento]);
+  }, [!editUser])
+
+  useEffect(() => {
+    if (editUser?.data_nascimento) {
+      setValorInicialNascimento(editUser.data_nascimento)
+    }
+  }, [editUser, valorInicialNascimento])
 
   const handleDelete = async id => {
     if (window.confirm('Tem certeza que deseja deletar este usuário?')) {
@@ -123,7 +134,7 @@ const formatarData = () => {
               key={index}
               type={cad.type}
               name={cad.name}
-              value={formData.name}
+              value={formData[cad.name]}
               onChange={handleChange}
               placeholder={cad.placeholder}
               className={
@@ -229,13 +240,20 @@ const formatarData = () => {
 
             <div className='space-y-3'>
               {cadastroMap.map((cad, index) => {
-                console.log(formatarData())
                 return (
                   <div key={index}>
                     <input
                       name={cad.name}
-                      type={cad.type}
-                      value={cad.type === 'date' ? formatarData() : editUser[cad.name]}
+                      type={
+                        inputModify === 'text' && index === 3
+                          ? 'text'
+                          : cad.type
+                      }
+                      value={
+                        cad.type === 'date'
+                          ? formatarData()
+                          : editUser[cad.name]
+                      }
                       onChange={handleUpdateChange}
                       className={
                         index === 3 && editUser.password.length < 6
@@ -243,6 +261,20 @@ const formatarData = () => {
                           : 'w-full p-2 border rounded'
                       }
                     />
+                    {index === 3 ? (
+                      <p
+                        className='absolute right-8 bottom-21.5 cursor-pointer'
+                        onClick={() => {
+                          inputModify === 'text'
+                            ? setInputModify('password')
+                            : setInputModify('text')
+                        }}
+                      >
+                        {inputModify === '' || inputModify === 'text'
+                          ? '👁'
+                          : '🙈'}
+                      </p>
+                    ) : null}
                   </div>
                 )
               })}
