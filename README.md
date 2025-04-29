@@ -1,12 +1,22 @@
-# React + Vite
+# Site Candidatura com IA 
+<!-- Esperando imagens... -->
+## 📍Objetivo
+> - Criação de um Site com o objetivo de empregabilidade (Candidato/Empresa) utilizando a implementação de uma IA.
+## 🔌Clone e Utilização
+1. **Clonagem de Repositório**  
+```git clone https://github.com/PauloHenrrq/ChatBot.git```
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+3. **Entre no diretório | Execute-o**  
+```cd ChatBot```
 
-Currently, two official plugins are available:
+4. **Instale as dependências**  
+```npm install```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+5. **Selecione o Banco de Dados**  
+```cd backend```
 
-## Expanding the ESLint configuration
+6. **Ative o Banco de Dados** <!-- Em breve será utilizado um BD externo -->  
+```npx json-server --watch db.json```
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+8. **Execute o Projeto**  
+```npm run dev```
