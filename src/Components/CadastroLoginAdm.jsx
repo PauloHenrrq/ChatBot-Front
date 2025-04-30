@@ -4,17 +4,18 @@ import Header from '../Layout/Header'
 
 export default function CadastroLoginAdm () {
   const formatarData = () => {
-    if (editUser.data_nascimento) {
-      const partes = valorInicialNascimento.split('/') // ["01", "01", "2000"]
+    const data = editUser.data_nascimento
 
-      if (partes.length !== 3) return valorInicialNascimento
+    if (!data) return ''
 
+    if (data.includes('/')) {
+      const partes = data.split('/')
+      if (partes.length !== 3) return ''
       const [dia, mes, ano] = partes
-
       return `${ano}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`
-    } else {
-      return `0000-00-00`
     }
+
+    return data
   }
 
   const [formData, setFormData] = useState({
@@ -53,7 +54,7 @@ export default function CadastroLoginAdm () {
     if (editUser?.data_nascimento) {
       setValorInicialNascimento(editUser.data_nascimento)
     }
-  }, [editUser, valorInicialNascimento])
+  }, [editUser])
 
   const handleDelete = async id => {
     if (window.confirm('Tem certeza que deseja deletar este usuário?')) {
@@ -67,10 +68,16 @@ export default function CadastroLoginAdm () {
   }
 
   const handleUpdateChange = e => {
-    const { name, value } = e.target
-
-    setEditUser(prev => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = e.target;
+  
+    if (name === 'data_nascimento' && value) {
+      const [ano, mes, dia] = value.split('-');
+      const formatado = `${dia}/${mes}/${ano}`;
+      setEditUser(prev => ({ ...prev, [name]: formatado }));
+    } else {
+      setEditUser(prev => ({ ...prev, [name]: value }));
+    }
+  };
 
   const handleUpdate = async () => {
     try {

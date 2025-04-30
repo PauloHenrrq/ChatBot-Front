@@ -70,6 +70,7 @@ export default function LoginAdmin() {
       await api.post("/users", {
         name: values.nome,
         email: values.email,
+        data_nascimento: values.data_nascimento,
         password: values.password,
         role: "user", // Definindo o tipo de usuário padrão como "user"
       });
@@ -91,6 +92,7 @@ export default function LoginAdmin() {
     form: [
       {type: "text", name:"nome", placeholder: "Nome completo"},
       {type: "email", name: "email", placeholder: "E-mail"},
+      {type: 'date', name: 'data_nascimento', placeholder: "Data_nascimento"},
       {type: "password", name: "password", placeholder: "Senha"}
     ]
   }
@@ -120,7 +122,7 @@ export default function LoginAdmin() {
               {({ isSubmitting }) => (
                 <Form>
                   <h2 className="text-3xl font-semibold text-center text-orange-600">Login</h2>
-                  {loginMap.form.slice(1, 3).map((form, index) => (
+                  {loginMap.form.filter((_, index) => index !== 0 && index !== 2).map((form, index) => (
                     <div className="mb-4" key={index}>
                       <Field 
                         type={form.type}
@@ -163,7 +165,7 @@ export default function LoginAdmin() {
                       />
                     </div>
                   ))}
-                  <button type="submit" className="w-full bg-orange-600 hover:bg-orange-500 text-white py-2 mt-4 rounded" disabled={isSubmitting}>Cadastrar</button>
+                  <button type="submit" className="cursor-pointer w-full bg-orange-600 hover:bg-orange-500 text-white py-2 mt-4 rounded" disabled={isSubmitting}>Cadastrar</button>
                 </Form>
               )}
             </Formik>
