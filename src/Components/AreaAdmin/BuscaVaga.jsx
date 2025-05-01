@@ -15,16 +15,16 @@ export default function BuscaVaga({ candidatos, busca, setBusca }) {
   }, [busca, candidatos]);
 
   return (
-    <div className="mb-4 relative w-full max-w-md">
+    <div className="mb-4 flex justify-center relative w-full max-w-md">
       <input
         type="text"
-        placeholder="Buscar por vaga..."
+        placeholder="Buscar por canditato..."
         value={busca}
         onChange={(e) => setBusca(e.target.value)}
-        className="w-full p-2 border border-gray-300 rounded shadow-sm"
+        className="sm:w-full max-sm:w-[80%] p-2 border border-gray-300 rounded shadow-sm"
       />
       {sugestoes.length > 0 && (
-        <ul className="absolute z-10 bg-white border border-gray-300 rounded mt-1 w-full max-h-48 overflow-y-auto shadow-lg">
+        <ul className="absolute z-10 bg-white border border-gray-300 rounded mt-10 sm:w-full w-[80%] max-h-48 overflow-y-auto shadow-lg">
           {sugestoes.map((sugestao, index) => (
             <li
               key={index}

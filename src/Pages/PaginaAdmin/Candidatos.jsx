@@ -123,6 +123,7 @@ export default function Candidatos () {
       <Header />
 
       {/* Barra de Pesquisa */}
+      
       <div className='w-full flex flex-col items-center justify-center mt-6 gap-4 border-b border-zinc-300 pb-8 '>
         <h1 className='text-2xl font-semibold'>Filtre aqui os candidatos.</h1>
         <BuscaVaga candidatos={candidatos} busca={busca} setBusca={setBusca} />

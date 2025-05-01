@@ -161,8 +161,8 @@ export default function VagasCard () {
           </div>
 
           {modalAberto === vaga.id && (
-            <div className='fixed inset-0 flex items-center justify-center bg-black/40 p-4 overflow-auto'>
-              <div className='bg-white p-8 rounded-2xl shadow-2xl max-w-5xl w-full flex flex-col justify-center relative'>
+            <div className='fixed inset-0 flex items-center justify-center bg-black/40 px-4 overflow-auto'>
+              <div className='bg-white p-8 rounded-2xl shadow-2xl max-w-5xl w-full h-[90%] flex flex-col justify-center relative overflow-auto'>
                 <button
                   className='cursor-pointer absolute top-2 right-4 bg-red-500 text-white px-4 py-2 rounded font-bold'
                   onClick={() => {
@@ -194,7 +194,7 @@ export default function VagasCard () {
                   validationSchema={validationSchema}
                   onSubmit={salvarDados}
                 >
-                  <Form className='space-y-6'>
+                  <Form className='space-y-6 overflow-auto'>
                     {etapa === 1 ? (
                       <>
                         {vagaMap.part1.map((vaga, index) => (

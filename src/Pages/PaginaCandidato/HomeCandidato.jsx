@@ -20,7 +20,7 @@ const vagaMap = {
   ]
 }
 
-export default function HomeCandidato () {
+export default function HomeCandidato() {
   const [vagasInicial, setVagasInicial] = useState([])
   const [vagas, setVagas] = useState([])
   const [vagaSelecionada, setVagaSelecionada] = useState(null)
@@ -113,7 +113,7 @@ export default function HomeCandidato () {
         <BarraPesquisa onSearch={setVagas} />
       </div>
 
-      <div className='flex flex-col md:flex-row min-h-screen bg-gray-100 p-4'>
+      <div className='flex flex-col max-md:gap-6 md:flex-row min-h-screen bg-gray-100 p-4'>
         {/* Lista de Vagas */}
         <div className='md:w-1/3 bg-white shadow-md rounded-lg p-4 overflow-auto max-h-screen'>
           <div className='flex justify-between'>
@@ -128,22 +128,26 @@ export default function HomeCandidato () {
             </p>
           </div>
           {vagas.map(vaga => (
-            <div
-              key={vaga.id}
-              className='p-4 mb-2 border rounded-lg cursor-pointer hover:bg-gray-200'
-              onClick={() => setVagaSelecionada(vaga)}
-            >
-              <h3 className='text-lg font-semibold'>{vaga.titulo}</h3>
-              <p className='text-gray-600'>
-                {vaga.empresa} - {vaga.localizacao}
-              </p>
-              <p className='text-sm text-gray-500 mt-2'>{vaga.descricao}</p>
-            </div>
+            <a href='#vagaSelecionada' className='transition-all scroll-smooth duration-100'>
+              <div
+                key={vaga.id}
+                className='p-4 mb-2 border rounded-lg cursor-pointer hover:bg-gray-200'
+                onClick={() => setVagaSelecionada(vaga)}
+              >
+                <h3 className='text-lg font-semibold'>{vaga.titulo}</h3>
+                <p className='text-gray-600'>
+                  {vaga.empresa} - {vaga.localizacao}
+                </p>
+                <p className='text-sm text-gray-500 mt-2'>{vaga.descricao}</p>
+              </div>
+            </a>
           ))}
         </div>
 
         {/* Detalhes da Vaga */}
-        <div className='md:w-2/3 bg-white shadow-md rounded-lg p-6 ml-4 overflow-auto max-h-screen'>
+        <div className='md:w-2/3 bg-white shadow-md rounded-lg p-6 ml-4 overflow-auto max-h-screen'
+          id='vagaSelecionada'
+        >
           {vagaSelecionada ? (
             <>
               <h2 className='text-2xl font-bold'>{vagaSelecionada.titulo}</h2>
@@ -196,7 +200,7 @@ export default function HomeCandidato () {
                 <h3 className='text-lg font-semibold'>🎁 Benefícios</h3>
                 <ul className='list-disc pl-5 text-gray-600'>
                   {Array.isArray(vagaSelecionada.beneficios) &&
-                  vagaSelecionada.beneficios.length > 0 ? (
+                    vagaSelecionada.beneficios.length > 0 ? (
                     vagaSelecionada.beneficios.map((beneficio, index) => (
                       <li key={index}>{beneficio}</li>
                     ))
@@ -223,8 +227,8 @@ export default function HomeCandidato () {
 
       {/* Modal de Candidatura */}
       {modalAberto && (
-        <div className='fixed inset-0 flex items-center justify-center bg-black/50'>
-          <div className='bg-white p-6 rounded-lg shadow-lg w-96'>
+        <div className='fixed inset-0 flex items-center justify-center bg-black/50 overflow-auto'>
+          <div className='bg-white p-6 rounded-lg shadow-lg w-96 h-[90%] overflow-auto'>
             <h2 className='text-xl font-bold'>Candidatar-se à vaga</h2>
             <p className='text-gray-700 mt-2'>{vagaSelecionada?.titulo}</p>
             {vagaMap.part1.map((input, index) => (

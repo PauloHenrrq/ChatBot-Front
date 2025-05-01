@@ -91,8 +91,8 @@ export default function CadastroVagaModal () {
       </button>
 
       {mostrarCadastroModal && (
-        <div className='fixed inset-0 flex items-center justify-center bg-black/50 p-4'>
-          <div className='bg-white p-6 rounded-lg shadow-lg max-w-lg w-full transition-all'>
+        <div className='fixed inset-0 flex items-center justify-center bg-black/50 p-4 overflow-auto'>
+          <div className='bg-white p-6 rounded-lg shadow-lg max-w-lg w-full h-[80%] transition-all overflow-auto'>
             <h3 className='text-xl font-bold text-center text-orange-600 mb-6'>
               Cadastrar Nova Vaga
             </h3>

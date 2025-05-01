@@ -15,9 +15,9 @@ export default function Header() {
     return (
         <>
 
-            <nav className="bg-orange-500 shadow-md p-4 flex flex-col sm:flex-row justify-between items-center">
+            <nav className="bg-orange-500 shadow-md p-4 flex flex-row justify-between items-center">
                 <h1 className="text-xl text-white font-bold cursor-pointer">Painel RH</h1>
-                <div className="w-52 text-right hidden max-sm:flex max-sm:justify-center max-sm:mt-4">
+                <div className=" text-right hidden max-sm:flex max-sm:justify-center">
                     <Menu>
                         <MenuButton className="inline-flex items-center gap-2 rounded-md bg-zinc-200 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-orange-200 data-[open]:bg-orange-100 data-[focus]:outline-1 data-[focus]:outline-white">
                             <Bars3Icon className="size-6 fill-black/60" />
@@ -27,12 +27,12 @@ export default function Header() {
                         <MenuItems
                             transition
                             anchor="bottom end"
-                            className="w-52 origin-top-right space-y-1 rounded-xl border border-white/5 bg-black/20 p-1 text-sm/6 text-black transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
+                            className="w-32 mt-1 flex flex-col origin-top-right space-y-1 rounded-xl border border-white/5 bg-black/20 p-1 text-sm/6 text-black transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
                         >
                             <MenuItem>
 
                                 <Link to={"/candidatos"}>
-                                    <button className={`group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 text-white font-semibold data-[focus]:bg-orange-400/50 ${secaoAtiva === "candidatos" ? "bg-orange-400" : "bg-orange-500"}`} onClick={() => setSecaoAtiva("candidatos")}>
+                                    <button className={`group flex w-full items-center rounded-lg py-1.5 px-3 text-white font-semibold data-[focus]:bg-orange-400/50 ${secaoAtiva === "candidatos" ? "bg-orange-400" : "bg-orange-500"}`} onClick={() => setSecaoAtiva("candidatos")}>
                                         Candidatos
                                     </button>
                                 </Link>
@@ -41,7 +41,7 @@ export default function Header() {
 
                             <MenuItem>
                                 <Link to={"/vagas"}>
-                                    <button className={`group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 text-white font-semibold data-[focus]:bg-orange-400/50 ${secaoAtiva === "vagas" ? "bg-orange-400 " : "bg-orange-500"}`} onClick={() => setSecaoAtiva("vagas")}>
+                                    <button className={`group flex w-full items-center rounded-lg py-1.5 px-3 text-white font-semibold data-[focus]:bg-orange-400/50 ${secaoAtiva === "vagas" ? "bg-orange-400 " : "bg-orange-500"}`} onClick={() => setSecaoAtiva("vagas")}>
                                         Vagas
                                     </button>
                                 </Link>
@@ -49,7 +49,10 @@ export default function Header() {
                             </MenuItem>
 
                             <MenuItem>
-                                <UserLogout />
+                                <div>
+                                    <UserLogout />
+                                </div>
+                                
                             </MenuItem>
 
                         </MenuItems>
