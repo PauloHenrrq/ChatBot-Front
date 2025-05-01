@@ -18,5 +18,8 @@
 6. **Ative o Banco de Dados** <!-- Em breve será utilizado um BD externo -->  
 ```npx json-server --watch db.json```
 
-8. **Execute o Projeto**  
+7. **Retorne para o Projeto**
+```cd ..```
+
+9. **Execute o Projeto**  
 ```npm run dev```

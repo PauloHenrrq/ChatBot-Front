@@ -4,8 +4,8 @@
       "id": "4199",
       "vagaId": 1,
       "vagaTitulo": "Desenvolvedor Frontend",
-      "nome": "LEVI DUARTE LIMA",
-      "email": "duartelevi1@gmail.com",
+      "nome": "candidato",
+      "email": "candidato@gmail.com",
       "dataNascimento": "2004-10-13",
       "telefone": "85985155690",
       "endereco": {
@@ -23,68 +23,19 @@
   ],
   "users": [
     {
-      "id": "1",
-      "name": "Levi Duarte Lima",
-      "email": "levi@gmail.com",
-      "data_nascimento": "01/01/2000",
-      "endereço": [
-        {
-          "rua": "Pirimboles",
-          "numero": 123,
-          "bairro": "Vila Nova",
-          "cidade": "São Paulo",
-          "estado": "SP",
-          "cep": "01452-000",
-          "telefones": [
-            {
-              "numero": 987654321,
-              "tipo": "celular"
-            }
-          ]
-        }
-      ],
+      "id": "66c4",
+      "name": "admin",
+      "email": "admin@gmail.com",
+      "data_nascimento": "2005-04-23",
       "password": "12345678",
       "role": "admin"
     },
     {
-      "id": "2",
-      "name": "Levi Duarte Lima",
-      "email": "duartelevi1@gmail.com",
-      "data_nascimento": "01/03/2000",
-      "endereço": [
-        {
-          "rua": "Pirimboles",
-          "numero": 123,
-          "bairro": "Vila Nova",
-          "cidade": "São Paulo",
-          "estado": "SP",
-          "cep": "01452-000",
-          "telefones": [
-            {
-              "numero": 987654321,
-              "tipo": "celular"
-            }
-          ]
-        }
-      ],
-      "password": "13102004",
+      "id": "ae96",
+      "name": "candidato",
+      "email": "candidato@gmail.com",
+      "password": "12345678",
       "role": "user"
-    },
-    {
-      "id": "2152",
-      "name": "PH",
-      "email": "ph@gmail.com",
-      "password": "12345678",
-      "role": "user",
-      "data_nascimento": ""
-    },
-    {
-      "id": "9ca8",
-      "name": "teste testado",
-      "email": "teste@gmail.com",
-      "data_nascimento": "02/03/2005",
-      "password": "testando",
-      "role": "admin"
     }
   ],
   "vagas": [
@@ -115,12 +66,11 @@
       "informacoes_adicionais": "Trabalhamos com um ambiente dinâmico e inovador, onde incentivamos a troca de conhecimento entre os colaboradores."
     },
     {
+      "id": "2",
       "titulo": "Desenvolvedor Backend",
       "empresa": "Tech Solutions",
       "localizacao": "Remoto",
       "descricao": "Buscamos um desenvolvedor backend para trabalhar com Node.js, Express.js, MongoDB...",
-      "salario": "R$ 10.000,00",
-      "informacoes_adicionais": "Nossa empresa valoriza a diversidade e inclusão, oferecendo um ambiente acolhedor para todos os profissionais.",
       "requisitos": [
         "Experiência com Node.js",
         "Banco de dados MongoDB"
@@ -133,7 +83,8 @@
         "Bônus por performance",
         "Plano de saúde"
       ],
-      "id": "2"
+      "salario": "R$ 10.000,00",
+      "informacoes_adicionais": "Nossa empresa valoriza a diversidade e inclusão, oferecendo um ambiente acolhedor para todos os profissionais."
     },
     {
       "id": "3",
@@ -182,62 +133,6 @@
       ],
       "salario": "R$ 8.500,00",
       "informacoes_adicionais": "Escritório pet-friendly."
-    },
-    {
-      "id": "83f9",
-      "titulo": "Teste",
-      "empresa": "Empresa testial",
-      "localizacao": "Testa de boi",
-      "descricao": "testinha",
-      "descricaodetalhada": "",
-      "salario": "R$ 2.600",
-      "requisitos": [
-        "Ser testudo"
-      ],
-      "responsabilidades": [
-        "Testudar todos"
-      ],
-      "beneficios": [
-        "Testa grande"
-      ],
-      "informacoes_adicionais": ":p"
-    },
-    {
-      "id": "273a",
-      "titulo": "a",
-      "empresa": "a",
-      "localizacao": "a",
-      "descricao": "a",
-      "requisitos": [
-        "a"
-      ],
-      "responsabilidades": [
-        "a"
-      ],
-      "beneficios": [
-        "a"
-      ],
-      "salario": "a",
-      "informacoes_adicionais": "a"
-    },
-    {
-      "id": "9810",
-      "titulo": "b",
-      "empresa": "b",
-      "localizacao": "b",
-      "descricao": "b",
-      "requisitos": [
-        "b"
-      ],
-      "responsabilidades": [
-        "b"
-      ],
-      "beneficios": [
-        "b"
-      ],
-      "salario": "b",
-      "informacoes_adicionais": "b",
-      "ultimaVaga": "b"
     }
   ]
 }
