@@ -1,7 +1,8 @@
 import HeaderCandidato from '../../Layout/HeaderCandidato'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { api } from '../../Routes/server/api'
 import BarraPesquisa from '../../Components/AreaUsuario/BarraPesquisa'
+import FecharModal from '../../Components/FecharModal'
 
 const vagaMap = {
   part1: [
@@ -20,7 +21,7 @@ const vagaMap = {
   ]
 }
 
-export default function HomeCandidato() {
+export default function HomeCandidato ({ nomeModal, setNomeModal }) {
   const [vagasInicial, setVagasInicial] = useState([])
   const [vagas, setVagas] = useState([])
   const [vagaSelecionada, setVagaSelecionada] = useState(null)
@@ -128,7 +129,10 @@ export default function HomeCandidato() {
             </p>
           </div>
           {vagas.map(vaga => (
-            <a href='#vagaSelecionada' className='transition-all scroll-smooth duration-100'>
+            <a
+              href='#vagaSelecionada'
+              className='transition-all scroll-smooth duration-100'
+            >
               <div
                 key={vaga.id}
                 className='p-4 mb-2 border rounded-lg cursor-pointer hover:bg-gray-200'
@@ -145,7 +149,8 @@ export default function HomeCandidato() {
         </div>
 
         {/* Detalhes da Vaga */}
-        <div className='md:w-2/3 bg-white shadow-md rounded-lg p-6 ml-4 overflow-auto max-h-screen'
+        <div
+          className='md:w-2/3 md:ml-4 bg-white shadow-md rounded-lg p-6 overflow-auto w-auto max-h-screen'
           id='vagaSelecionada'
         >
           {vagaSelecionada ? (
@@ -200,7 +205,7 @@ export default function HomeCandidato() {
                 <h3 className='text-lg font-semibold'>🎁 Benefícios</h3>
                 <ul className='list-disc pl-5 text-gray-600'>
                   {Array.isArray(vagaSelecionada.beneficios) &&
-                    vagaSelecionada.beneficios.length > 0 ? (
+                  vagaSelecionada.beneficios.length > 0 ? (
                     vagaSelecionada.beneficios.map((beneficio, index) => (
                       <li key={index}>{beneficio}</li>
                     ))
@@ -228,7 +233,7 @@ export default function HomeCandidato() {
       {/* Modal de Candidatura */}
       {modalAberto && (
         <div className='fixed inset-0 flex items-center justify-center bg-black/50 overflow-auto'>
-          <div className='bg-white p-6 rounded-lg shadow-lg w-96 h-[90%] overflow-auto'>
+          <FecharModal className='bg-white p-6 rounded-lg shadow-lg w-96 h-[90%] overflow-auto' nomeModal={modalAberto} setNomeModal={setModalAberto}>
             <h2 className='text-xl font-bold'>Candidatar-se à vaga</h2>
             <p className='text-gray-700 mt-2'>{vagaSelecionada?.titulo}</p>
             {vagaMap.part1.map((input, index) => (
@@ -288,7 +293,7 @@ export default function HomeCandidato() {
                 Enviar
               </button>
             </div>
-          </div>
+          </FecharModal>
         </div>
       )}
     </>
