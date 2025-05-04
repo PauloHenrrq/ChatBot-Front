@@ -92,8 +92,9 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
       dataNascimento: formData.dataNascimento,
       telefone: formData.telefone,
       endereco: formData.endereco,
-      mensagem: formData.mensagem,
-      curriculo: formData.curriculo ? formData.curriculo.name : null
+      descricao: formData.descricao,
+      curriculo: formData.curriculo ? formData.curriculo.name : null,
+      status: "Em análise"
     }
 
     try {
@@ -116,7 +117,7 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
 
       <div className='flex flex-col max-md:gap-6 md:flex-row min-h-screen bg-gray-100 p-4'>
         {/* Lista de Vagas */}
-        <div className='md:w-1/3 bg-white shadow-md rounded-lg p-4 overflow-auto max-h-screen'>
+        <div className='md:w-1/2 bg-white shadow-md rounded-lg p-4 overflow-auto max-h-screen'>
           <div className='flex justify-between'>
             <h2 className='text-xl font-bold mb-4'>Vagas Disponíveis</h2>
             <p
@@ -131,7 +132,7 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
           {vagas.map(vaga => (
             <a
               href='#vagaSelecionada'
-              className='transition-all scroll-smooth duration-100'
+              className='transition-all scroll-smooth duration-500'
             >
               <div
                 key={vaga.id}
@@ -150,7 +151,7 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
 
         {/* Detalhes da Vaga */}
         <div
-          className='md:w-2/3 md:ml-4 bg-white shadow-md rounded-lg p-6 overflow-auto w-auto max-h-screen'
+          className='md:w-2/3 md:ml-4 bg-white shadow-md rounded-lg p-6 md:overflow-auto w-auto md:max-h-screen'
           id='vagaSelecionada'
         >
           {vagaSelecionada ? (
@@ -270,8 +271,9 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
             <textarea
               type='textarea'
               name='descricao'
-              className='w-full mt-2 p-2 border rounded-lg'
               placeholder='Descrição sobre'
+              onChange={handleChange}
+              className='w-full mt-2 p-2 border rounded-lg'
             />
 
             {/* Input para Upload do Currículo */}

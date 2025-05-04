@@ -19,25 +19,6 @@
       "descricao": "",
       "curriculo": "Levi_Curriculo.pdf",
       "status": "Em análise"
-    },
-    {
-      "id": "e041",
-      "vagaId": "3",
-      "vagaTitulo": "Analista de Dados",
-      "nome": "Teste",
-      "email": "teste@gmail.com",
-      "dataNascimento": "2005-04-27",
-      "telefone": "teste",
-      "endereco": {
-        "rua": "Teste",
-        "numero": "1011",
-        "bairro": "Teste",
-        "cidade": "Teste",
-        "estado": "Teste",
-        "cep": "Teste"
-      },
-      "curriculo": null,
-      "status": "Aprovado para entrevista"
     }
   ],
   "users": [

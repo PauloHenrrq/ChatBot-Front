@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { FaSearch, FaMapMarkerAlt } from 'react-icons/fa'
 import { api } from '../../Routes/server/api'
 
@@ -174,10 +175,10 @@ export default function BarraPesquisa ({ onSearch }) {
         </div>
 
         <button
-          className='bg-orange-600 hover:bg-orange-700 text-white font-bold px-4 py-2 rounded-lg ml-2 w-1/2 cursor-pointer'
+          className='bg-orange-600 hover:bg-orange-700 text-white font-bold px-2 py-2 rounded-full ml-2 cursor-pointer'
           onClick={buscarVagas}
         >
-          Achar vagas
+          <MagnifyingGlassIcon aria-hidden="true" className="size-6 group-data-open:block" />
         </button>
       </div>
     </div>
