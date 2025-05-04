@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { api } from '../../Routes/server/api'
 import Header from '../../Layout/Header'
 import BuscaVaga from '../../Components/AreaAdmin/BuscaVaga'
+import FecharModal from '../../Components/FecharModal.jsx'
 
 export default function Candidatos () {
   const [candidatos, setCandidatos] = useState([])
@@ -189,7 +190,7 @@ export default function Candidatos () {
       {/* MODAL */}
       {modalAberto && candidatoSelecionado && (
         <div className='fixed inset-0 flex items-center justify-center bg-black/50 z-50'>
-          <div className='bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-2xl max-h-[90vh] overflow-y-auto'>
+          <FecharModal nomeModal={modalAberto && candidatoSelecionado} className='bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-2xl max-h-[90vh] overflow-y-auto' setNomeModal={setModalAberto && setCandidatoSelecionado}>
             <div className='flex justify-between mb-4'>
               {candidatosMap.abas.map((abas, index) => (
                 <button
@@ -298,7 +299,7 @@ export default function Candidatos () {
                 Fechar
               </button>
             </div>
-          </div>
+          </FecharModal>
         </div>
       )}
     </div>

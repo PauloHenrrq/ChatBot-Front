@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { api } from '../Routes/server/api'
 import Header from '../Layout/Header'
+import FecharModal from './FecharModal.jsx'
 
 export default function CadastroLoginAdm () {
   const formatarData = () => {
@@ -68,16 +69,16 @@ export default function CadastroLoginAdm () {
   }
 
   const handleUpdateChange = e => {
-    const { name, value } = e.target;
-  
+    const { name, value } = e.target
+
     if (name === 'data_nascimento' && value) {
-      const [ano, mes, dia] = value.split('-');
-      const formatado = `${dia}/${mes}/${ano}`;
-      setEditUser(prev => ({ ...prev, [name]: formatado }));
+      const [ano, mes, dia] = value.split('-')
+      const formatado = `${dia}/${mes}/${ano}`
+      setEditUser(prev => ({ ...prev, [name]: formatado }))
     } else {
-      setEditUser(prev => ({ ...prev, [name]: value }));
+      setEditUser(prev => ({ ...prev, [name]: value }))
     }
-  };
+  }
 
   const handleUpdate = async () => {
     try {
@@ -125,7 +126,7 @@ export default function CadastroLoginAdm () {
     { type: 'text', name: 'name', placeholder: 'Nome' },
     { type: 'email', name: 'email', placeholder: 'Email' },
     { type: 'date', name: 'data_nascimento', placeholder: '' },
-    { type: 'password', name: 'password', placeholder: 'Senha' }
+    { type: 'password', name: 'password', placeholder: '**********' }
   ]
 
   return (
@@ -184,57 +185,69 @@ export default function CadastroLoginAdm () {
       {/* Modal de Listagem */}
       {showModal && (
         <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
-          <div className='bg-white p-6 rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto shadow-lg relative'>
-            <h2 className='text-xl font-bold text-orange-500 mb-4'>
-              Usuários Cadastrados
-            </h2>
-            <button
-              onClick={() => setShowModal(false)}
-              className='cursor-pointer absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded font-bold'
+          {editUser ? null : (
+            <FecharModal
+              nomeModal={showModal}
+              className='bg-white p-6 rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto shadow-lg relative'
+              setNomeModal={setShowModal}
             >
-              X
-            </button>
+              <h2 className='text-xl font-bold text-orange-500 mb-4'>
+                Usuários Cadastrados
+              </h2>
+              <button
+                onClick={() => setShowModal(false)}
+                className='cursor-pointer absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded font-bold'
+              >
+                X
+              </button>
 
-            {usuarios.length === 0 ? (
-              <p className='text-gray-600'>Nenhum usuário encontrado.</p>
-            ) : (
-              <ul className='space-y-4'>
-                {usuarios.map(user => (
-                  <li
-                    key={user.id}
-                    className='bg-gray-100 p-4 rounded flex justify-between items-center'
-                  >
-                    <div>
-                      <p className='font-semibold'>{user.name}</p>
-                      <p className='text-sm text-gray-600'>{user.email}</p>
-                      <p className='text-sm text-gray-500'>Role: {user.role}</p>
-                    </div>
-                    <div className='flex gap-2'>
-                      <button
-                        onClick={() => handleEdit(user)}
-                        className='px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer'
-                      >
-                        Editar
-                      </button>
-                      <button
-                        onClick={() => handleDelete(user.id)}
-                        className='px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 cursor-pointer'
-                      >
-                        Deletar
-                      </button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+              {usuarios.length === 0 ? (
+                <p className='text-gray-600'>Nenhum usuário encontrado.</p>
+              ) : (
+                <ul className='space-y-4'>
+                  {usuarios.map(user => (
+                    <li
+                      key={user.id}
+                      className='bg-gray-100 p-4 rounded flex justify-between items-center'
+                    >
+                      <div>
+                        <p className='font-semibold'>{user.name}</p>
+                        <p className='text-sm text-gray-600'>{user.email}</p>
+                        <p className='text-sm text-gray-500'>
+                          Role: {user.role}
+                        </p>
+                      </div>
+                      <div className='flex gap-2'>
+                        <button
+                          onClick={() => handleEdit(user)}
+                          className='px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer'
+                        >
+                          Editar
+                        </button>
+                        <button
+                          onClick={() => handleDelete(user.id)}
+                          className='px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 cursor-pointer'
+                        >
+                          Deletar
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </FecharModal>
+          )}
         </div>
       )}
 
       {/* Modal de Edição */}
       {editUser && (
         <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
-          <div className='bg-white p-6 rounded-lg max-w-lg w-full shadow-lg relative'>
+          <FecharModal
+            nomeModal={editUser}
+            className='bg-white p-6 rounded-lg max-w-lg w-full shadow-lg relative'
+            setNomeModal={setEditUser}
+          >
             <h2 className='text-xl font-bold text-blue-500 mb-4'>
               Editar Usuário
             </h2>
@@ -259,8 +272,13 @@ export default function CadastroLoginAdm () {
                       value={
                         cad.type === 'date'
                           ? formatarData()
-                          : editUser[cad.name]
+                          : cad.type != 'password' 
+                          ? editUser[cad.name]
+                          : cad.type === 'password'
+                          ? null
+                          : editUser[cad.name] === 'password'
                       }
+                      placeholder={cad.placeholder}
                       onChange={handleUpdateChange}
                       className={
                         index === 3 && editUser.password.length < 6
@@ -303,7 +321,7 @@ export default function CadastroLoginAdm () {
                 Salvar Alterações
               </button>
             </div>
-          </div>
+          </FecharModal>
         </div>
       )}
     </div>

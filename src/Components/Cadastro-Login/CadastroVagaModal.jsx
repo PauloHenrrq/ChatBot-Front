@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { api } from '../../Routes/server/api'
+import FecharModal from '../FecharModal.jsx'
 
 export default function CadastroVagaModal () {
   const [mostrarCadastroModal, setMostrarCadastroModal] = useState(false)
@@ -30,7 +31,6 @@ export default function CadastroVagaModal () {
         .map(resp => resp.trim()),
       beneficios: novaVaga.beneficios.split(',').map(ben => ben.trim())
     }
-    console.log(vagaFormatada)
 
     try {
       await api.post('/vagas', vagaFormatada)
@@ -92,12 +92,11 @@ export default function CadastroVagaModal () {
 
       {mostrarCadastroModal && (
         <div className='fixed inset-0 flex items-center justify-center bg-black/50 p-4 overflow-auto'>
-          <div className='bg-white p-6 rounded-lg shadow-lg max-w-lg w-full h-[80%] transition-all overflow-auto'>
+          <FecharModal nomeModal={mostrarCadastroModal} className='bg-white p-6 rounded-lg shadow-lg max-w-lg w-full h-[80%] transition-all overflow-auto' setNomeModal={setMostrarCadastroModal}>
             <h3 className='text-xl font-bold text-center text-orange-600 mb-6'>
               Cadastrar Nova Vaga
             </h3>
             <form onSubmit={handleSubmit} className='space-y-4'>
-              {/* Fazer map: */}
               {formMap.map((form, index) => (
                 <div key={index} className={form.className}>
                   {form.child.map((child, index) => {
@@ -146,7 +145,7 @@ export default function CadastroVagaModal () {
             >
               Fechar
             </button>
-          </div>
+          </FecharModal>
         </div>
       )}
     </>

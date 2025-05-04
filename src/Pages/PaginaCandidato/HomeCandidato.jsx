@@ -2,14 +2,14 @@ import HeaderCandidato from '../../Layout/HeaderCandidato'
 import { useState, useEffect, useRef } from 'react'
 import { api } from '../../Routes/server/api'
 import BarraPesquisa from '../../Components/AreaUsuario/BarraPesquisa'
-import FecharModal from '../../Components/FecharModal'
+import FecharModal from '../../Components/FecharModal.jsx'
 
 const vagaMap = {
   part1: [
     { type: 'text', name: 'nome', placeholder: 'Nome Completo' },
     { type: 'email', name: 'email', placeholder: 'E-mail' },
     { type: 'date', name: 'dataNascimento', placeholder: 'Data de Nascimento' },
-    { type: 'text', name: 'telefone', placeholder: 'Telefone' }
+    { type: 'text', name: 'telefone', placeholder: 'Telefone' },
   ],
   part2: [
     { type: 'text', name: 'endereco.rua', placeholder: 'Rua' },
@@ -39,7 +39,7 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
       estado: '',
       cep: ''
     },
-    mensagem: '',
+    descricao: '',
     curriculo: null
   })
 
@@ -85,15 +85,16 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
     }
 
     const candidatura = {
-      vagaId: vagaSelecionada.id,
+      vagaId: Number(vagaSelecionada.id),
       vagaTitulo: vagaSelecionada.titulo, // Agora salvamos o nome da vaga
       nome: formData.nome,
       email: formData.email,
       dataNascimento: formData.dataNascimento,
       telefone: formData.telefone,
       endereco: formData.endereco,
-      mensagem: formData.mensagem,
-      curriculo: formData.curriculo ? formData.curriculo.name : null
+      descricao: formData.descricao,
+      curriculo: formData.curriculo ? formData.curriculo.name : null,
+      status: "Em análise"
     }
 
     try {
@@ -116,7 +117,7 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
 
       <div className='flex flex-col max-md:gap-6 md:flex-row min-h-screen bg-gray-100 p-4'>
         {/* Lista de Vagas */}
-        <div className='md:w-1/3 bg-white shadow-md rounded-lg p-4 overflow-auto max-h-screen'>
+        <div className='md:w-1/2 bg-white shadow-md rounded-lg p-4 overflow-auto max-h-screen'>
           <div className='flex justify-between'>
             <h2 className='text-xl font-bold mb-4'>Vagas Disponíveis</h2>
             <p
@@ -131,7 +132,7 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
           {vagas.map(vaga => (
             <a
               href='#vagaSelecionada'
-              className='transition-all scroll-smooth duration-100'
+              className='transition-all scroll-smooth duration-500'
             >
               <div
                 key={vaga.id}
@@ -150,7 +151,7 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
 
         {/* Detalhes da Vaga */}
         <div
-          className='md:w-2/3 md:ml-4 bg-white shadow-md rounded-lg p-6 overflow-auto w-auto max-h-screen'
+          className='md:w-2/3 md:ml-4 bg-white shadow-md rounded-lg p-6 md:overflow-auto w-auto md:max-h-screen'
           id='vagaSelecionada'
         >
           {vagaSelecionada ? (
@@ -233,7 +234,11 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
       {/* Modal de Candidatura */}
       {modalAberto && (
         <div className='fixed inset-0 flex items-center justify-center bg-black/50 overflow-auto'>
-          <FecharModal className='bg-white p-6 rounded-lg shadow-lg w-96 h-[90%] overflow-auto' nomeModal={modalAberto} setNomeModal={setModalAberto}>
+          <FecharModal
+            className='bg-white p-6 rounded-lg shadow-lg w-96 h-[90%] overflow-auto'
+            nomeModal={modalAberto}
+            setNomeModal={setModalAberto}
+          >
             <h2 className='text-xl font-bold'>Candidatar-se à vaga</h2>
             <p className='text-gray-700 mt-2'>{vagaSelecionada?.titulo}</p>
             {vagaMap.part1.map((input, index) => (
@@ -260,6 +265,16 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
                 className='w-full mt-2 p-2 border rounded-lg'
               />
             ))}
+
+            <h3 className='text-lg font-semibold mt-4'>Descrição</h3>
+            <p className='text-sm text-gray-600'>Conte como você pode ajudar a empresa no desafio descrito na vaga.</p>
+            <textarea
+              type='textarea'
+              name='descricao'
+              placeholder='Descrição sobre'
+              onChange={handleChange}
+              className='w-full mt-2 p-2 border rounded-lg'
+            />
 
             {/* Input para Upload do Currículo */}
             <h3 className='text-lg font-semibold mt-4'>

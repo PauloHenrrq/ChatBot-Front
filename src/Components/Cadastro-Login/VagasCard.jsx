@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { api } from '../../Routes/server/api'
 import { Form, Formik, Field } from 'formik'
 import * as Yup from 'yup'
+import FecharModal from '../FecharModal.jsx'
 
 export default function VagasCard () {
   const [modalAberto, setModalAberto] = useState(null)
@@ -162,7 +163,11 @@ export default function VagasCard () {
 
           {modalAberto === vaga.id && (
             <div className='fixed inset-0 flex items-center justify-center bg-black/40 px-4 overflow-auto'>
-              <div className='bg-white p-8 rounded-2xl shadow-2xl max-w-5xl w-full h-[90%] flex flex-col justify-center relative overflow-auto'>
+              <FecharModal
+                nomeModal={modalAberto}
+                className='bg-white p-8 rounded-2xl shadow-2xl max-w-5xl w-full h-[90%] flex flex-col justify-center relative overflow-auto'
+                setNomeModal={setModalAberto}
+              >
                 <button
                   className='cursor-pointer absolute top-2 right-4 bg-red-500 text-white px-4 py-2 rounded font-bold'
                   onClick={() => {
@@ -194,7 +199,7 @@ export default function VagasCard () {
                   validationSchema={validationSchema}
                   onSubmit={salvarDados}
                 >
-                  <Form className='space-y-6 overflow-auto'>
+                  <Form id='Form1' className='space-y-6 overflow-auto'>
                     {etapa === 1 ? (
                       <>
                         {vagaMap.part1.map((vaga, index) => (
@@ -222,7 +227,10 @@ export default function VagasCard () {
                         ))}
                         <button
                           type='button'
-                          onClick={() => setEtapa(2)}
+                          onClick={() => {
+                            setEtapa(2)
+                            Form1.scrollTo({ top: 0 })
+                          }}
                           className='bg-gray-600 hover:bg-gray-500 text-white px-6 py-2 rounded-md w-full cursor-pointer'
                         >
                           Próximo
@@ -311,7 +319,7 @@ export default function VagasCard () {
                 >
                   Deletar
                 </button>
-              </div>
+              </FecharModal>
             </div>
           )}
         </div>
