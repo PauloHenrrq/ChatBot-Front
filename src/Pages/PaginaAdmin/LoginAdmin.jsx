@@ -143,7 +143,7 @@ export default function LoginAdmin() {
             </Formik>
           ) : (
             <Formik
-              initialValues={{ nome: "", email: "", data_nascimento: "", password: "" }}
+              initialValues={{ nome: "", email: "", data_nascimento: '', password: "" }}
               validationSchema={cadastroValidationSchema}
               onSubmit={handleCadastro}
             >

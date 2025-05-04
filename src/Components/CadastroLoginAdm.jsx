@@ -126,7 +126,7 @@ export default function CadastroLoginAdm () {
     { type: 'text', name: 'name', placeholder: 'Nome' },
     { type: 'email', name: 'email', placeholder: 'Email' },
     { type: 'date', name: 'data_nascimento', placeholder: '' },
-    { type: 'password', name: 'password', placeholder: 'Senha' }
+    { type: 'password', name: 'password', placeholder: '**********' }
   ]
 
   return (
@@ -185,9 +185,7 @@ export default function CadastroLoginAdm () {
       {/* Modal de Listagem */}
       {showModal && (
         <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
-          {editUser ? (
-            null
-          ) : (
+          {editUser ? null : (
             <FecharModal
               nomeModal={showModal}
               className='bg-white p-6 rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto shadow-lg relative'
@@ -274,8 +272,13 @@ export default function CadastroLoginAdm () {
                       value={
                         cad.type === 'date'
                           ? formatarData()
-                          : editUser[cad.name]
+                          : cad.type != 'password' 
+                          ? editUser[cad.name]
+                          : cad.type === 'password'
+                          ? null
+                          : editUser[cad.name] === 'password'
                       }
+                      placeholder={cad.placeholder}
                       onChange={handleUpdateChange}
                       className={
                         index === 3 && editUser.password.length < 6
