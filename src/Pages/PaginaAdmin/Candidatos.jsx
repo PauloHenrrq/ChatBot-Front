@@ -134,7 +134,7 @@ export default function Candidatos () {
       <div className='p-6 max-w-6xl mx-auto'>
         <h2 className='text-2xl font-semibold mb-4'>Candidatos Inscritos</h2>
         <div className='overflow-x-auto'>
-          <table className='w-full bg-white shadow-md rounded-lg overflow-hidden'>
+          <table className='min-w-full hidden md:table border bg-white shadow-md rounded-lg overflow-hidden'>
             <thead className='bg-orange-500 text-white'>
               <tr>
                 {candidatosMap.definicoes.map((def, index) => (
