@@ -172,7 +172,7 @@ export default function Candidatos() {
                     </td>
                     <td className="p-3">
                       <button
-                        className="bg-orange-500 hover:bg-orange-400 transition-all text-white px-3 py-1 rounded w-full"
+                        className="bg-orange-500 hover:bg-orange-400 transition-all text-white px-3 py-1 rounded w-full cursor-pointer"
                         onClick={() => abrirModal(cand)}
                       >
                         Visualizar Currículo

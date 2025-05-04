@@ -16,7 +16,7 @@
         "estado": "CE",
         "cep": "60348010"
       },
-      "descricao": "",
+      "mensagem": "",
       "curriculo": "Levi_Curriculo.pdf",
       "status": "Em análise"
     }
@@ -34,14 +34,6 @@
       "id": "ae96",
       "name": "candidato",
       "email": "candidato@gmail.com",
-      "password": "12345678",
-      "role": "user"
-    },
-    {
-      "id": "867d",
-      "name": "teste",
-      "email": "teste@gmail.com",
-      "data_nascimento": "2004-02-01",
       "password": "12345678",
       "role": "user"
     }
