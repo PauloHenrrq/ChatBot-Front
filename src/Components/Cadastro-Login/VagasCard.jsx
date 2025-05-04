@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { api } from '../../Routes/server/api'
 import { Form, Formik, Field } from 'formik'
 import * as Yup from 'yup'
-import FecharModal from '../FecharModal'
+import FecharModal from '../FecharModal.jsx'
 
 export default function VagasCard () {
   const [modalAberto, setModalAberto] = useState(null)

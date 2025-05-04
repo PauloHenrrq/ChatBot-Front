@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { api } from '../../Routes/server/api'
 import Header from '../../Layout/Header'
 import BuscaVaga from '../../Components/AreaAdmin/BuscaVaga'
-import FecharModal from '../../Components/FecharModal'
+import FecharModal from '../../Components/FecharModal.jsx'
 
 export default function Candidatos () {
   const [candidatos, setCandidatos] = useState([])

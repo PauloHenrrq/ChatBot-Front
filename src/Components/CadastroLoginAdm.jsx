@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { api } from '../Routes/server/api'
 import Header from '../Layout/Header'
-import FecharModal from './FecharModal'
+import FecharModal from './FecharModal.jsx'
 
 export default function CadastroLoginAdm () {
   const formatarData = () => {

@@ -16,9 +16,28 @@
         "estado": "CE",
         "cep": "60348010"
       },
-      "mensagem": "",
+      "descricao": "",
       "curriculo": "Levi_Curriculo.pdf",
       "status": "Em análise"
+    },
+    {
+      "id": "e041",
+      "vagaId": "3",
+      "vagaTitulo": "Analista de Dados",
+      "nome": "Teste",
+      "email": "teste@gmail.com",
+      "dataNascimento": "2005-04-27",
+      "telefone": "teste",
+      "endereco": {
+        "rua": "Teste",
+        "numero": "1011",
+        "bairro": "Teste",
+        "cidade": "Teste",
+        "estado": "Teste",
+        "cep": "Teste"
+      },
+      "curriculo": null,
+      "status": "Aprovado para entrevista"
     }
   ],
   "users": [
@@ -34,6 +53,14 @@
       "id": "ae96",
       "name": "candidato",
       "email": "candidato@gmail.com",
+      "password": "12345678",
+      "role": "user"
+    },
+    {
+      "id": "867d",
+      "name": "teste",
+      "email": "teste@gmail.com",
+      "data_nascimento": "2004-02-01",
       "password": "12345678",
       "role": "user"
     }

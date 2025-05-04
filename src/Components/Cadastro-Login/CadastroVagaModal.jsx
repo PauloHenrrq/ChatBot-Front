@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { api } from '../../Routes/server/api'
-import FecharModal from '../FecharModal'
+import FecharModal from '../FecharModal.jsx'
 
 export default function CadastroVagaModal () {
   const [mostrarCadastroModal, setMostrarCadastroModal] = useState(false)
@@ -31,7 +31,6 @@ export default function CadastroVagaModal () {
         .map(resp => resp.trim()),
       beneficios: novaVaga.beneficios.split(',').map(ben => ben.trim())
     }
-    console.log(vagaFormatada)
 
     try {
       await api.post('/vagas', vagaFormatada)
@@ -98,7 +97,6 @@ export default function CadastroVagaModal () {
               Cadastrar Nova Vaga
             </h3>
             <form onSubmit={handleSubmit} className='space-y-4'>
-              {/* Fazer map: */}
               {formMap.map((form, index) => (
                 <div key={index} className={form.className}>
                   {form.child.map((child, index) => {
