@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import { api } from '../../Routes/server/api'
-import Header from '../../Layout/Header'
-import BuscaVaga from '../../Components/AreaAdmin/BuscaVaga'
-import FecharModal from '../../Components/FecharModal.jsx'
+import { api } from '../../../Routes/server/api.js'
+import Header from '../../../Layout/Header.jsx'
+import BuscaVaga from '../../../Components/AreaAdmin/BuscaVaga.jsx'
+import FecharModal from '../../../Components/FecharModal.jsx'
 
-export default function Candidatos () {
+export default function Candidatos() {
   const [candidatos, setCandidatos] = useState([])
   const [modalAberto, setModalAberto] = useState(false)
   const [candidatoSelecionado, setCandidatoSelecionado] = useState(null)
@@ -124,7 +124,7 @@ export default function Candidatos () {
       <Header />
 
       {/* Barra de Pesquisa */}
-      
+
       <div className='w-full flex flex-col items-center justify-center mt-6 gap-4 border-b border-zinc-300 pb-8 '>
         <h1 className='text-2xl font-semibold'>Filtre aqui os candidatos.</h1>
         <BuscaVaga candidatos={candidatos} busca={busca} setBusca={setBusca} />
@@ -132,14 +132,16 @@ export default function Candidatos () {
 
       {/* Tabela de usuários */}
 
-      <div className='p-6 max-w-6xl mx-auto'>
-        <h2 className='text-2xl font-semibold mb-4'>Candidatos Inscritos</h2>
-        <div className='overflow-x-auto'>
-          <table className='min-w-full hidden md:table border bg-white shadow-md rounded-lg overflow-hidden'>
-            <thead className='bg-orange-500 text-white'>
+      <div className="p-6 max-w-6xl mx-auto">
+        <h2 className="text-2xl font-semibold mb-4">Candidatos Inscritos</h2>
+
+        {/* Tabela para telas grandes */}
+        <div className="overflow-x-auto hidden md:block">
+          <table className="min-w-full border bg-white shadow-md rounded-lg overflow-hidden">
+            <thead className="bg-orange-500 text-white">
               <tr>
                 {candidatosMap.definicoes.map((def, index) => (
-                  <th className='p-3' key={index}>
+                  <th className="p-3" key={index}>
                     {def}
                   </th>
                 ))}
@@ -151,30 +153,26 @@ export default function Candidatos () {
                   cand.vagaTitulo.toLowerCase().includes(busca.toLowerCase())
                 )
                 .map(cand => (
-                  <tr key={cand.id} className='border-b'>
-                    <td className='p-3 whitespace-nowrap'>{cand.nome}</td>
-                    <td className='p-3 whitespace-nowrap'>{cand.email}</td>
-                    <td className='p-3 whitespace-nowrap'>{cand.vagaTitulo}</td>
-                    <td className='p-3'>
+                  <tr key={cand.id} className="border-b">
+                    <td className="p-3 whitespace-nowrap">{cand.nome}</td>
+                    <td className="p-3 whitespace-nowrap">{cand.email}</td>
+                    <td className="p-3 whitespace-nowrap">{cand.vagaTitulo}</td>
+                    <td className="p-3">
                       <select
-                        className='border p-1 rounded w-full cursor-pointer'
+                        className="border p-1 rounded w-full cursor-pointer"
                         value={cand.status || 'Em análise'}
                         onChange={e => atualizarStatus(cand.id, e.target.value)}
                       >
                         {candidatosMap.options.map((opt, index) => (
-                          <option
-                            value={opt}
-                            key={index}
-                            className='cursor-pointer'
-                          >
+                          <option value={opt} key={index}>
                             {opt}
                           </option>
                         ))}
                       </select>
                     </td>
-                    <td className='p-3'>
+                    <td className="p-3">
                       <button
-                        className='bg-orange-500 hover:bg-orange-400 transition-all text-white px-3 py-1 rounded w-full cursor-pointer'
+                        className="bg-orange-500 hover:bg-orange-400 transition-all text-white px-3 py-1 rounded w-full"
                         onClick={() => abrirModal(cand)}
                       >
                         Visualizar Currículo
@@ -185,7 +183,56 @@ export default function Candidatos () {
             </tbody>
           </table>
         </div>
+
+        {/* Layout em cards para telas pequenas */}
+        <div className="md:hidden space-y-4">
+          {candidatos
+            .filter(cand =>
+              cand.vagaTitulo.toLowerCase().includes(busca.toLowerCase())
+            )
+            .map(cand => (
+              <div key={cand.id} className="rounded-lg p-2 shadow bg-white">
+                <div className='bg-zinc-200 p-2 space-y-1 rounded-lg'>
+                  <div className='flex p-2 bg-white rounded-t-lg'>
+                    <p className='font-semibold w-[10%] max-sm:w-[20%]'>Nome:</p>
+                    <p className='w-[90%]'> {cand.nome}</p>
+                  </div>
+
+                  <div className='flex p-2 bg-white'>
+                    <p className='font-semibold w-[10%] max-sm:w-[20%]'>Email:</p>
+                    <p className='w-[90%]'> {cand.email}</p>
+                  </div>
+
+                  <div className='flex p-2 bg-white rounded-b-lg'>
+                    <p className='font-semibold w-[10%] max-sm:w-[20%]'>Vaga:</p>
+                    <p className='w-[90%]'> {cand.vagaTitulo}</p>
+                  </div>
+                </div>
+                
+                
+                <p className="mt-2"><span className="font-semibold">Status:</span></p>
+                <select
+                  className="border p-1 rounded w-full mt-1 cursor-pointer"
+                  value={cand.status || 'Em análise'}
+                  onChange={e => atualizarStatus(cand.id, e.target.value)}
+                >
+                  {candidatosMap.options.map((opt, index) => (
+                    <option value={opt} key={index}>
+                      {opt}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  className="bg-orange-500 hover:bg-orange-400 text-white px-3 py-2 rounded w-full mt-3 cursor-pointer"
+                  onClick={() => abrirModal(cand)}
+                >
+                  Visualizar Currículo
+                </button>
+              </div>
+            ))}
+        </div>
       </div>
+
 
       {/* MODAL */}
       {modalAberto && candidatoSelecionado && (
@@ -196,9 +243,8 @@ export default function Candidatos () {
                 <button
                   key={index}
                   onClick={() => setAba(abas)}
-                  className={`px-4 py-2 rounded-lg cursor-pointer ${
-                    aba === abas ? 'bg-orange-500 text-white' : 'bg-gray-200'
-                  }`}
+                  className={`px-4 py-2 rounded-lg cursor-pointer ${aba === abas ? 'bg-orange-500 text-white' : 'bg-gray-200'
+                    }`}
                 >
                   {abas.charAt(0).toUpperCase() + abas.slice(1)}
                 </button>
@@ -221,7 +267,7 @@ export default function Candidatos () {
                               {candidatoSelecionado.endereco[number]}
                               {number === 'cidade' ? ' - ' : ''}
                               {index < info.select.length - 1 &&
-                              number !== 'cidade'
+                                number !== 'cidade'
                                 ? ', '
                                 : ''}
                             </span>

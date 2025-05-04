@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 const navigation = [
     { name: 'Home', href: '/home', current: true },
+    { name: 'Minhas Vagas', href: '/minhas-vagas', current: false },
 ]
 
 function classNames(...classes) {
@@ -120,8 +121,8 @@ export default function HeaderCandidato() {
                                 href={item.href}
                                 aria-current={item.current ? 'page' : undefined}
                                 className={classNames(
-                                    item.current ? 'bg-orange-600 text-white px-3 py-2 text-sm font-medium rounded-lg' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                    'block rounded-md px-3 py-2 text-base font-medium',
+                                    item.current ? 'bg-orange-600 text-white px-3 py-2 text-sm font-medium rounded-lg' : 'text-white hover:bg-orange-600 hover:text-white',
+                                    'block rounded-md px-3 py-2 mx-2 text-base font-medium',
                                 )}
                             >
                                 {item.name}
