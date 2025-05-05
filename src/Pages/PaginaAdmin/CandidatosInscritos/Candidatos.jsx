@@ -4,7 +4,23 @@ import Header from '../../../Layout/Header.jsx'
 import BuscaVaga from '../../../Components/AreaAdmin/BuscaVaga.jsx'
 import FecharModal from '../../../Components/FecharModal.jsx'
 
-export default function Candidatos() {
+export default function Candidatos () {
+  const formatarData = () => {
+    const data = candidatoSelecionado.dataNascimento
+
+    if (!data) return 'Data não informada'
+
+    if (data.includes('-')) {
+      console.log(data)
+      const partes = data.split('-')
+      if (partes.length !== 3) return ''
+      const [ano, mes, dia] = partes
+      return `${dia.padStart(2, '0')}/${mes.padStart(2, '0')}/${ano}`
+    }
+
+    return data
+  }
+
   const [candidatos, setCandidatos] = useState([])
   const [modalAberto, setModalAberto] = useState(false)
   const [candidatoSelecionado, setCandidatoSelecionado] = useState(null)
@@ -17,6 +33,7 @@ export default function Candidatos() {
       try {
         const response = await api.get('/candidaturas')
         setCandidatos(response.data)
+        console.log(response.data)
       } catch (error) {
         console.error('Erro ao carregar candidatos:', error)
       }
@@ -47,7 +64,6 @@ export default function Candidatos() {
     try {
       const response = await api.get(`/vagas/${candidato.vagaId}`)
       setVagaDetalhada(response.data)
-      console.log(response.data)
     } catch (error) {
       console.error('Erro ao buscar detalhes da vaga:', error)
     }
@@ -64,6 +80,7 @@ export default function Candidatos() {
     abas: ['candidato', 'vaga'],
     candidato: {
       info: [
+        { select: 'nome', className: 'text-gray-700 mt-2', icon: '👥 ' },
         { select: 'email', className: 'text-gray-700 mt-2', icon: '📧 ' },
         { select: 'telefone', className: 'text-gray-700 mt-2', icon: '📞 ' },
         {
@@ -108,7 +125,12 @@ export default function Candidatos() {
           isUL: true,
           select: 'beneficios'
         },
-        { select: 'salario', strong: <strong>Salário: </strong>, className: 'text-gray-700 mt-2', icon: '💰 ' },
+        {
+          select: 'salario',
+          strong: <strong>Salário: </strong>,
+          className: 'text-gray-700 mt-2',
+          icon: '💰 '
+        },
         {
           select: 'informacoes_adicionais',
           strong: <strong>Informações adicionais: </strong>,
@@ -132,16 +154,16 @@ export default function Candidatos() {
 
       {/* Tabela de usuários */}
 
-      <div className="p-6 max-w-6xl mx-auto">
-        <h2 className="text-2xl font-semibold mb-4">Candidatos Inscritos</h2>
+      <div className='p-6 max-w-6xl mx-auto'>
+        <h2 className='text-2xl font-semibold mb-4'>Candidatos Inscritos</h2>
 
         {/* Tabela para telas grandes */}
-        <div className="overflow-x-auto hidden md:block">
-          <table className="min-w-full border bg-white shadow-md rounded-lg overflow-hidden">
-            <thead className="bg-orange-500 text-white">
+        <div className='overflow-x-auto hidden md:block'>
+          <table className='min-w-full border bg-white shadow-md rounded-lg overflow-hidden'>
+            <thead className='bg-orange-500 text-white'>
               <tr>
                 {candidatosMap.definicoes.map((def, index) => (
-                  <th className="p-3" key={index}>
+                  <th className='p-3' key={index}>
                     {def}
                   </th>
                 ))}
@@ -153,13 +175,13 @@ export default function Candidatos() {
                   cand.vagaTitulo.toLowerCase().includes(busca.toLowerCase())
                 )
                 .map(cand => (
-                  <tr key={cand.id} className="border-b">
-                    <td className="p-3 whitespace-nowrap">{cand.nome}</td>
-                    <td className="p-3 whitespace-nowrap">{cand.email}</td>
-                    <td className="p-3 whitespace-nowrap">{cand.vagaTitulo}</td>
-                    <td className="p-3">
+                  <tr key={cand.id} className='border-b'>
+                    <td className='p-3 whitespace-nowrap'>{cand.nome}</td>
+                    <td className='p-3 whitespace-nowrap'>{cand.email}</td>
+                    <td className='p-3 whitespace-nowrap'>{cand.vagaTitulo}</td>
+                    <td className='p-3'>
                       <select
-                        className="border p-1 rounded w-full cursor-pointer"
+                        className='border p-1 rounded w-full cursor-pointer'
                         value={cand.status || 'Em análise'}
                         onChange={e => atualizarStatus(cand.id, e.target.value)}
                       >
@@ -170,9 +192,9 @@ export default function Candidatos() {
                         ))}
                       </select>
                     </td>
-                    <td className="p-3">
+                    <td className='p-3'>
                       <button
-                        className="bg-orange-500 hover:bg-orange-400 transition-all text-white px-3 py-1 rounded w-full cursor-pointer"
+                        className='bg-orange-500 hover:bg-orange-400 transition-all text-white px-3 py-1 rounded w-full cursor-pointer'
                         onClick={() => abrirModal(cand)}
                       >
                         Visualizar Currículo
@@ -185,34 +207,41 @@ export default function Candidatos() {
         </div>
 
         {/* Layout em cards para telas pequenas */}
-        <div className="md:hidden space-y-4">
+        <div className='md:hidden space-y-4'>
           {candidatos
             .filter(cand =>
               cand.vagaTitulo.toLowerCase().includes(busca.toLowerCase())
             )
             .map(cand => (
-              <div key={cand.id} className="rounded-lg p-2 shadow bg-white">
+              <div key={cand.id} className='rounded-lg p-2 shadow bg-white'>
                 <div className='bg-zinc-200 p-2 space-y-1 rounded-lg'>
                   <div className='flex p-2 bg-white rounded-t-lg'>
-                    <p className='font-semibold w-[10%] max-sm:w-[20%]'>Nome:</p>
+                    <p className='font-semibold w-[10%] max-sm:w-[20%]'>
+                      Nome:
+                    </p>
                     <p className='w-[90%]'> {cand.nome}</p>
                   </div>
 
                   <div className='flex p-2 bg-white'>
-                    <p className='font-semibold w-[10%] max-sm:w-[20%]'>Email:</p>
+                    <p className='font-semibold w-[10%] max-sm:w-[20%]'>
+                      Email:
+                    </p>
                     <p className='w-[90%]'> {cand.email}</p>
                   </div>
 
                   <div className='flex p-2 bg-white rounded-b-lg'>
-                    <p className='font-semibold w-[10%] max-sm:w-[20%]'>Vaga:</p>
+                    <p className='font-semibold w-[10%] max-sm:w-[20%]'>
+                      Vaga:
+                    </p>
                     <p className='w-[90%]'> {cand.vagaTitulo}</p>
                   </div>
                 </div>
-                
-                
-                <p className="mt-2"><span className="font-semibold">Status:</span></p>
+
+                <p className='mt-2'>
+                  <span className='font-semibold'>Status:</span>
+                </p>
                 <select
-                  className="border p-1 rounded w-full mt-1 cursor-pointer"
+                  className='border p-1 rounded w-full mt-1 cursor-pointer'
                   value={cand.status || 'Em análise'}
                   onChange={e => atualizarStatus(cand.id, e.target.value)}
                 >
@@ -223,7 +252,7 @@ export default function Candidatos() {
                   ))}
                 </select>
                 <button
-                  className="bg-orange-500 hover:bg-orange-400 text-white px-3 py-2 rounded w-full mt-3 cursor-pointer"
+                  className='bg-orange-500 hover:bg-orange-400 text-white px-3 py-2 rounded w-full mt-3 cursor-pointer'
                   onClick={() => abrirModal(cand)}
                 >
                   Visualizar Currículo
@@ -233,18 +262,22 @@ export default function Candidatos() {
         </div>
       </div>
 
-
       {/* MODAL */}
       {modalAberto && candidatoSelecionado && (
         <div className='fixed inset-0 flex items-center justify-center bg-black/50 z-50'>
-          <FecharModal nomeModal={modalAberto && candidatoSelecionado} className='bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-2xl max-h-[90vh] overflow-y-auto' setNomeModal={setModalAberto && setCandidatoSelecionado}>
+          <FecharModal
+            nomeModal={modalAberto && candidatoSelecionado}
+            className='bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-2xl max-h-[90vh] overflow-y-auto'
+            setNomeModal={setModalAberto && setCandidatoSelecionado}
+          >
             <div className='flex justify-between mb-4'>
               {candidatosMap.abas.map((abas, index) => (
                 <button
                   key={index}
                   onClick={() => setAba(abas)}
-                  className={`px-4 py-2 rounded-lg cursor-pointer ${aba === abas ? 'bg-orange-500 text-white' : 'bg-gray-200'
-                    }`}
+                  className={`px-4 py-2 rounded-lg cursor-pointer ${
+                    aba === abas ? 'bg-orange-500 text-white' : 'bg-gray-200'
+                  }`}
                 >
                   {abas.charAt(0).toUpperCase() + abas.slice(1)}
                 </button>
@@ -255,7 +288,7 @@ export default function Candidatos() {
               // Fazer Map:
               <div>
                 <h2 className='text-xl font-bold'>
-                  {candidatoSelecionado.nome}
+                  Informações
                 </h2>
                 {candidatosMap.candidato.info.map((info, index) => {
                   if (info.end) {
@@ -267,7 +300,7 @@ export default function Candidatos() {
                               {candidatoSelecionado.endereco[number]}
                               {number === 'cidade' ? ' - ' : ''}
                               {index < info.select.length - 1 &&
-                                number !== 'cidade'
+                              number !== 'cidade'
                                 ? ', '
                                 : ''}
                             </span>
@@ -278,7 +311,10 @@ export default function Candidatos() {
                   } else if (info.select) {
                     return (
                       <p key={index} className={info.className}>
-                        {info.icon} {candidatoSelecionado[info.select]}
+                        {info.icon}{' '}
+                        {info.select === 'dataNascimento'
+                          ? formatarData()
+                          : candidatoSelecionado[info.select]}
                       </p>
                     )
                   } else if (info.isH3) {
@@ -313,9 +349,7 @@ export default function Candidatos() {
                 </h2>
                 {candidatosMap.candidato.vaga.map((vaga, index) => {
                   if (vaga.isH3) {
-                    return (
-                      <h3 className={vaga.className}>{vaga.text}</h3>
-                    )
+                    return <h3 className={vaga.className}>{vaga.text}</h3>
                   } else if (vaga.isUL) {
                     return (
                       <ul key={index} className='list-disc list-inside mb-2'>
