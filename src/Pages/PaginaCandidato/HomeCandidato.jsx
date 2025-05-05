@@ -9,7 +9,7 @@ const vagaMap = {
     { type: 'text', name: 'nome', placeholder: 'Nome Completo' },
     { type: 'email', name: 'email', placeholder: 'E-mail' },
     { type: 'date', name: 'dataNascimento', placeholder: 'Data de Nascimento' },
-    { type: 'text', name: 'telefone', placeholder: 'Telefone' },
+    { type: 'text', name: 'telefone', placeholder: 'Telefone' }
   ],
   part2: [
     { type: 'text', name: 'endereco.rua', placeholder: 'Rua' },
@@ -94,7 +94,7 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
       endereco: formData.endereco,
       descricao: formData.descricao,
       curriculo: formData.curriculo ? formData.curriculo.name : null,
-      status: "Em análise"
+      status: 'Em análise'
     }
 
     try {
@@ -267,13 +267,25 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
             ))}
 
             <h3 className='text-lg font-semibold mt-4'>Descrição</h3>
-            <p className='text-sm text-gray-600'>Conte como você pode ajudar a empresa no desafio descrito na vaga.</p>
+            <p className='text-sm text-gray-600'>
+              Conte como você pode ajudar a empresa no desafio descrito na vaga.
+            </p>
+            {formData.descricao ? (
+              <p className='flex justify-end text-sm text-gray-500 m-0'>
+                {formData.descricao.length}/1400
+              </p>
+            ) : null}
             <textarea
               type='textarea'
               name='descricao'
               placeholder='Descrição sobre'
               onChange={handleChange}
-              className='w-full mt-2 p-2 border rounded-lg'
+              className={
+                formData.descricao.length > 0
+                  ? 'w-full mt-0 p-2 border rounded-lg'
+                  : 'w-full mt-2 p-2 border rounded-lg'
+              }
+              maxLength={1400}
             />
 
             {/* Input para Upload do Currículo */}
