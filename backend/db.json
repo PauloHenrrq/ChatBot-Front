@@ -36,6 +36,14 @@
       "email": "candidato@gmail.com",
       "password": "12345678",
       "role": "user"
+    },
+    {
+      "id": "2c75",
+      "name": "Levi Duarte Lima",
+      "email": "levi@gmail.com",
+      "data_nascimento": "2004-10-13",
+      "password": "12345678",
+      "role": "user"
     }
   ],
   "vagas": [
