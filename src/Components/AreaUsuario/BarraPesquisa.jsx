@@ -90,7 +90,6 @@ export default function BarraPesquisa ({ onSearch }) {
       
         return correspondeTermo && correspondeLocalizacao;
       });
-      console.log(resultadoFiltrado)
       onSearch(resultadoFiltrado)
       setMostrarSugestoesVagas(false)
       setMostrarSugestoesLocal(false)

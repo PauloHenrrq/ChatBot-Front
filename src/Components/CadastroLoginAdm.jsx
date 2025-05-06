@@ -5,7 +5,7 @@ import FecharModal from './FecharModal.jsx'
 
 export default function CadastroLoginAdm () {
   const formatarData = () => {
-    const data = valorInicialNascimento
+    const data = editUser.data_nascimento
 
     if (!data) return ''
 
@@ -272,7 +272,7 @@ export default function CadastroLoginAdm () {
                       value={
                         cad.type === 'date'
                           ? formatarData()
-                          : cad.type != 'password' 
+                          : cad.type != 'password'
                           ? editUser[cad.name]
                           : cad.type === 'password'
                           ? null
@@ -288,7 +288,11 @@ export default function CadastroLoginAdm () {
                     />
                     {index === 3 ? (
                       <p
-                        className='absolute right-8 bottom-21.5 cursor-pointer'
+                        className={`absolute right-8 ${
+                          editUser.password.length < 6
+                            ? 'bottom-30.5'
+                            : 'bottom-21.5'
+                        } cursor-pointer`}
                         onClick={() => {
                           inputModify === 'text'
                             ? setInputModify('password')

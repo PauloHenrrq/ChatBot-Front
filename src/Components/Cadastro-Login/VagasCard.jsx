@@ -41,7 +41,6 @@ export default function VagasCard () {
   }
 
   async function salvarDados (values) {
-    console.log(modalAberto)
     if (!modalAberto || !modalAberto) {
       alert('Erro: ID da vaga não encontrado.')
       return
@@ -64,11 +63,6 @@ export default function VagasCard () {
           ? values.beneficios.split('\n').filter(Boolean)
           : []
       }
-
-      console.log(
-        `Enviando atualização para a vaga ID ${idVaga}:`,
-        dadosFormatados
-      )
 
       await api.put(`/vagas/${idVaga}`, dadosFormatados)
 

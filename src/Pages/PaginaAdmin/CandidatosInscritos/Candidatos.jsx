@@ -11,7 +11,6 @@ export default function Candidatos () {
     if (!data) return 'Data não informada'
 
     if (data.includes('-')) {
-      console.log(data)
       const partes = data.split('-')
       if (partes.length !== 3) return ''
       const [ano, mes, dia] = partes
@@ -33,7 +32,6 @@ export default function Candidatos () {
       try {
         const response = await api.get('/candidaturas')
         setCandidatos(response.data)
-        console.log(response.data)
       } catch (error) {
         console.error('Erro ao carregar candidatos:', error)
       }
