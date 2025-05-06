@@ -72,7 +72,7 @@ export default function LoginAdmin() {
         email: values.email,
         data_nascimento: values.data_nascimento,
         password: values.password,
-        role: "user", // Definindo o tipo de usuário padrão como "user"
+        role: "user"
       });
       alert("Cadastro realizado com sucesso!");
       navigate("/");

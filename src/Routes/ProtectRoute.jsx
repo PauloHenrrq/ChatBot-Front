@@ -1,17 +1,54 @@
-import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import { Navigate, Outlet, useLocation } from 'react-router-dom'
+import { api } from './server/api' // ajuste o caminho se necessário
 
-const ProtectRoute = () => {
-  // Verificando se o token está armazenado no localStorage
-  const token = localStorage.getItem("authToken");
+export default function ProtectRoute () {
+  const [role, setRole] = useState(null)
 
-  // Se não houver token, redireciona para a página de login
+  const location = useLocation()
+  const rotaAtual = location.pathname
+
+  const token = localStorage.getItem('authToken')
+
   if (!token) {
-    return <Navigate to="/" replace />;
+    return <Navigate to='/' replace />
   }
 
-  // Se o token existir, permite o acesso à rota protegida
-  return <Outlet />;
-};
+  useEffect(() => {
+    const coletarRole = async () => {
+      try {
+        const response = await api.get(`/users/${token}`)
+        const checarRole = response.data.role
+        setRole(checarRole)
+      } catch (error) {
+        console.error('Erro ao buscar role do usuário:', error)
+        setRole('user')
+      }
+    }
 
-export default ProtectRoute;
+    coletarRole()
+  }, [token])
+
+  const rotasAdmin = ['/cadastro-adm', '/candidatos', '/vagas']
+  const rotasUser = ['/home', '/minhas-vagas']
+
+  const isAdmin = role === 'admin'
+  const isUser = role === 'user'
+
+  const tentandoAcessarAdmin = rotasAdmin.includes(rotaAtual)
+  const tentandoAcessarUser = rotasUser.includes(rotaAtual)
+
+  if (tentandoAcessarUser && isAdmin) {
+    return <Outlet />
+  }
+
+  if (tentandoAcessarAdmin && isUser) {
+    return <Navigate to='/home' replace />
+  }
+
+  if (tentandoAcessarUser && isAdmin) {
+    return <Navigate to='/vagas' replace />
+  }
+
+  return <Outlet />
+}

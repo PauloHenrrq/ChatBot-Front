@@ -21,7 +21,8 @@ export default function VagasCard () {
     api
       .get('/candidaturas')
       .then(response =>
-        setCandidatura(response.data).catch(err =>
+        setCandidatura(response.data)
+        .catch(err =>
           console.error('Erro ao buscar candidaturas:', err)
         )
       )
