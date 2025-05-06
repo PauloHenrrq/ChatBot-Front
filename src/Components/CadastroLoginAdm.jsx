@@ -5,7 +5,7 @@ import FecharModal from './FecharModal.jsx'
 
 export default function CadastroLoginAdm () {
   const formatarData = () => {
-    const data = editUser.data_nascimento
+    const data = valorInicialNascimento
 
     if (!data) return ''
 
