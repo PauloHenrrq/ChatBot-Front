@@ -19,6 +19,46 @@
       "mensagem": "",
       "curriculo": "Levi_Curriculo.pdf",
       "status": "Em análise"
+    },
+    {
+      "id": "9b48",
+      "vagaId": 2,
+      "vagaTitulo": "Desenvolvedor Backend",
+      "nome": "candidato",
+      "email": "candidato@gmail.com",
+      "dataNascimento": "2004-10-13",
+      "telefone": "85985155690",
+      "endereco": {
+        "rua": "Rua",
+        "numero": "13",
+        "bairro": "Vila Velha",
+        "cidade": "Fortaleza",
+        "estado": "CE",
+        "cep": "60348-010"
+      },
+      "descricao": "",
+      "curriculo": "Levi_Curriculo_português.pdf",
+      "status": "Em análise"
+    },
+    {
+      "id": "b2fc",
+      "vagaId": 6,
+      "vagaTitulo": "UX/UI Designer",
+      "nome": "Rosimeire de Sousa Duarte Lima",
+      "email": "candidato@gmail.com",
+      "dataNascimento": "23490-01-13",
+      "telefone": "85985155690",
+      "endereco": {
+        "rua": "Rua",
+        "numero": "13",
+        "bairro": "",
+        "cidade": "Fortaleza",
+        "estado": "CE",
+        "cep": "60348010"
+      },
+      "descricao": "",
+      "curriculo": null,
+      "status": "Em análise"
     }
   ],
   "users": [

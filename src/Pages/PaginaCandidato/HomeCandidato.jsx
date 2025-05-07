@@ -84,23 +84,22 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
       return
     }
 
-    const candidatura = new FormData()
-    candidatura.append('vagaId', vagaSelecionada.id)
-    candidatura.append('vagaTitulo', vagaSelecionada.titulo)
-    candidatura.append('nome', formData.nome)
-    candidatura.append('email', formData.email)
-    candidatura.append('dataNascimento', formData.dataNascimento)
-    candidatura.append('telefone', formData.telefone)
-    candidatura.append('endereco', formData.endereco)
-    candidatura.append('descricao', formData.descricao)
-    candidatura.append('curriculo', formData.curriculo)
-    candidatura.append('status', 'Em análise')
+    const candidatura = {
+      vagaId: Number(vagaSelecionada.id),
+      vagaTitulo: vagaSelecionada.titulo,
+      nome: formData.nome,
+      email: formData.email,
+      dataNascimento: formData.dataNascimento,
+      telefone: formData.telefone,
+      endereco: formData.endereco,
+      descricao: formData.descricao,
+      curriculo: formData.curriculo ? formData.curriculo.name : null,
+      status: "Em análise"
+    }
 
     try {
       await api.post('/candidaturas', candidatura, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+        
       }) 
 
       alert('Candidatura enviada com sucesso!')
