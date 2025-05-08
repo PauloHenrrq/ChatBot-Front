@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { api } from '../../Routes/server/api'
 import FecharModal from '../FecharModal.jsx'
+import { jwtDecode } from 'jwt-decode'
 
 export default function CadastroVagaModal () {
   const [mostrarCadastroModal, setMostrarCadastroModal] = useState(false)
   const [novaVaga, setNovaVaga] = useState({
     titulo: '',
     empresa: '',
-    localizacao: '',
+    cep: '',
     descricao: '',
     requisitos: '',
     responsabilidades: '',
@@ -25,11 +26,9 @@ export default function CadastroVagaModal () {
 
     const vagaFormatada = {
       ...novaVaga,
-      requisitos: novaVaga.requisitos.split(',').map(req => req.trim()),
-      responsabilidades: novaVaga.responsabilidades
-        .split(',')
-        .map(resp => resp.trim()),
-      beneficios: novaVaga.beneficios.split(',').map(ben => ben.trim())
+      requisitos: novaVaga.requisitos.split('\n').map(req => req.trim()),
+      responsabilidades: novaVaga.responsabilidades.split('\n').map(resp => resp.trim()),
+      beneficios: novaVaga.beneficios.split('\n').map(ben => ben.trim())
     }
 
     try {
@@ -53,7 +52,7 @@ export default function CadastroVagaModal () {
           className: 'col-span-2 bg-zinc-100 p-2 rounded-lg'
         },
         { type: 'text', name: 'empresa', placeholder: 'Empresa' },
-        { type: 'text', name: 'localizacao', placeholder: 'Localização' }
+        { type: 'text', name: 'cep', placeholder: 'CEP' }
       ]
     },
     {
@@ -92,7 +91,11 @@ export default function CadastroVagaModal () {
 
       {mostrarCadastroModal && (
         <div className='fixed inset-0 flex items-center justify-center bg-black/50 p-4 overflow-auto'>
-          <FecharModal nomeModal={mostrarCadastroModal} className='bg-white p-6 rounded-lg shadow-lg max-w-lg w-full h-[80%] transition-all overflow-auto' setNomeModal={setMostrarCadastroModal}>
+          <FecharModal
+            nomeModal={mostrarCadastroModal}
+            className='bg-white p-6 rounded-lg shadow-lg max-w-lg w-full h-[80%] transition-all overflow-auto'
+            setNomeModal={setMostrarCadastroModal}
+          >
             <h3 className='text-xl font-bold text-center text-orange-600 mb-6'>
               Cadastrar Nova Vaga
             </h3>

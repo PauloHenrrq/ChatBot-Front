@@ -6,13 +6,16 @@ import Vagas from '../Pages/PaginaAdmin/Vagas'
 import HomeCandidato from '../Pages/PaginaCandidato/HomeCandidato'
 import CadastroLoginAdm from '../Components/CadastroLoginAdm'
 import MyVacancies from '../Pages/PaginaCandidato/MyVacancies'
+import CheckRoute from './CheckRoute.jsx'
 
 export default function AppRoute () {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Login />} />
+          <Route element={<CheckRoute />}>
+            <Route path='/' element={<Login />} />
+          </Route>
           <Route element={<ProtectRoute />}>
             <Route path='/cadastro-adm' element={<CadastroLoginAdm />} />
             <Route path='/candidatos' element={<Candidatos />} />

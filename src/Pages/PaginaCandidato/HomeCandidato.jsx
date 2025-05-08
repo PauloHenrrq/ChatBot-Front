@@ -3,33 +3,30 @@ import { useState, useEffect, useRef } from 'react'
 import { api } from '../../Routes/server/api'
 import BarraPesquisa from '../../Components/AreaUsuario/BarraPesquisa'
 import FecharModal from '../../Components/FecharModal.jsx'
+import 'animate.css'
+import { jwtDecode } from 'jwt-decode'
 
 const vagaMap = {
-  part1: [
-    { type: 'text', name: 'nome', placeholder: 'Nome Completo' },
-    { type: 'email', name: 'email', placeholder: 'E-mail' },
-    { type: 'date', name: 'dataNascimento', placeholder: 'Data de Nascimento' },
-    { type: 'text', name: 'telefone', placeholder: 'Telefone' }
-  ],
+  part1: [{ type: 'text', name: 'telefone', placeholder: 'Telefone' }],
   part2: [
+    { type: 'text', name: 'endereco.cep', placeholder: 'CEP' },
     { type: 'text', name: 'endereco.rua', placeholder: 'Rua' },
     { type: 'number', name: 'endereco.numero', placeholder: 'Número' },
     { type: 'text', name: 'endereco.bairro', placeholder: 'Bairro' },
     { type: 'text', name: 'endereco.cidade', placeholder: 'Cidade' },
-    { type: 'text', name: 'endereco.estado', placeholder: 'Estado' },
-    { type: 'text', name: 'endereco.cep', placeholder: 'CEP' }
+    { type: 'text', name: 'endereco.estado', placeholder: 'Estado' }
   ]
 }
 
-export default function HomeCandidato ({ nomeModal, setNomeModal }) {
+export default function HomeCandidato () {
   const [vagasInicial, setVagasInicial] = useState([])
   const [vagas, setVagas] = useState([])
   const [vagaSelecionada, setVagaSelecionada] = useState(null)
+  const [user, setUser] = useState([])
+  const [cep, setCep] = useState([])
   const [modalAberto, setModalAberto] = useState(false)
+  const [erro, setErro] = useState(null)
   const [formData, setFormData] = useState({
-    nome: '',
-    email: '',
-    dataNascimento: '',
     telefone: '',
     endereco: {
       rua: '',
@@ -47,31 +44,106 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
     const carregarVagas = async () => {
       try {
         const response = await api.get('/vagas')
-        setVagas(response.data)
-        setVagasInicial(response.data)
+        setVagas(response.data.details)
+        setVagasInicial(response.data.details)
       } catch (error) {
-        console.error('Erro ao carregar vagas:', error)
+        console.error('Vaga não encontrada', error)
+        setErro('Nenhuma vaga encontrada!')
       }
     }
+
+    const carregarUserID = async () => {
+      const token = localStorage.getItem('authToken')
+      const decode = jwtDecode(token)
+      const userID = decode.data.id
+      try {
+        const response = await api.get(`/users/${userID}`)
+        setUser(response.data.details)
+      } catch (error) {
+        console.error('Usuário não encontrado', error)
+      }
+    }
+
     carregarVagas()
+    carregarUserID()
   }, [])
+
+  useEffect(() => {
+    console.log(user)
+  }, [user])
+
+  useEffect(() => {
+    if (!vagaSelecionada) {
+      return
+    }
+
+    const CEP = async () => {
+      try {
+        const response = await api.get(
+          `https://viacep.com.br/ws/${vagaSelecionada.cep}/json/`
+        )
+        setCep(response.data)
+      } catch (error) {
+        console.error('CEP não encontrado!', error)
+      }
+    }
+
+    CEP()
+  }, [vagaSelecionada])
+
+  const getNestedValue = (obj, path) => {
+    return path.split('.').reduce((acc, key) => (acc ? acc[key] : ''), obj)
+  }
 
   const handleChange = e => {
     const { name, value } = e.target
+    const keys = name.split('.')
 
-    if (name.startsWith('endereco.')) {
-      const field = name.split('.')[1]
-      setFormData(prev => ({
-        ...prev,
-        endereco: { ...prev.endereco, [field]: value }
-      }))
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }))
-    }
+    setFormData(prev => {
+      const updated = { ...prev }
+      let nested = updated
+
+      for (let i = 0; i < keys.length - 1; i++) {
+        if (!nested[keys[i]]) nested[keys[i]] = {}
+        nested = nested[keys[i]]
+      }
+
+      nested[keys[keys.length - 1]] = value
+      return updated
+    })
   }
+
+  useEffect(() => {
+    const cepValue = formData?.endereco?.cep
+
+    if (cepValue && cepValue.length === 8) {
+      const buscarCEP = async () => {
+        try {
+          const response = await fetch(
+            `https://viacep.com.br/ws/${cepValue}/json/`
+          )
+          const data = await response.json()
+
+          if (!data.erro) {
+            setFormData(prev => ({
+              ...prev,
+              endereco: {
+                ...prev.endereco,
+                rua: data.logradouro || '',
+                bairro: data.bairro || '',
+                cidade: data.localidade || '',
+                estado: data.uf || ''
+              }
+            }))
+          }
+        } catch (error) {
+          console.error('Erro ao buscar CEP:', error)
+        }
+      }
+
+      buscarCEP()
+    }
+  }, [formData?.endereco?.cep])
 
   const handleSubmit = async () => {
     if (!vagaSelecionada) {
@@ -79,35 +151,33 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
       return
     }
 
-    if (!formData.nome || !formData.email || !formData.telefone) {
+    if (!formData.telefone || !formData.endereco.cep || !(formData.curriculo instanceof File) ) {
       alert('Preencha todos os campos obrigatórios.')
       return
     }
 
     const candidatura = new FormData()
+    candidatura.append('userId', user.id)
     candidatura.append('vagaId', vagaSelecionada.id)
     candidatura.append('vagaTitulo', vagaSelecionada.titulo)
-    candidatura.append('nome', formData.nome)
-    candidatura.append('email', formData.email)
-    candidatura.append('dataNascimento', formData.dataNascimento)
     candidatura.append('telefone', formData.telefone)
-    candidatura.append('endereco', formData.endereco)
+    candidatura.append('endereco', JSON.stringify(formData.endereco))
     candidatura.append('descricao', formData.descricao)
     candidatura.append('curriculo', formData.curriculo)
     candidatura.append('status', 'Em análise')
 
+    for (let [key, value] of candidatura.entries()) {
+      console.log(`${key}:`, value);
+    }
+
     try {
-      await api.post('/candidaturas', candidatura, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }) 
+      await api.post('/candidaturas', candidatura)
 
       alert('Candidatura enviada com sucesso!')
       setModalAberto(false)
     } catch (error) {
       console.error('Erro ao enviar candidatura:', error)
-      alert('Erro ao enviar candidatura. Tente novamente.')
+      alert(error.response ? error.response.data.message : 'Erro ao enviar candidatura. Tente novamente.')
     }
   }
 
@@ -120,9 +190,9 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
 
       <div className='flex flex-col max-md:gap-6 md:flex-row min-h-screen bg-gray-100 p-4'>
         {/* Lista de Vagas */}
-        <div className='md:w-1/2 bg-white shadow-md rounded-lg p-4 overflow-auto max-h-screen'>
-          <div className='flex justify-between'>
-            <h2 className='text-xl font-bold mb-4'>Vagas Disponíveis</h2>
+        <div className='md:w-1/2 bg-white shadow-md rounded-lg p-4 overflow-auto min-h-64'>
+          <div className='flex justify-between mb-4'>
+            <h2 className='text-xl font-bold'>Vagas Disponíveis</h2>
             <p
               className='underline cursor-pointer'
               onClick={() => {
@@ -132,24 +202,32 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
               Limpar filtros
             </p>
           </div>
-          {vagas.map(vaga => (
-            <a
-              href='#vagaSelecionada'
-              className='transition-all scroll-smooth duration-500'
-            >
-              <div
+          {erro ? (
+            <div className='flex justify-center items-center h-1/2 min-h-44'>
+              <p className='text-gray-400 font-bold text-xl min-lg:text-2xl'>
+                {erro}
+              </p>
+            </div>
+          ) : (
+            vagas.map(vaga => (
+              <a
                 key={vaga.id}
-                className='p-4 mb-2 border rounded-lg cursor-pointer hover:bg-gray-200'
-                onClick={() => setVagaSelecionada(vaga)}
+                href='#vagaSelecionada'
+                className='transition-all scroll-smooth duration-500 animate__animated animate__backInUp'
               >
-                <h3 className='text-lg font-semibold'>{vaga.titulo}</h3>
-                <p className='text-gray-600'>
-                  {vaga.empresa} - {vaga.localizacao}
-                </p>
-                <p className='text-sm text-gray-500 mt-2'>{vaga.descricao}</p>
-              </div>
-            </a>
-          ))}
+                <div
+                  className='p-4 mb-2 border rounded-lg cursor-pointer hover:bg-gray-200'
+                  onClick={() => setVagaSelecionada(vaga)}
+                >
+                  <h3 className='text-lg font-semibold'>{vaga.titulo}</h3>
+                  <p className='text-gray-600'>
+                    {vaga.empresa} - {vaga.localizacao}
+                  </p>
+                  <p className='text-sm text-gray-500 mt-2'>{vaga.descricao}</p>
+                </div>
+              </a>
+            ))
+          )}
         </div>
 
         {/* Detalhes da Vaga */}
@@ -160,11 +238,7 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
           {vagaSelecionada ? (
             <>
               <h2 className='text-2xl font-bold'>{vagaSelecionada.titulo}</h2>
-              <p className='text-gray-700 mt-2'>
-                {vagaSelecionada.empresa}{' '}
-                <span className='text-gray-300'>|</span>{' '}
-                {vagaSelecionada.localizacao}
-              </p>
+              <p className='text-gray-700 mt-2'>{vagaSelecionada.empresa} </p>
               <button
                 className='mt-6 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-500 cursor-pointer'
                 onClick={() => setModalAberto(true)}
@@ -173,8 +247,11 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
               </button>
 
               <div className='mt-6 border-t pt-4'>
-                <h3 className='text-lg font-semibold'>📍 Localização</h3>
-                <p className='text-gray-600'>{vagaSelecionada.localizacao}</p>
+                <h3 className='text-lg font-semibold'>📍 CEP</h3>
+                <p className='text-gray-600'>{cep.cep}</p>
+                <p className='text-gray-600'>
+                  {cep.logradouro}, {cep.numero}
+                </p>
               </div>
 
               <div className='mt-6 border-t pt-4'>
@@ -234,13 +311,30 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
         </div>
       </div>
 
-      {/* Modal de Candidatura */}
       {modalAberto && (
         <div className='fixed inset-0 flex items-center justify-center bg-black/50 overflow-auto'>
           <FecharModal
             className='bg-white p-6 rounded-lg shadow-lg w-96 h-[90%] overflow-auto'
             nomeModal={modalAberto}
-            setNomeModal={setModalAberto}
+            setNomeModal={() => {
+              setModalAberto(false)
+              setFormData({
+                nome: '',
+                email: '',
+                dataNascimento: '',
+                telefone: '',
+                endereco: {
+                  rua: '',
+                  numero: '',
+                  bairro: '',
+                  cidade: '',
+                  estado: '',
+                  cep: ''
+                },
+                descricao: '',
+                curriculo: null
+              })
+            }}
           >
             <h2 className='text-xl font-bold'>Candidatar-se à vaga</h2>
             <p className='text-gray-700 mt-2'>{vagaSelecionada?.titulo}</p>
@@ -263,7 +357,7 @@ export default function HomeCandidato ({ nomeModal, setNomeModal }) {
                 type={input.type}
                 name={input.name}
                 placeholder={input.placeholder}
-                value={formData.endereco[input.name]}
+                value={getNestedValue(formData, input.name)}
                 onChange={handleChange}
                 className='w-full mt-2 p-2 border rounded-lg'
               />

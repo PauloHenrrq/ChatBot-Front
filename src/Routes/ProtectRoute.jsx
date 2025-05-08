@@ -17,12 +17,11 @@ export default function ProtectRoute () {
   useEffect(() => {
     const coletarRole = async () => {
       try {
-        const response = await api.get(`/users/${token}`)
-        const checarRole = response.data.role
-        setRole(checarRole)
+        const response = await api.get(`/profile`)
+        const role = response.data.message.role
+        setRole(role)
       } catch (error) {
         console.error('Erro ao buscar role do usuário:', error)
-        setRole('user')
       }
     }
 
@@ -37,6 +36,14 @@ export default function ProtectRoute () {
 
   const tentandoAcessarAdmin = rotasAdmin.includes(rotaAtual)
   const tentandoAcessarUser = rotasUser.includes(rotaAtual)
+
+  if (rotaAtual === '/') {
+    if (isAdmin) {
+      return <Navigate to='/vagas' replace />
+    } else if (isUser) {
+      return <Navigate to='/home' replace />
+    }
+  }
 
   if (tentandoAcessarUser && isAdmin) {
     return <Outlet />
