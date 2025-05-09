@@ -4,12 +4,14 @@ import { api } from '../../Routes/server/api'
 import { jwtDecode } from 'jwt-decode'
 import HeaderCandidato from '../../Layout/HeaderCandidato'
 import { HandThumbUpIcon } from '@heroicons/react/24/outline'
+import FecharModal from '../../Components/FecharModal'
 
 export default function ProcessoCandidatura () {
-  const { id: vagaId } = useParams() // O id aqui é o vagaId
+  const { id: vagaId } = useParams()
   const navigate = useNavigate()
   const [vaga, setVaga] = useState(null)
   const [status, setStatus] = useState(null)
+  const [modal, setModal] = useState(false)
 
   useEffect(() => {
     const carregarVagas = async () => {
@@ -48,8 +50,17 @@ export default function ProcessoCandidatura () {
   return (
     <>
       <HeaderCandidato />
-      <h1 className='text-3xl mb-5 text-gray-800 text-center font-semibold m-20'>
-        Processo da candidatura ...
+      <h1 className='text-3xl mb-5 text-gray-800 text-center font-semibold m-20 flex justify-center'>
+        Processo da candidatura&nbsp;{' '}
+        {Array.from({ length: 3 }).map((_, index) => (
+          <span
+            key={index}
+            className='upDown'
+            style={{ animationDelay: `${index * 0.15}s` }}
+          >
+            .
+          </span>
+        ))}
       </h1>
       <div className='p-6 flex justify-center'>
         <div className='relative w-7/12 h-3 mb-6 bg-neutral-200 dark:bg-neutral-600 rounded-full'>
@@ -74,7 +85,7 @@ export default function ProcessoCandidatura () {
                 className={
                   index === 3
                     ? index === 3 && status === 'Contratado'
-                      ? 'w-10 h-10 rounded-full bg-white border-2 border-green-400 toBigInfinite'
+                      ? 'w-10 h-10 rounded-full bg-white border-2 border-green-400 toBigInfinite cursor-pointer'
                       : 'w-9 h-9 rounded-full bg-white border-2 border-zinc-400'
                     : `w-9 h-9 rounded-full ${
                         status === 'Reprovado'
@@ -84,6 +95,7 @@ export default function ProcessoCandidatura () {
                           : 'bg-neutral-400'
                       }`
                 }
+                onClick={() => setModal(true)}
               >
                 {index === 3 && status === 'Contratado' ? (
                   <HandThumbUpIcon className='stroke-green-600 toBig' />
@@ -95,6 +107,11 @@ export default function ProcessoCandidatura () {
           </div>
         </div>
       </div>
+      <FecharModal
+        nomeModal={modal}
+        setNomeModal={setModal}
+        className='absolute z-10 top-10'
+      ></FecharModal>
     </>
   )
 }
