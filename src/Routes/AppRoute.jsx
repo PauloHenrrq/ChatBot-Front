@@ -8,8 +8,8 @@ import CadastroLoginAdm from '../Components/CadastroLoginAdm'
 import CheckRoute from './CheckRoute.jsx'
 import Candidaturas from '../Pages/PaginaCandidato/Candidaturas.jsx'
 import ProcessoCandidatura from '../Pages/PaginaCandidato/ProcessoCandidatura.jsx'
-
-export default function AppRoute () {
+import NotFound from '../Pages/NotFound/NotFound.jsx'
+export default function AppRoute() {
   return (
     <>
       <BrowserRouter>
@@ -24,7 +24,9 @@ export default function AppRoute () {
 
             <Route path='/home' element={<HomeCandidato />} />
             <Route path='/minhas-vagas' element={<Candidaturas />} />
-            <Route path='/candidatura/:id' element={<ProcessoCandidatura />}/>
+            <Route path='/candidatura/:id' element={<ProcessoCandidatura />} />
+            {/* Rota 404 - deve ficar por último */}
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>
