@@ -30,14 +30,13 @@ export default function CadastroLoginAdm () {
   const [usuarios, setUsuarios] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [editUser, setEditUser] = useState(null)
-  const [valorInicialNascimento, setValorInicialNascimento] = useState('')
 
   useEffect(() => {
     if (showModal) {
       api
         .get('/users')
         .then(res => {
-          setUsuarios(res.data)
+          setUsuarios(res.data.details)
         })
         .catch(error => {
           console.error('Erro ao buscar usuários:', error)
@@ -46,16 +45,14 @@ export default function CadastroLoginAdm () {
   }, [showModal])
 
   useEffect(() => {
+    (usuarios)
+  }, [showModal])
+
+  useEffect(() => {
     if (!editUser) {
       setInputModify('password')
     }
   }, [!editUser])
-
-  useEffect(() => {
-    if (editUser?.data_nascimento) {
-      setValorInicialNascimento(editUser.data_nascimento)
-    }
-  }, [editUser])
 
   const handleDelete = async id => {
     if (window.confirm('Tem certeza que deseja deletar este usuário?')) {

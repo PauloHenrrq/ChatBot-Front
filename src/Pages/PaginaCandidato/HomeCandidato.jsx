@@ -69,26 +69,29 @@ export default function HomeCandidato () {
   }, [])
 
   useEffect(() => {
-    console.log(user)
-  }, [user])
-
-  useEffect(() => {
     if (!vagaSelecionada) {
       return
     }
 
-    const CEP = async () => {
-      try {
-        const response = await api.get(
-          `https://viacep.com.br/ws/${vagaSelecionada.cep}/json/`
-        )
-        setCep(response.data)
-      } catch (error) {
-        console.error('CEP não encontrado!', error)
-      }
-    }
+    const validatingCEP = /^[0-9]{8}$/
 
-    CEP()
+    const testCEP = validatingCEP.test(vagaSelecionada.cep)
+    if (testCEP) {
+      const CEP = async () => {
+        try {
+          const response = await api.get(
+            `https://viacep.com.br/ws/${vagaSelecionada.cep}/json/`
+          )
+          setCep(response.data)
+        } catch (error) {
+          console.error('CEP não encontrado!', error)
+        }
+      }
+
+      CEP()
+    } else {
+      setCep('Não possui CEP')
+    }
   }, [vagaSelecionada])
 
   const getNestedValue = (obj, path) => {
@@ -113,45 +116,17 @@ export default function HomeCandidato () {
     })
   }
 
-  useEffect(() => {
-    const cepValue = formData?.endereco?.cep
-
-    if (cepValue && cepValue.length === 8) {
-      const buscarCEP = async () => {
-        try {
-          const response = await fetch(
-            `https://viacep.com.br/ws/${cepValue}/json/`
-          )
-          const data = await response.json()
-
-          if (!data.erro) {
-            setFormData(prev => ({
-              ...prev,
-              endereco: {
-                ...prev.endereco,
-                rua: data.logradouro || '',
-                bairro: data.bairro || '',
-                cidade: data.localidade || '',
-                estado: data.uf || ''
-              }
-            }))
-          }
-        } catch (error) {
-          console.error('Erro ao buscar CEP:', error)
-        }
-      }
-
-      buscarCEP()
-    }
-  }, [formData?.endereco?.cep])
-
   const handleSubmit = async () => {
     if (!vagaSelecionada) {
       alert('Por favor, selecione uma vaga antes de se candidatar.')
       return
     }
 
-    if (!formData.telefone || !formData.endereco.cep || !(formData.curriculo instanceof File) ) {
+    if (
+      !formData.telefone ||
+      !formData.endereco.cep ||
+      !(formData.curriculo instanceof File)
+    ) {
       alert('Preencha todos os campos obrigatórios.')
       return
     }
@@ -166,10 +141,6 @@ export default function HomeCandidato () {
     candidatura.append('curriculo', formData.curriculo)
     candidatura.append('status', 'Em análise')
 
-    for (let [key, value] of candidatura.entries()) {
-      console.log(`${key}:`, value);
-    }
-
     try {
       await api.post('/candidaturas', candidatura)
 
@@ -177,7 +148,11 @@ export default function HomeCandidato () {
       setModalAberto(false)
     } catch (error) {
       console.error('Erro ao enviar candidatura:', error)
-      alert(error.response ? error.response.data.message : 'Erro ao enviar candidatura. Tente novamente.')
+      alert(
+        error.response
+          ? error.response.data.message
+          : 'Erro ao enviar candidatura. Tente novamente.'
+      )
     }
   }
 
@@ -249,9 +224,16 @@ export default function HomeCandidato () {
               <div className='mt-6 border-t pt-4'>
                 <h3 className='text-lg font-semibold'>📍 CEP</h3>
                 <p className='text-gray-600'>{cep.cep}</p>
-                <p className='text-gray-600'>
-                  {cep.logradouro}, {cep.numero}
-                </p>
+                {cep === 'Não possui CEP' ? cep : (
+                  <>
+                    <p className='text-gray-600'>
+                      {cep.logradouro}, {cep.bairro}
+                    </p>
+                    <p className='text-gray-600'>
+                      {cep.localidade} - {cep.uf}
+                    </p>
+                  </>
+                )}
               </div>
 
               <div className='mt-6 border-t pt-4'>

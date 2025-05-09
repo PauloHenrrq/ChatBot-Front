@@ -62,7 +62,7 @@ export default function LoginAdmin () {
         password: values.password
       })
       alert('Cadastro realizado com sucesso!')
-      setIsLogin(true)
+      navigate('/')
     } catch (error) {
       alert('Erro ao tentar cadastrar. Tente novamente.')
     }

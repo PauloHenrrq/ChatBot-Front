@@ -21,19 +21,45 @@ export default function VagasCard () {
       })
   }, [])
 
+  useEffect(() => {
+    console.log(modalAberto)
+  }, [modalAberto])
+
+  useEffect(() => {
+    const carregarCandidaturas = async () => {
+      try {
+        const response = await api.get('/candidaturas')
+        setCandidatura(response.data.details)
+      } catch (error) {
+        console.error('Erro ao carregar candidatos:', error)
+      }
+    }
+
+    carregarCandidaturas()
+  }, [])
+
   async function delVagas (id) {
     try {
-      const acharVaga = candidatura.find(cand => String(cand.vagaId) === id)
+      const acharCandidatura = candidatura.find(cand => cand.vagaId === id)
+
       await api.delete(`/vagas/${id}`)
-      await api.delete(`/candidaturas/${acharVaga.id}`)
+
+      if (acharCandidatura) {
+        await api.delete(`/candidaturas/${acharCandidatura.id}`)
+      }
+
       alert('Vaga excluída com sucesso!')
+
       setVagas(prevVagas => prevVagas.filter(vaga => vaga.id !== id))
     } catch (error) {
       console.error('Erro ao excluir vaga', error)
+      alert('Ocorreu um erro ao tentar excluir a vaga.')
     }
   }
 
   async function salvarDados (values) {
+    console.log('Valores recebidos:', values)
+
     if (!modalAberto || !modalAberto) {
       alert('Erro: ID da vaga não encontrado.')
       return
@@ -141,7 +167,8 @@ export default function VagasCard () {
           </p>
         </div>
       ) : (
-        Array.isArray(vagas) && vagas.map(vaga => (
+        Array.isArray(vagas) &&
+        vagas.map(vaga => (
           <div
             className='bg-gradient-to-b from-orange-200 to-white shadow-md rounded-lg p-4 w-full max-w-md flex flex-col justify-between mx-auto'
             key={vaga.id}
@@ -226,16 +253,19 @@ export default function VagasCard () {
                               )}
                             </div>
                           ))}
-                          <button
-                            type='button'
-                            onClick={() => {
-                              setEtapa(2)
-                              Form1.scrollTo({ top: 0 })
-                            }}
-                            className='bg-gray-600 hover:bg-gray-500 text-white px-6 py-2 rounded-md w-full cursor-pointer'
-                          >
-                            Próximo
-                          </button>
+                          <div className='flex gap-3'>
+                            <button
+                              type='button'
+                              onClick={e => {
+                                e.preventDefault()
+                                setEtapa(2)
+                                Form1.scrollTo({ top: 0 })
+                              }}
+                              className='bg-gray-600 hover:bg-gray-500 text-white px-6 py-2 rounded-md w-full cursor-pointer'
+                            >
+                              Próximo
+                            </button>
+                          </div>
                         </>
                       ) : etapa === 2 ? (
                         <>
@@ -299,7 +329,7 @@ export default function VagasCard () {
                             <button
                               type='button'
                               onClick={() => setEtapa(2)}
-                              className='bg-gray-600 hover:bg-gray-500 text-white px-6 py-2 rounded-md w-1/2 cursor-pointer'
+                              className='bg-gray-600 hover:bg-gray-500 text-white px-6 py-2 rounded-md w-full cursor-pointer'
                             >
                               Voltar
                             </button>

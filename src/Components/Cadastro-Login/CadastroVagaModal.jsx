@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { api } from '../../Routes/server/api'
 import FecharModal from '../FecharModal.jsx'
-import { jwtDecode } from 'jwt-decode'
 
 export default function CadastroVagaModal () {
   const [mostrarCadastroModal, setMostrarCadastroModal] = useState(false)
@@ -27,7 +26,9 @@ export default function CadastroVagaModal () {
     const vagaFormatada = {
       ...novaVaga,
       requisitos: novaVaga.requisitos.split('\n').map(req => req.trim()),
-      responsabilidades: novaVaga.responsabilidades.split('\n').map(resp => resp.trim()),
+      responsabilidades: novaVaga.responsabilidades
+        .split('\n')
+        .map(resp => resp.trim()),
       beneficios: novaVaga.beneficios.split('\n').map(ben => ben.trim())
     }
 
@@ -39,6 +40,10 @@ export default function CadastroVagaModal () {
       console.error('Erro ao cadastrar vaga', error)
       alert('Erro ao cadastrar vaga.')
     }
+
+    setTimeout(() => {
+      window.location.reload()
+    }, 200)
   }
 
   const formMap = [

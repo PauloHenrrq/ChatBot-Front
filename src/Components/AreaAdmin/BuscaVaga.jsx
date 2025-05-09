@@ -14,6 +14,10 @@ export default function BuscaVaga ({ candidatos, busca, setBusca }) {
     setSugestoes(busca ? filtradas : [])
   }, [busca, candidatos])
 
+  useEffect(() => {
+    (sugestoes)
+  }, [busca, candidatos])
+
   return (
     <FecharModal
       className='mb-4 flex justify-center items-center relative w-full max-w-md'
@@ -22,7 +26,7 @@ export default function BuscaVaga ({ candidatos, busca, setBusca }) {
     >
       <input
         type='text'
-        placeholder='Buscar por canditato...'
+        placeholder='Buscar por vaga...'
         value={busca}
         onChange={e => setBusca(e.target.value)}
         className='sm:w-full max-sm:w-[80%] p-2 border border-gray-300 outline-gray-400 rounded-t-md shadow-sm'

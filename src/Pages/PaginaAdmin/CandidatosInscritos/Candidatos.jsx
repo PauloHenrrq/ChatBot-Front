@@ -6,9 +6,14 @@ import FecharModal from '../../../Components/FecharModal.jsx'
 
 export default function Candidatos () {
   const formatarData = () => {
-    const data = candidatoSelecionado.dataNascimento
+    const userAssociado = user.find(
+      u => u.id === candidatoSelecionado.candidatoId
+    )
 
-    if (!data) return 'Data não informada'
+    if (!userAssociado || !userAssociado.data_nascimento)
+      return 'Data não informada'
+
+    const data = userAssociado.data_nascimento
 
     if (data.includes('-')) {
       const partes = data.split('-')
@@ -23,6 +28,8 @@ export default function Candidatos () {
   const [candidatos, setCandidatos] = useState([])
   const [modalAberto, setModalAberto] = useState(false)
   const [candidatoSelecionado, setCandidatoSelecionado] = useState(null)
+  const [user, setUser] = useState([])
+  const [cep, setCep] = useState([])
   const [vagaDetalhada, setVagaDetalhada] = useState(null)
   const [aba, setAba] = useState('candidato')
   const [busca, setBusca] = useState('')
@@ -31,13 +38,23 @@ export default function Candidatos () {
     const carregarCandidatos = async () => {
       try {
         const response = await api.get('/candidaturas')
-        setCandidatos(response.data)
+        setCandidatos(response.data.details)
       } catch (error) {
         console.error('Erro ao carregar candidatos:', error)
       }
     }
 
+    const carregarUser = async () => {
+      try {
+        const response = await api.get(`/users`)
+        setUser(response.data.details)
+      } catch (error) {
+        console.error('Erro ao retornar os usuários:', error)
+      }
+    }
+
     carregarCandidatos()
+    carregarUser()
   }, [])
 
   const atualizarStatus = async (id, novoStatus) => {
@@ -61,11 +78,33 @@ export default function Candidatos () {
 
     try {
       const response = await api.get(`/vagas/${candidato.vagaId}`)
-      setVagaDetalhada(response.data)
+      setVagaDetalhada(response.data.details)
+      setCep(response.data.details)
     } catch (error) {
       console.error('Erro ao buscar detalhes da vaga:', error)
     }
   }
+
+  useEffect(() => {
+    const validatingCEP = /^[0-9]{8}$/
+
+    const testCEP = validatingCEP.test(cep.cep)
+
+    if (testCEP) {
+      const carregarCEP = async () => {
+        try {
+          const response = await api.get(
+            `https://viacep.com.br/ws/${cep.cep}/json/`
+          )
+          setCep(response.data)
+        } catch (error) {
+          console.error('Erro ao retornar os dados do CEP:', error)
+        }
+      }
+
+      carregarCEP()
+    }
+  }, [cep.cep, aba])
 
   const candidatosMap = {
     definicoes: ['Nome', 'Email', 'Vaga', 'Status', 'Ações'],
@@ -78,11 +117,11 @@ export default function Candidatos () {
     abas: ['candidato', 'vaga'],
     candidato: {
       info: [
-        { select: 'nome', className: 'text-gray-700 mt-2', icon: '👥 ' },
+        { select: 'name', className: 'text-gray-700 mt-2', icon: '👥 ' },
         { select: 'email', className: 'text-gray-700 mt-2', icon: '📧 ' },
         { select: 'telefone', className: 'text-gray-700 mt-2', icon: '📞 ' },
         {
-          select: 'dataNascimento',
+          select: 'data_nascimento',
           className: 'text-gray-700 mt-2',
           icon: '📅 '
         },
@@ -102,7 +141,7 @@ export default function Candidatos () {
       ],
       vaga: [
         { select: 'empresa', className: 'text-gray-700 mb-1', icon: '🏢 ' },
-        { select: 'localizacao', className: 'text-gray-700 mb-1', icon: '📍 ' },
+        { select: 'cep', className: 'text-gray-700 mb-1', icon: '📍 ' },
         { select: 'descricao', className: 'text-gray-700 mb-4', icon: '📝 ' },
         {
           isH3: true,
@@ -143,8 +182,6 @@ export default function Candidatos () {
     <div className='min-h-screen bg-gray-100'>
       <Header />
 
-      {/* Barra de Pesquisa */}
-
       <div className='w-full flex flex-col items-center justify-center mt-6 gap-4 border-b border-zinc-300 pb-8 '>
         <h1 className='text-2xl font-semibold'>Filtre aqui os candidatos.</h1>
         <BuscaVaga candidatos={candidatos} busca={busca} setBusca={setBusca} />
@@ -172,34 +209,56 @@ export default function Candidatos () {
                 .filter(cand =>
                   cand.vagaTitulo.toLowerCase().includes(busca.toLowerCase())
                 )
-                .map(cand => (
-                  <tr key={cand.id} className='border-b'>
-                    <td className='p-3 whitespace-nowrap'>{cand.nome}</td>
-                    <td className='p-3 whitespace-nowrap'>{cand.email}</td>
-                    <td className='p-3 whitespace-nowrap'>{cand.vagaTitulo}</td>
-                    <td className='p-3'>
-                      <select
-                        className='border p-1 rounded w-full cursor-pointer'
-                        value={cand.status || 'Em análise'}
-                        onChange={e => atualizarStatus(cand.id, e.target.value)}
-                      >
-                        {candidatosMap.options.map((opt, index) => (
-                          <option value={opt} key={index}>
-                            {opt}
-                          </option>
-                        ))}
-                      </select>
-                    </td>
-                    <td className='p-3'>
-                      <button
-                        className='bg-orange-500 hover:bg-orange-400 transition-all text-white px-3 py-1 rounded w-full cursor-pointer'
-                        onClick={() => abrirModal(cand)}
-                      >
-                        Visualizar Currículo
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                .map(cand => {
+                  const userAssociado = user.find(
+                    user => user.id === cand.candidatoId
+                  )
+
+                  return (
+                    <tr key={cand.id} className='border-b'>
+                      <td className='p-3 whitespace-nowrap'>
+                        {userAssociado
+                          ? userAssociado.name
+                          : 'Nome não disponível'}
+                      </td>
+                      <td className='p-3 whitespace-nowrap'>
+                        {userAssociado
+                          ? userAssociado.email
+                          : 'Email não disponível'}
+                      </td>
+                      <td className='p-3 whitespace-nowrap'>
+                        {cand.vagaTitulo}
+                      </td>
+
+                      {/* Seletor de status */}
+                      <td className='p-3'>
+                        <select
+                          className='border p-1 rounded w-full cursor-pointer'
+                          value={cand.status || 'Em análise'}
+                          onChange={e =>
+                            atualizarStatus(cand.id, e.target.value)
+                          }
+                        >
+                          {candidatosMap.options.map((opt, index) => (
+                            <option value={opt} key={index}>
+                              {opt}
+                            </option>
+                          ))}
+                        </select>
+                      </td>
+
+                      {/* Botão de visualização de currículo */}
+                      <td className='p-3'>
+                        <button
+                          className='bg-orange-500 hover:bg-orange-400 transition-all text-white px-3 py-1 rounded w-full cursor-pointer'
+                          onClick={() => abrirModal(cand)}
+                        >
+                          Visualizar Currículo
+                        </button>
+                      </td>
+                    </tr>
+                  )
+                })}
             </tbody>
           </table>
         </div>
@@ -285,10 +344,12 @@ export default function Candidatos () {
             {aba === 'candidato' && (
               // Fazer Map:
               <div>
-                <h2 className='text-xl font-bold'>
-                  Informações
-                </h2>
+                <h2 className='text-xl font-bold'>Informações</h2>
                 {candidatosMap.candidato.info.map((info, index) => {
+                  const userAssociado = user.find(
+                    user => user.id === candidatoSelecionado.candidatoId
+                  )
+
                   if (info.end) {
                     return (
                       <p key={index} className={info.className}>
@@ -310,9 +371,11 @@ export default function Candidatos () {
                     return (
                       <p key={index} className={info.className}>
                         {info.icon}{' '}
-                        {info.select === 'dataNascimento'
+                        {info.select === 'data_nascimento'
                           ? formatarData()
-                          : candidatoSelecionado[info.select]}
+                          : ['vagaTitulo', 'telefone'].includes(info.select)
+                          ? candidatoSelecionado[info.select]
+                          : userAssociado[info.select]}
                       </p>
                     )
                   } else if (info.isH3) {
@@ -328,7 +391,7 @@ export default function Candidatos () {
                   <div className='mt-4'>
                     <h3 className='text-lg font-semibold'>📄 Currículo</h3>
                     <a
-                      href={candidatoSelecionado.curriculo}
+                      href={`https://chatbot-back-production-d852.up.railway.app/uploads/curriculos/${candidatoSelecionado.curriculo}`}
                       target='_blank'
                       rel='noopener noreferrer'
                       className='text-blue-600 underline'
@@ -347,7 +410,11 @@ export default function Candidatos () {
                 </h2>
                 {candidatosMap.candidato.vaga.map((vaga, index) => {
                   if (vaga.isH3) {
-                    return <h3 className={vaga.className}>{vaga.text}</h3>
+                    return (
+                      <h3 key={index} className={vaga.className}>
+                        {vaga.text}
+                      </h3>
+                    )
                   } else if (vaga.isUL) {
                     return (
                       <ul key={index} className='list-disc list-inside mb-2'>

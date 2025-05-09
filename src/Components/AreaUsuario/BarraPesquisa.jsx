@@ -20,7 +20,7 @@ export default function BarraPesquisa ({ onSearch }) {
 
     try {
       const response = await api.get(`/vagas`)
-      const vagaFiltrada = response.data.filter(vaga => {
+      const vagaFiltrada = response.data.details.filter(vaga => {
         const campos = [vaga.titulo, vaga.empresa]
           .filter(Boolean)
           .join(' ')
@@ -46,7 +46,7 @@ export default function BarraPesquisa ({ onSearch }) {
       const response = await api.get(`/vagas`)
       // Filtra localizações únicas
       const locaisUnicos = [
-        ...new Set(response.data.map(vaga => vaga.localizacao))
+        ...new Set(response.data.details.map(vaga => vaga.localizacao))
       ]
       const localFiltrado = locaisUnicos.filter(local =>
         local.toLowerCase().includes(valor.toLowerCase())
@@ -73,7 +73,7 @@ export default function BarraPesquisa ({ onSearch }) {
           .trim();                             
       };
       
-      const resultadoFiltrado = response.data.filter((vaga) => {
+      const resultadoFiltrado = response.data.details.filter((vaga) => {
         const campos = normalizarTexto(
           [vaga.titulo, vaga.empresa].filter(Boolean).join(" ")
         );
