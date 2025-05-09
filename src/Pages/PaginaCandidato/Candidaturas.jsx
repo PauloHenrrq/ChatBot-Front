@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import HeaderCandidato from '../../Layout/HeaderCandidato'
 import { api } from '../../Routes/server/api'
 import { jwtDecode } from 'jwt-decode'
+import { Link } from 'react-router-dom'
 
 export default function Candidaturas () {
   const [vagas, setVagas] = useState([])
@@ -57,9 +58,9 @@ export default function Candidaturas () {
                 <h2 className='text-2xl font-semibold text-center'>
                   {vagas.titulo}
                 </h2>
-                <a href={`/candidatura/${candidatura.id}`}>
+                <Link to={`/candidatura/${candidatura.id}`}>
                   <button className='w-full border cursor-pointer'>a</button>
-                </a>
+                </Link>
               </div>
             )
           })}
