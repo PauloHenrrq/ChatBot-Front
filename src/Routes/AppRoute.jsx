@@ -5,8 +5,9 @@ import ProtectRoute from '../Routes/ProtectRoute.jsx'
 import Vagas from '../Pages/PaginaAdmin/Vagas'
 import HomeCandidato from '../Pages/PaginaCandidato/HomeCandidato'
 import CadastroLoginAdm from '../Components/CadastroLoginAdm'
-import MyVacancies from '../Pages/PaginaCandidato/MyVacancies'
 import CheckRoute from './CheckRoute.jsx'
+import Candidaturas from '../Pages/PaginaCandidato/Candidaturas.jsx'
+import ProcessoCandidatura from '../Pages/PaginaCandidato/ProcessoCandidatura.jsx'
 
 export default function AppRoute () {
   return (
@@ -22,7 +23,8 @@ export default function AppRoute () {
             <Route path='/vagas' element={<Vagas />} />
 
             <Route path='/home' element={<HomeCandidato />} />
-            <Route path='/minhas-vagas' element={<MyVacancies />} />
+            <Route path='/minhas-vagas' element={<Candidaturas />} />
+            <Route path='/candidatura/:id' element={<ProcessoCandidatura />}/>
           </Route>
         </Routes>
       </BrowserRouter>
