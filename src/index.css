@@ -11,3 +11,51 @@
 .fieldArea {
     @apply w-full h-40 resize-none p-3 border border-gray-300 rounded-md shadow-sm
 }
+
+
+.button-decor {
+    /* background-color: #ff8904; */
+    position: relative;
+    overflow: hidden;
+}
+
+.button-decor:hover {
+    color: white;
+}
+
+.button-decor::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    z-index: -100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    position: absolute;
+    left: -190px;
+    top: 200%;
+    background-color: #ff8904;
+}
+
+.button-decor:hover::before {
+    animation: desloc .5s;
+    color: white;
+    left: 0;
+    top: 0;
+}
+
+@keyframes desloc {
+    0% {
+        left: -190px;
+        top: 200%;
+    }
+    50% {
+        left: 15%;
+        top: -40%;
+    }
+    100% {
+        left: 0;
+        top: 0;
+    }
+}
