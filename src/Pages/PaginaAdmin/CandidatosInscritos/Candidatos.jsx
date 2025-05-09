@@ -59,7 +59,9 @@ export default function Candidatos () {
 
   const atualizarStatus = async (id, novoStatus) => {
     try {
-      await api.patch(`/candidaturas/${id}`, { status: novoStatus })
+      console.log(id)
+      console.log(novoStatus)
+      await api.put(`/candidaturas/${id}`, { status: novoStatus })
       setCandidatos(prev =>
         prev.map(cand =>
           cand.id === id ? { ...cand, status: novoStatus } : cand

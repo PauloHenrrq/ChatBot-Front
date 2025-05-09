@@ -118,8 +118,9 @@ export default function HomeCandidato () {
 
   useEffect(() => {
     const cepValue = formData?.endereco?.cep
+    const isValidCEP = /^\d{5}-?\d{3}$/.test(cepValue)
 
-    if (cepValue && cepValue.length === 8) {
+    if (isValidCEP) {
       const buscarCEP = async () => {
         try {
           const response = await fetch(
@@ -257,10 +258,10 @@ export default function HomeCandidato () {
                 <h3 className='text-lg font-semibold'>📍 CEP</h3>
                 <p className='text-gray-600'>{cep.cep}</p>
                 <p className='text-gray-600'>
-                  {cep.cep === 'CPF não informado' ? cep.logradouro : `${cep.logradouro}, ${cep.bairro}`}
+                  {cep.logradouro === 'CPF não informado' ? cep.logradouro : `${cep.logradouro}, ${cep.bairro}`}
                 </p>
                 <p className='text-gray-600'>
-                  {cep.cep === 'CPF não informado' ? cep.logradouro : `${cep.localidade} - ${cep.uf}`}
+                  {cep.logradouro === 'CPF não informado' ? null : `${cep.localidade} - ${cep.uf}`}
                 </p>
               </div>
 

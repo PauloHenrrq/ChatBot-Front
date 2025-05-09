@@ -54,8 +54,6 @@ export default function VagasCard () {
   }
 
   async function salvarDados (values) {
-    console.log('Valores recebidos:', values)
-
     if (!modalAberto || !modalAberto) {
       alert('Erro: ID da vaga não encontrado.')
       return
@@ -66,8 +64,8 @@ export default function VagasCard () {
     try {
       const vagaExistente = vagas.find(vaga => String(vaga.id) === idVaga)
       const dadosFormatados = {
-        ...vagaExistente, // Mantém os dados antigos
-        ...values, // Atualiza os novos valores
+        ...vagaExistente,
+        ...values,
         requisitos: values.requisitos
           ? values.requisitos.split('\n').filter(Boolean)
           : [],
@@ -100,7 +98,7 @@ export default function VagasCard () {
   const validationSchema = Yup.object().shape({
     titulo: Yup.string().required('Campo Obrigatório'),
     empresa: Yup.string().required('Campo Obrigatório'),
-    localizacao: Yup.string().required('Campo Obrigatório'),
+    cep: Yup.string().required('Campo Obrigatório'),
     descricao: Yup.string().required('Campo Obrigatório'),
     informacoes_adicionais: Yup.string().required('Campo Obrigatório'),
     requisitos: Yup.string().required('Campo Obrigatório'),
@@ -189,18 +187,20 @@ export default function VagasCard () {
               <div className='fixed inset-0 flex items-center justify-center bg-black/40 px-4 overflow-auto'>
                 <FecharModal
                   nomeModal={modalAberto}
-                  className='bg-white p-8 rounded-2xl shadow-2xl max-w-5xl w-full h-[90%] flex flex-col justify-center relative overflow-auto'
+                  className='bg-white p-10 rounded-2xl shadow-2xl max-w-5xl w-full h-[90%] flex flex-col justify-center relative overflow-auto'
                   setNomeModal={setModalAberto}
                 >
-                  <button
-                    className='cursor-pointer absolute top-2 right-4 bg-red-500 text-white px-4 py-2 rounded font-bold'
-                    onClick={() => {
-                      setModalAberto(null)
-                      setEtapa(1)
-                    }}
-                  >
-                    X
-                  </button>
+                  <div className='absolute right-2 top-2'>
+                    <button
+                      className='cursor-pointer bg-red-500 text-white p-1.5 px-3 rounded font-bold'
+                      onClick={() => {
+                        setModalAberto(null)
+                        setEtapa(1)
+                      }}
+                    >
+                      X
+                    </button>
+                  </div>
                   <Formik
                     enableReinitialize
                     initialValues={{
@@ -328,12 +328,6 @@ export default function VagasCard () {
                               className='bg-gray-600 hover:bg-gray-500 text-white px-6 py-2 rounded-md w-full cursor-pointer'
                             >
                               Voltar
-                            </button>
-                            <button
-                              type='submit'
-                              className='bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md cursor-pointer w-full'
-                            >
-                              Salvar
                             </button>
                           </div>
                         </>

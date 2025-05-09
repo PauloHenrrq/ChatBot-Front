@@ -1,17 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { FaSearch, FaMapMarkerAlt } from 'react-icons/fa'
 import { api } from '../../Routes/server/api'
 
 export default function BarraPesquisa ({ onSearch }) {
   const [termo, setTermo] = useState('')
-  const [localizacao, setLocalizacao] = useState('')
-  const [sugestoesVagas, setSugestoesVagas] = useState([]) // Sugestões de vagas
-  const [sugestoesLocal, setSugestoesLocal] = useState([]) // Sugestões de localizações
+  const [cep, setCep] = useState('')
+  const [sugestoesVagas, setSugestoesVagas] = useState([])
+  const [sugestoesCep, setSugestoesCep] = useState([])
   const [mostrarSugestoesVagas, setMostrarSugestoesVagas] = useState(false)
-  const [mostrarSugestoesLocal, setMostrarSugestoesLocal] = useState(false)
+  const [mostrarSugestoesCep, setMostrarSugestoesCep] = useState(false)
 
-  // Buscar sugestões de vagas conforme o usuário digita
   const buscarSugestoesVagas = async valor => {
     if (valor.length < 1) {
       setSugestoesVagas([])
@@ -20,14 +19,26 @@ export default function BarraPesquisa ({ onSearch }) {
 
     try {
       const response = await api.get(`/vagas`)
-      const vagaFiltrada = response.data.details.filter(vaga => {
+      const todasVagas = response.data.details
+
+      // Se o valor tiver só 1 caractere, mostra tudo
+      if (valor.length === 1) {
+        setSugestoesVagas(todasVagas)
+        setMostrarSugestoesVagas(true)
+        return
+      }
+
+      const termoNormalizado = valor.toLowerCase().trim()
+
+      const vagaFiltrada = todasVagas.filter(vaga => {
         const campos = [vaga.titulo, vaga.empresa]
           .filter(Boolean)
           .join(' ')
           .toLowerCase()
 
-        return campos.includes(termo.toLowerCase())
+        return campos.includes(termoNormalizado)
       })
+
       setSugestoesVagas(vagaFiltrada)
       setMostrarSugestoesVagas(true)
     } catch (error) {
@@ -35,86 +46,96 @@ export default function BarraPesquisa ({ onSearch }) {
     }
   }
 
-  // Buscar sugestões de localizações
-  const buscarSugestoesLocal = async valor => {
+  const buscarSugestoesCep = async valor => {
     if (valor.length < 1) {
-      setSugestoesLocal([])
+      setSugestoesCep([])
       return
     }
 
     try {
       const response = await api.get(`/vagas`)
-      // Filtra localizações únicas
-      const locaisUnicos = [
-        ...new Set(response.data.details.map(vaga => vaga.localizacao))
+      const todasVagas = response.data.details
+
+      const cepsUnicos = [
+        ...new Set(todasVagas.map(vaga => vaga.cep).filter(Boolean))
       ]
-      const localFiltrado = locaisUnicos.filter(local =>
-        local.toLowerCase().includes(valor.toLowerCase())
+
+      // Se só 1 caractere, mostra todos os CEPs únicos
+      if (valor.length === 1) {
+        setSugestoesCep(cepsUnicos)
+        setMostrarSugestoesCep(true)
+        return
+      }
+
+      const termo = valor.trim().replace('-', '').toLowerCase()
+
+      const cepFiltrado = cepsUnicos.filter(cep =>
+        cep.replace('-', '').toLowerCase().includes(termo)
       )
-      setSugestoesLocal(localFiltrado)
-      setMostrarSugestoesLocal(true)
+
+      setSugestoesCep(cepFiltrado)
+      setMostrarSugestoesCep(true)
     } catch (error) {
-      console.error('Erro ao buscar sugestões de localizações:', error)
+      console.error('Erro ao buscar sugestões de CEPs:', error)
     }
   }
 
-  // Buscar vagas ao clicar no botão
   const buscarVagas = async () => {
     try {
-      const response = await api.get(`/vagas`)
+      const response = await api.get('/vagas')
 
-      const normalizarTexto = (texto) => {
+      const normalizarTexto = texto => {
         return texto
           .toLowerCase()
-          .normalize("NFD")                     
-          .replace(/[\u0300-\u036f]/g, "")     
-          .replace(/[^\w\s]/g, "")             
-          .replace(/\s+/g, " ")                
-          .trim();                             
-      };
-      
-      const resultadoFiltrado = response.data.details.filter((vaga) => {
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/[^\w\s]/g, '')
+          .replace(/\s+/g, ' ')
+          .trim()
+      }
+
+      const resultadoFiltrado = response.data.details.filter(vaga => {
         const campos = normalizarTexto(
-          [vaga.titulo, vaga.empresa].filter(Boolean).join(" ")
-        );
-      
-        const palavrasDoTermo = normalizarTexto(termo).split(" ").filter(Boolean);
-      
+          [vaga.titulo, vaga.empresa].filter(Boolean).join(' ')
+        )
+
+        const palavrasDoTermo = normalizarTexto(termo)
+          .split(' ')
+          .filter(Boolean)
+
         const correspondeTermo = palavrasDoTermo.every(palavra =>
           campos.includes(palavra)
-        );
-      
-        const correspondeLocalizacao = localizacao
-          ? normalizarTexto(vaga.localizacao).includes(normalizarTexto(localizacao))
-          : true;
-      
-        return correspondeTermo && correspondeLocalizacao;
-      });
+        )
+
+        const correspondeCep = cep
+          ? normalizarTexto(vaga.cep).includes(normalizarTexto(cep))
+          : true
+
+        return correspondeTermo && correspondeCep
+      })
+
       onSearch(resultadoFiltrado)
       setMostrarSugestoesVagas(false)
-      setMostrarSugestoesLocal(false)
+      setMostrarSugestoesCep(false)
     } catch (error) {
       console.error('Erro ao buscar vagas:', error)
     }
   }
 
-  // Quando o usuário clicar em uma sugestão de vaga
   const selecionarSugestaoVaga = vaga => {
-    setTermo(vaga.titulo + ' | ' + vaga.empresa)
+    setTermo(`${vaga.titulo} | ${vaga.empresa}`)
     setSugestoesVagas([])
     setMostrarSugestoesVagas(false)
   }
 
-  // Quando o usuário clicar em uma sugestão de local
-  const selecionarSugestaoLocal = local => {
-    setLocalizacao(local)
-    setSugestoesLocal([])
-    setMostrarSugestoesLocal(false)
+  const selecionarSugestaoCep = cepSelecionado => {
+    setCep(cepSelecionado)
+    setSugestoesCep([])
+    setMostrarSugestoesCep(false)
   }
 
   return (
     <div className='relative w-full max-w-2xl mx-auto'>
-      {/* Barra de pesquisa */}
       <div className='flex items-center bg-white shadow-md rounded-full px-4 py-2 w-full'>
         <FaSearch className='text-gray-500 mx-2 text-3xl' />
         <div className='relative w-full'>
@@ -128,7 +149,6 @@ export default function BarraPesquisa ({ onSearch }) {
               buscarSugestoesVagas(e.target.value)
             }}
           />
-          {/* Dropdown de sugestões de vagas */}
           {mostrarSugestoesVagas && sugestoesVagas.length > 0 && (
             <ul className='absolute z-10 bg-white border border-gray-300 rounded-md mt-1 w-full shadow-lg'>
               {sugestoesVagas.map((vaga, index) => (
@@ -149,24 +169,23 @@ export default function BarraPesquisa ({ onSearch }) {
         <div className='relative w-full'>
           <input
             type='text'
-            placeholder='Localização'
+            placeholder='Digite o CEP...'
             className='w-full outline-none'
-            value={localizacao}
+            value={cep}
             onChange={e => {
-              setLocalizacao(e.target.value)
-              buscarSugestoesLocal(e.target.value)
+              setCep(e.target.value)
+              buscarSugestoesCep(e.target.value)
             }}
           />
-          {/* Dropdown de sugestões de localizações */}
-          {mostrarSugestoesLocal && sugestoesLocal.length > 0 && (
+          {mostrarSugestoesCep && sugestoesCep.length > 0 && (
             <ul className='absolute z-10 bg-white border border-gray-300 rounded-md mt-1 w-full shadow-lg'>
-              {sugestoesLocal.map((local, index) => (
+              {sugestoesCep.map((cepItem, index) => (
                 <li
                   key={index}
                   className='p-2 hover:bg-gray-200 cursor-pointer'
-                  onClick={() => selecionarSugestaoLocal(local)}
+                  onClick={() => selecionarSugestaoCep(cepItem)}
                 >
-                  {local}
+                  {cepItem}
                 </li>
               ))}
             </ul>
@@ -177,7 +196,10 @@ export default function BarraPesquisa ({ onSearch }) {
           className='bg-orange-600 hover:bg-orange-700 text-white font-bold px-2 py-2 rounded-full ml-2 cursor-pointer'
           onClick={buscarVagas}
         >
-          <MagnifyingGlassIcon aria-hidden="true" className="size-6 group-data-open:block" />
+          <MagnifyingGlassIcon
+            aria-hidden='true'
+            className='size-6 group-data-open:block'
+          />
         </button>
       </div>
     </div>
