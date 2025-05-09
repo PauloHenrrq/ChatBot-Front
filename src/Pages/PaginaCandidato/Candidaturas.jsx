@@ -35,7 +35,7 @@ export default function Candidaturas () {
     }
 
     carregarCandidaturasEVagas()
-  }, [])
+  }, [userID])
 
   return (
     <>
@@ -47,19 +47,21 @@ export default function Candidaturas () {
           </h1>
         </section>
         <section className='p-8 border rounded-2xl flex'>
-          {vagas.map((vagas, index) => {
-            const candidatura = candidaturas.find(c => c.vagaId === vagas.id)
+          {vagas.map((vaga, index) => {
+            const candidatura = candidaturas.find(c => c.vagaId === vaga.id)
 
             return (
               <div key={index} className='w-1/3 border rounded-xl p-4'>
                 <h1 className='text-4xl font-semibold text-center'>
-                  {vagas.empresa}
+                  {vaga.empresa}
                 </h1>
                 <h2 className='text-2xl font-semibold text-center'>
-                  {vagas.titulo}
+                  {vaga.titulo}
                 </h2>
                 <Link to={`/candidatura/${candidatura.id}`}>
-                  <button className='w-full border cursor-pointer'>a</button>
+                  <button className='w-full border cursor-pointer'>
+                    Detalhes
+                  </button>
                 </Link>
               </div>
             )
