@@ -21,7 +21,6 @@ export default function BarraPesquisa ({ onSearch }) {
       const response = await api.get(`/vagas`)
       const todasVagas = response.data.details
 
-      // Se o valor tiver só 1 caractere, mostra tudo
       if (valor.length === 1) {
         setSugestoesVagas(todasVagas)
         setMostrarSugestoesVagas(true)
@@ -60,7 +59,6 @@ export default function BarraPesquisa ({ onSearch }) {
         ...new Set(todasVagas.map(vaga => vaga.cep).filter(Boolean))
       ]
 
-      // Se só 1 caractere, mostra todos os CEPs únicos
       if (valor.length === 1) {
         setSugestoesCep(cepsUnicos)
         setMostrarSugestoesCep(true)
