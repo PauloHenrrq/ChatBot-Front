@@ -70,28 +70,28 @@ export default function HomeCandidato () {
 
   useEffect(() => {
     if (!vagaSelecionada) {
-      return
+      return 
     }
 
-    const validatingCEP = /^[0-9]{8}$/
+    const CEP = async () => {
+      const isValidCEP = /^\d{5}-?\d{3}$/.test(vagaSelecionada.cep)
 
-    const testCEP = validatingCEP.test(vagaSelecionada.cep)
-    if (testCEP) {
-      const CEP = async () => {
-        try {
-          const response = await api.get(
-            `https://viacep.com.br/ws/${vagaSelecionada.cep}/json/`
-          )
-          setCep(response.data)
-        } catch (error) {
-          console.error('CEP não encontrado!', error)
-        }
+    if (!isValidCEP) {
+      setCep({ logradouro: 'CPF não informado' }); 
+      return;
+    }
+
+      try {
+        const response = await api.get(
+          `https://viacep.com.br/ws/${vagaSelecionada.cep}/json/`
+        )
+        setCep(response.data)
+      } catch (error) {
+        console.error('CEP não encontrado!', error)
       }
-
-      CEP()
-    } else {
-      setCep('Não possui CEP')
     }
+
+    CEP()
   }, [vagaSelecionada])
 
   const getNestedValue = (obj, path) => {
@@ -115,6 +115,38 @@ export default function HomeCandidato () {
       return updated
     })
   }
+
+  useEffect(() => {
+    const cepValue = formData?.endereco?.cep
+
+    if (cepValue && cepValue.length === 8) {
+      const buscarCEP = async () => {
+        try {
+          const response = await fetch(
+            `https://viacep.com.br/ws/${cepValue}/json/`
+          )
+          const data = await response.json()
+
+          if (!data.erro) {
+            setFormData(prev => ({
+              ...prev,
+              endereco: {
+                ...prev.endereco,
+                rua: data.logradouro || '',
+                bairro: data.bairro || '',
+                cidade: data.localidade || '',
+                estado: data.uf || ''
+              }
+            }))
+          }
+        } catch (error) {
+          console.error('Erro ao buscar CEP:', error)
+        }
+      }
+
+      buscarCEP()
+    }
+  }, [formData?.endereco?.cep])
 
   const handleSubmit = async () => {
     if (!vagaSelecionada) {
@@ -224,16 +256,12 @@ export default function HomeCandidato () {
               <div className='mt-6 border-t pt-4'>
                 <h3 className='text-lg font-semibold'>📍 CEP</h3>
                 <p className='text-gray-600'>{cep.cep}</p>
-                {cep === 'Não possui CEP' ? cep : (
-                  <>
-                    <p className='text-gray-600'>
-                      {cep.logradouro}, {cep.bairro}
-                    </p>
-                    <p className='text-gray-600'>
-                      {cep.localidade} - {cep.uf}
-                    </p>
-                  </>
-                )}
+                <p className='text-gray-600'>
+                  {cep.cep === 'CPF não informado' ? cep.logradouro : `${cep.logradouro}, ${cep.bairro}`}
+                </p>
+                <p className='text-gray-600'>
+                  {cep.cep === 'CPF não informado' ? cep.logradouro : `${cep.localidade} - ${cep.uf}`}
+                </p>
               </div>
 
               <div className='mt-6 border-t pt-4'>

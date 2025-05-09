@@ -22,10 +22,6 @@ export default function VagasCard () {
   }, [])
 
   useEffect(() => {
-    console.log(modalAberto)
-  }, [modalAberto])
-
-  useEffect(() => {
     const carregarCandidaturas = async () => {
       try {
         const response = await api.get('/candidaturas')
@@ -123,9 +119,9 @@ export default function VagasCard () {
         className: 'fieldText'
       },
       {
-        label: 'Localização',
+        label: 'CEP',
         type: 'text',
-        name: 'localizacao',
+        name: 'cep',
         className: 'fieldText'
       },
       {
@@ -210,7 +206,7 @@ export default function VagasCard () {
                     initialValues={{
                       titulo: vaga.titulo,
                       empresa: vaga.empresa,
-                      localizacao: vaga.localizacao,
+                      cep: vaga.cep,
                       descricao: vaga.descricao,
                       salario: vaga.salario,
                       informacoes_adicionais: vaga.informacoes_adicionais,

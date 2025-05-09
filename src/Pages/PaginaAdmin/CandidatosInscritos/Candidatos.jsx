@@ -216,24 +216,24 @@ export default function Candidatos () {
 
                   return (
                     <tr key={cand.id} className='border-b'>
-                      <td className='p-3 whitespace-nowrap'>
+                      <td className='p-3 whitespace-nowrap text-center'>
                         {userAssociado
                           ? userAssociado.name
                           : 'Nome não disponível'}
                       </td>
-                      <td className='p-3 whitespace-nowrap'>
+                      <td className='p-3 whitespace-nowrap text-center'>
                         {userAssociado
                           ? userAssociado.email
                           : 'Email não disponível'}
                       </td>
-                      <td className='p-3 whitespace-nowrap'>
+                      <td className='p-3 whitespace-nowrap text-center'>
                         {cand.vagaTitulo}
                       </td>
 
                       {/* Seletor de status */}
-                      <td className='p-3'>
+                      <td className='p-3 flex justify-center'>
                         <select
-                          className='border p-1 rounded w-full cursor-pointer'
+                          className='border p-1 rounded cursor-pointer'
                           value={cand.status || 'Em análise'}
                           onChange={e =>
                             atualizarStatus(cand.id, e.target.value)
