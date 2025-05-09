@@ -50,6 +50,7 @@ export default function ProcessoCandidatura () {
   return (
     <>
       <HeaderCandidato />
+
       <h1 className='text-3xl mb-5 text-gray-800 text-center font-semibold m-20 flex justify-center'>
         Processo da candidatura&nbsp;{' '}
         {Array.from({ length: 3 }).map((_, index) => (
@@ -107,11 +108,34 @@ export default function ProcessoCandidatura () {
           </div>
         </div>
       </div>
-      <FecharModal
-        nomeModal={modal}
-        setNomeModal={setModal}
-        className='absolute z-10 top-10'
-      ></FecharModal>
+      {modal && (
+        <div className='fixed top-0 right-0 bg-black/50 w-full h-screen'>
+          <div className='flex h-full justify-center items-center'>
+            <FecharModal
+              nomeModal={modal}
+              setNomeModal={setModal}
+              className='bg-orange-500 max-w-1/3 text-wrap rounded-2xl p-6 '
+            >
+              <h1
+                className='text-center text-white font-bold text-2xl'
+                style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}
+              >
+                Parabéns!
+              </h1>
+              <h1
+                className='text-center text-white font-bold mb-5 text-2xl'
+                style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}
+              >
+                Você foi escolhido para a vaga 🎉
+              </h1>
+              <h2 className='text-center text-zinc-100 font-semibold '>
+                Fique atento, em breve entraremos em contato através do telefone
+                informado na candidatura
+              </h2>
+            </FecharModal>
+          </div>
+        </div>
+      )}
     </>
   )
 }
