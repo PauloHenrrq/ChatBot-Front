@@ -35,6 +35,7 @@ export default function ProcessoCandidatura () {
         setStatus(vagaEncontrada.status)
       } catch (error) {
         console.error('Erro ao carregar a candidatura:', error)
+        return navigate('/minhas-vagas')
       }
     }
 
