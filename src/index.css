@@ -12,6 +12,22 @@
   @apply w-full h-40 resize-none p-3 border border-gray-300 rounded-md shadow-sm;
 }
 
+@keyframes toGrow {
+  0% {
+    transform: scale(0.1);
+  }
+  50% {
+    transform: scale(0.50);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.toGrow{
+  animation: toGrow 3.5s;
+}
+
 @keyframes toBig {
   0% {
     transform: scale(1);
@@ -108,3 +124,4 @@
         top: 0;
     }
 }
+

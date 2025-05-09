@@ -20,7 +20,7 @@ export default function NotFound() {
                     </div>
                     <div className="h-full">
                         <div className="mb-32 max-sm:mb-30">
-                            <button onClick={() => navigate("/home")} className="bg-orange-600 text-white rounded-lg px-8 cursor-pointer hover:bg-orange-500 py-2">Voltar</button>
+                            <button onClick={() => navigate("/home")} className="bg-orange-600 text-white rounded-lg px-8 cursor-pointer hover:bg-orange-500 py-2 toGrow">Voltar</button>
                         </div>
 
                     </div>
