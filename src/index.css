@@ -16,16 +16,13 @@
   0% {
     transform: scale(0.1);
   }
-  50% {
-    transform: scale(0.50);
-  }
   100% {
     transform: scale(1);
   }
 }
 
 .toGrow{
-  animation: toGrow 3.5s;
+  animation: toGrow 3.5s linear;
 }
 
 @keyframes toBig {
@@ -124,4 +121,3 @@
         top: 0;
     }
 }
-

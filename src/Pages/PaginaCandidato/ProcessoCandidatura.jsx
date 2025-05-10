@@ -44,15 +44,20 @@ export default function ProcessoCandidatura () {
     carregarVagas()
   }, [vagaId])
 
+  useEffect(() => {
+    if (status === 'Contratado') {
+      setModal(true)
+    }
+  }, [status])
+
   const statusEtapas = ['Em análise', 'Aprovado para entrevista', 'Contratado']
   const etapaAtual = statusEtapas.indexOf(status)
 
   return (
     <>
       <HeaderCandidato />
-
-      <h1 className='text-3xl mb-5 text-gray-800 text-center font-semibold m-20 flex justify-center'>
-        Processo da candidatura&nbsp;{' '}
+      <h1 className='min-md:text-4xl max-md:text-2xl mb-5 max-md:mt-5 text-gray-800 font-semibold min-md:m-20 flex justify-center items-end'>
+        Processo da candidatura&nbsp;
         {Array.from({ length: 3 }).map((_, index) => (
           <span
             key={index}
@@ -63,32 +68,37 @@ export default function ProcessoCandidatura () {
           </span>
         ))}
       </h1>
-      <div className='p-6 flex justify-center'>
-        <div className='relative w-7/12 h-3 mb-6 bg-neutral-200 dark:bg-neutral-600 rounded-full'>
+      <div className='p-6 min-md:flex min-md:justify-center max-md:flex-col max-md:absolute max-md:left-5'>
+        <div className='relative min-md:w-7/12 min-md:h-3 min-md:mb-6 bg-neutral-200 dark:bg-neutral-600 rounded-full max-md:w-5 max-md:h-100'>
           <div
-            className={`absolute top-0 left-0 h-3 bg-green-400 rounded-full transition-all duration-500 ${
+            className={`absolute top-0 left-0 max-md:w-5 bg-green-400 rounded-full transition-all duration-500 ${
               status === 'Em análise'
-                ? 'w-1/3'
+                ? 'min-md:w-1/3 max-md:h-35'
                 : status === 'Aprovado para entrevista'
-                ? 'w-2/3'
+                ? 'min-md:w-2/3 max-md:h-70'
                 : status === 'Contratado'
-                ? 'w-3/3'
+                ? 'min-md:w-3/3 max-md:h-100'
                 : status === 'Reprovado'
-                ? 'w-0/3'
-                : 'w-0/3'
+                ? 'min-md:w-0/3 max-md:h-35'
+                : 'min-md:w-0/3 max-md:h-35'
             }`}
           ></div>
 
-          <div className='absolute top-1/2 left-0 w-full flex justify-between items-center -translate-y-1/2'>
+          <div
+            className='absolute left-0 h-100 w-full 
+                       max-md:flex max-md:flex-col max-md:justify-between max-md:items-center 
+                       min-md:flex min-md:flex-row min-md:items-center min-md:justify-between 
+                       min-md:top-1/2 min-md:-translate-y-1/2'
+          >
             {Array.from({ length: 4 }).map((_, index) => (
               <div
                 key={index}
                 className={
                   index === 3
                     ? index === 3 && status === 'Contratado'
-                      ? 'w-10 h-10 rounded-full bg-white border-2 border-green-400 toBigInfinite cursor-pointer'
-                      : 'w-9 h-9 rounded-full bg-white border-2 border-zinc-400'
-                    : `w-9 h-9 rounded-full ${
+                      ? 'min-md:w-10 min-md:h-10 max-md:w-10 max-md:h-10 rounded-full bg-white border-2 border-green-400 cursor-pointer toBigInfinite'
+                      : 'min-md:w-9 min-md:h-9 max-md:w-10 max-md:h-10 rounded-full bg-white border-2 border-zinc-400'
+                    : `min-md:w-9 min-md:h-9 max-md:w-10  max-md:h-10 rounded-full ${
                         status === 'Reprovado'
                           ? 'bg-neutral-400'
                           : index <= etapaAtual
@@ -99,11 +109,25 @@ export default function ProcessoCandidatura () {
                 onClick={() => setModal(true)}
               >
                 {index === 3 && status === 'Contratado' ? (
-                  <HandThumbUpIcon className='stroke-green-600 toBig' />
+                  <HandThumbUpIcon className='stroke-green-600 toBig max-md:w-8' />
                 ) : index === 3 ? (
-                  <HandThumbUpIcon className='stroke-zinc-400' />
+                  <HandThumbUpIcon className='stroke-zinc-400 max-md:w-7' />
                 ) : null}
               </div>
+            ))}
+          </div>
+          <div className='absolute flex justify-evenly min-2xl:justify-between min-2xl:px-32 w-full mt-5 '>
+            {statusEtapas.map((stats, index) => (
+              <p
+                key={index}
+                className={
+                  status === stats
+                    ? 'text-black hidden'
+                    : 'text-zinc-300 hidden'
+                }
+              >
+                {stats}
+              </p>
             ))}
           </div>
         </div>
@@ -114,7 +138,7 @@ export default function ProcessoCandidatura () {
             <FecharModal
               nomeModal={modal}
               setNomeModal={setModal}
-              className='bg-orange-500 max-w-1/3 text-wrap rounded-2xl p-6 '
+              className='bg-orange-500 max-w-1/3 max-md:max-w-2/3 text-wrap rounded-2xl p-6 '
             >
               <h1
                 className='text-center text-white font-bold text-2xl'
