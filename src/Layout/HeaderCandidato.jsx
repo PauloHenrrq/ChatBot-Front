@@ -223,7 +223,7 @@ export default function HeaderCandidato () {
                                   </button>
                                   <MenuItem className='m-2 mt-4'>
                                     <div
-                                      className='flex flex-col gap-5 bg-white w-full h-1/5 rounded-3xl p-3 cursor-pointer justify-between'
+                                      className='flex flex-col gap-5 bg-white w-55 h-1/5 rounded-3xl p-3 cursor-pointer justify-between'
                                       onClick={() => {
                                         setModal(true)
                                       }}
