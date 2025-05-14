@@ -24,6 +24,7 @@ export default function HeaderCandidato () {
   const navigate = useNavigate()
   const [candidaturas, setCandidaturas] = useState([])
   const [notificacao, setNotificacao] = useState([])
+  const [notificacaoSelecionada, setNotificacaoSelecionada] = useState([])
   const [user, setUser] = useState([])
   const [isOpen, setIsOpen] = useState(false)
   const [modal, setModal] = useState(false)
@@ -175,7 +176,9 @@ export default function HeaderCandidato () {
                         <MenuButton className='relative rounded-full cursor-pointer bg-white p-1 text-gray-400 hover:text-orange-500 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden'>
                           <span className='absolute -inset-1.5' />
                           <BellIcon aria-hidden='true' className='size-6' />
-                          {notificacao !== 'Sem notificações por aqui 😅' ?<div className='absolute bottom-6 right-0 bg-red-400 w-2 h-2 rounded-full' /> : null}
+                          {notificacao !== 'Sem notificações por aqui 😅' ? (
+                            <div className='absolute bottom-6 right-0 bg-red-400 w-2 h-2 rounded-full' />
+                          ) : null}
                         </MenuButton>
                       </div>
                       <Transition
@@ -226,6 +229,7 @@ export default function HeaderCandidato () {
                                       className='flex flex-col gap-5 bg-white w-55 h-1/5 rounded-3xl p-3 cursor-pointer justify-between'
                                       onClick={() => {
                                         setModal(true)
+                                        setNotificacaoSelecionada(n)
                                       }}
                                     >
                                       <p>
@@ -385,6 +389,14 @@ export default function HeaderCandidato () {
                 Agradecemos muito por sua candidatura em nossa vaga! Continue
                 atento para se candidatar em novas vagas, boa sorte.
               </h2>
+              <hr className='text-white my-2' />
+              <h3 className='text-center text-zinc-200 font-semibold'>
+                Vaga:{' '}
+                <span className='line-clamp-1'>
+                  {notificacaoSelecionada.vagaEmpresa} -{' '}
+                  {notificacaoSelecionada.vagaTitulo}
+                </span>
+              </h3>
             </FecharModal>
           </div>
         </div>

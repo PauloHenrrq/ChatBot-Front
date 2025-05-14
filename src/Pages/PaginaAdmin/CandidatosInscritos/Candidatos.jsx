@@ -70,7 +70,7 @@ export default function Candidatos () {
         const postNotificacao = {
           userId: candidaturaUserId,
           vagaEmpresa: vaga.empresa,
-          vagaTitulo: vaga.titulo,
+          vagaTitulo: vaga.titulo
         }
         await api.post('/notificacao', postNotificacao)
         await api.delete(`/candidaturas/${id}`)
@@ -159,9 +159,19 @@ export default function Candidatos () {
         }
       ],
       vaga: [
-        { select: 'empresa', className: 'text-gray-700 mb-1', icon: '🏢 ' },
-        { select: 'cep', className: 'text-gray-700 mb-1', icon: '📍 ' },
-        { select: 'descricao', className: 'text-gray-700 mb-4', icon: '📝 ' },
+        { select: 'empresa', className: 'text-gray-700 mb-2', icon: '🏢 ' },
+        {
+          isH3: true,
+          text: '📍 CEP:',
+          className: 'font-semibold'
+        },
+        { select: 'cep', className: 'text-gray-700 mb-1' },
+        {
+          isH3: true,
+          text: '📝 Descrição:',
+          className: 'font-semibold'
+        },
+        { select: 'descricao', className: 'text-gray-700 mb-4' },
         {
           isH3: true,
           text: '💼 Responsabilidades:',
@@ -205,13 +215,9 @@ export default function Candidatos () {
         <h1 className='text-2xl font-semibold'>Filtre aqui os candidatos.</h1>
         <BuscaVaga candidatos={candidatos} busca={busca} setBusca={setBusca} />
       </div>
-
-      {/* Tabela de usuários */}
-
       <div className='p-6 max-w-6xl mx-auto'>
         <h2 className='text-2xl font-semibold mb-4'>Candidatos Inscritos</h2>
 
-        {/* Tabela para telas grandes */}
         <div className='overflow-x-auto hidden md:block'>
           <table className='min-w-full border bg-white shadow-md rounded-lg overflow-hidden'>
             <thead className='bg-orange-500 text-white'>
@@ -424,9 +430,7 @@ export default function Candidatos () {
 
             {aba === 'vaga' && vagaDetalhada && (
               <div>
-                <h2 className='text-xl font-bold mb-2'>
-                  {vagaDetalhada.titulo}
-                </h2>
+                <h2 className='text-xl font-bold'>{vagaDetalhada.titulo}</h2>
                 {candidatosMap.candidato.vaga.map((vaga, index) => {
                   if (vaga.isH3) {
                     return (
