@@ -138,7 +138,7 @@ export default function ProcessoCandidatura () {
         ))}
       </h1>
 
-      <div className='flex flex-col items-center min-md:justify-center min-md:gap-10 px-4'>
+      <div className='flex flex-col min-md:items-center min-md:justify-center min-md:gap-10 px-4'>
         <div className='p-6 max-md:mb-10'>
           <div className='relative min-md:w-[28rem] min-md:h-3 bg-neutral-200 dark:bg-neutral-600 rounded-full max-md:w-5 max-md:h-100'>
             <div
