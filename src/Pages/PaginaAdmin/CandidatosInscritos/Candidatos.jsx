@@ -61,6 +61,23 @@ export default function Candidatos () {
     try {
       console.log(id)
       console.log(novoStatus)
+      if (novoStatus === 'Reprovado') {
+        const candidaturaInfo = await api.get(`/candidaturas/${id}`)
+        const candidaturaVagaId = candidaturaInfo.data.details.vagaId
+        const candidaturaUserId = candidaturaInfo.data.details.userId
+        const vagaCandidatura = await api.get(`/vagas/${candidaturaVagaId}`)
+        const vaga = vagaCandidatura.data.details
+        const postNotificacao = {
+          userId: candidaturaUserId,
+          vagaEmpresa: vaga.empresa,
+          vagaTitulo: vaga.titulo,
+        }
+        await api.post('/notificacao', postNotificacao)
+        await api.delete(`/candidaturas/${id}`)
+
+        setCandidatos(prev => prev.filter(cand => cand.id !== id))
+        return
+      }
       await api.put(`/candidaturas/${id}`, { status: novoStatus })
       setCandidatos(prev =>
         prev.map(cand =>

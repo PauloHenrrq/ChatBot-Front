@@ -12,22 +12,31 @@ export default function VagasCard () {
   const [erro, setErro] = useState(null)
 
   useEffect(() => {
-    api
-      .get('/vagas')
-      .then(response => setVagas(response.data.details))
-      .catch(err => {
-        console.error('Erro ao buscar vagas:', err)
-        setErro('Nenhuma vaga foi encontrada!')
-      })
+    const getVagas = async () => {
+      try {
+        const response = await api.get('/vagas')
+        if(response.data.details.length === 0) {
+          setErro('Nenhuma vaga existente')
+        }
+        setVagas(response.data.details)
+      } catch (error) {
+        console.error('Não foi possível retornar as vagas', error)
+      }
+    }
+
+    getVagas()
   }, [])
 
   useEffect(() => {
     const carregarCandidaturas = async () => {
       try {
         const response = await api.get('/candidaturas')
+        if(response.data.details.length === 0) {
+          return
+        }
         setCandidatura(response.data.details)
       } catch (error) {
-        console.error('Erro ao carregar candidatos:', error)
+        console.error('Erro ao carregar candidaturas:', error)
       }
     }
 
@@ -59,7 +68,7 @@ export default function VagasCard () {
       return
     }
 
-    const idVaga = String(modalAberto) // Garante que o ID é string para compatibilidade com JSON Server
+    const idVaga = String(modalAberto)
 
     try {
       const vagaExistente = vagas.find(vaga => String(vaga.id) === idVaga)
@@ -100,7 +109,6 @@ export default function VagasCard () {
     empresa: Yup.string().required('Campo Obrigatório'),
     cep: Yup.string().required('Campo Obrigatório'),
     descricao: Yup.string().required('Campo Obrigatório'),
-    informacoes_adicionais: Yup.string().required('Campo Obrigatório'),
     requisitos: Yup.string().required('Campo Obrigatório'),
     responsabilidades: Yup.string().required('Campo Obrigatório'),
     beneficios: Yup.string().required('Campo Obrigatório'),

@@ -44,11 +44,14 @@ export default function HomeCandidato () {
     const carregarVagas = async () => {
       try {
         const response = await api.get('/vagas')
+        if(response.data.details.length === 0) {
+          setErro('Nenhuma vaga encontrada!')
+          return
+        }
         setVagas(response.data.details)
         setVagasInicial(response.data.details)
       } catch (error) {
-        console.error('Vaga não encontrada', error)
-        setErro('Nenhuma vaga encontrada!')
+        console.error('Vaga não encontrada')
       }
     }
 

@@ -71,7 +71,7 @@ export default function ProcessoCandidatura () {
       <div className='p-6 min-md:flex min-md:justify-center max-md:flex-col max-md:absolute max-md:left-5'>
         <div className='relative min-md:w-7/12 min-md:h-3 min-md:mb-6 bg-neutral-200 dark:bg-neutral-600 rounded-full max-md:w-5 max-md:h-100'>
           <div
-            className={`absolute top-0 left-0 max-md:w-5 bg-green-400 rounded-full transition-all duration-500 ${
+            className={`absolute top-0 left-0 max-md:w-5 min-md:h-3 bg-green-400 rounded-full transition-all duration-500 ${
               status === 'Em análise'
                 ? 'min-md:w-1/3 max-md:h-35'
                 : status === 'Aprovado para entrevista'
@@ -109,21 +109,21 @@ export default function ProcessoCandidatura () {
                 onClick={() => setModal(true)}
               >
                 {index === 3 && status === 'Contratado' ? (
-                  <HandThumbUpIcon className='stroke-green-600 toBig max-md:w-8' />
+                  <HandThumbUpIcon className='stroke-green-600 toBig max-md:w-9' />
                 ) : index === 3 ? (
-                  <HandThumbUpIcon className='stroke-zinc-400 max-md:w-7' />
+                  <HandThumbUpIcon className='stroke-zinc-400 max-md:w-9' />
                 ) : null}
               </div>
             ))}
           </div>
-          <div className='absolute flex justify-evenly min-2xl:justify-between min-2xl:px-32 w-full mt-5 '>
+          <div className='min-md:absolute flex min-md:justify-evenly min-2xl:justify-between min-2xl:px-32 min-md:w-full min-md:mt-5 max-md:ml-10 max-md:w-30 max-md:h-100 max-md:gap-5 max-md:flex-col max-md:justify-evenly '>
             {statusEtapas.map((stats, index) => (
               <p
                 key={index}
                 className={
                   status === stats
-                    ? 'text-black hidden'
-                    : 'text-zinc-300 hidden'
+                    ? 'text-black'
+                    : 'text-zinc-300'
                 }
               >
                 {stats}
@@ -132,13 +132,13 @@ export default function ProcessoCandidatura () {
           </div>
         </div>
       </div>
-      {modal && (
+      {(modal && status === 'Contratado') && (
         <div className='fixed top-0 right-0 bg-black/50 w-full h-screen'>
           <div className='flex h-full justify-center items-center'>
             <FecharModal
               nomeModal={modal}
               setNomeModal={setModal}
-              className='bg-orange-500 max-w-1/3 max-md:max-w-2/3 text-wrap rounded-2xl p-6 '
+              className='bg-orange-500 max-w-1/3 max-md:max-w-2/3 text-wrap rounded-2xl p-6'
             >
               <h1
                 className='text-center text-white font-bold text-2xl'

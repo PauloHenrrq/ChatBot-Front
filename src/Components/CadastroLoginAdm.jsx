@@ -272,7 +272,7 @@ export default function CadastroLoginAdm () {
                           : cad.type != 'password'
                           ? editUser[cad.name]
                           : cad.type === 'password'
-                          ? null
+                          ? ''
                           : editUser[cad.name] === 'password'
                       }
                       placeholder={cad.placeholder}

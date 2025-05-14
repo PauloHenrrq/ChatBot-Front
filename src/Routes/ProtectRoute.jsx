@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { api } from './server/api' // ajuste o caminho se necessário
+import { jwtDecode } from 'jwt-decode'
 
 export default function ProtectRoute () {
   const [role, setRole] = useState(null)
@@ -15,21 +16,13 @@ export default function ProtectRoute () {
   }
 
   useEffect(() => {
-    const coletarRole = async () => {
-      try {
-        const response = await api.get(`/profile`)
-        const role = response.data.message.role
-        setRole(role)
-      } catch (error) {
-        console.error('Erro ao buscar role do usuário:', error)
-      }
-    }
-
-    coletarRole()
+    const decodeToken = jwtDecode(token)
+    const role = decodeToken.data.role
+    setRole(role)
   }, [token])
 
   const rotasAdmin = ['/cadastro-adm', '/candidatos', '/vagas']
-  const rotasUser = ['/home', '/minhas-vagas', ]
+  const rotasUser = ['/home', '/minhas-vagas']
 
   const isAdmin = role === 'admin'
   const isUser = role === 'user'
