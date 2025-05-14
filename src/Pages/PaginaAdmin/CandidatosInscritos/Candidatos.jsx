@@ -59,8 +59,6 @@ export default function Candidatos () {
 
   const atualizarStatus = async (id, novoStatus) => {
     try {
-      console.log(id)
-      console.log(novoStatus)
       if (novoStatus === 'Reprovado') {
         const candidaturaInfo = await api.get(`/candidaturas/${id}`)
         const candidaturaVagaId = candidaturaInfo.data.details.vagaId

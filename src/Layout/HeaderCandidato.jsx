@@ -68,7 +68,6 @@ export default function HeaderCandidato () {
           return
         }
         setNotificacao(response.data.details)
-        console.log(response.data.details)
       } catch (error) {
         console.error('Nenhuma notificação encontrada', error)
       }

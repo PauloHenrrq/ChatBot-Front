@@ -55,7 +55,6 @@ export default function ProcessoCandidatura () {
       const carregarVaga = async () => {
         try {
           const response = await api.get(`vagas/${candidatura.vagaId}`)
-          console.log(response.data.details)
           setVagaDetalhada(response.data.details)
         } catch (error) {
           console.error('Nenhuma vaga para retornar', error)
