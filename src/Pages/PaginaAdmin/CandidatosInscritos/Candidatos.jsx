@@ -4,7 +4,7 @@ import Header from '../../../Layout/Header.jsx'
 import BuscaVaga from '../../../Components/AreaAdmin/BuscaVaga.jsx'
 import FecharModal from '../../../Components/FecharModal.jsx'
 
-export default function Candidatos () {
+export default function Candidatos() {
   const formatarData = () => {
     const userAssociado = user.find(
       u => u.id === candidatoSelecionado.candidatoId
@@ -292,53 +292,59 @@ export default function Candidatos () {
             .filter(cand =>
               cand.vagaTitulo.toLowerCase().includes(busca.toLowerCase())
             )
-            .map(cand => (
-              <div key={cand.id} className='rounded-lg p-2 shadow bg-white'>
-                <div className='bg-zinc-200 p-2 space-y-1 rounded-lg'>
-                  <div className='flex p-2 bg-white rounded-t-lg'>
-                    <p className='font-semibold w-[10%] max-sm:w-[20%]'>
-                      Nome:
-                    </p>
-                    <p className='w-[90%]'> {cand.nome}</p>
+            .map(cand => {
+              const userAssociado = user.find(
+                user => user.id === cand.candidatoId
+              )
+
+              return (
+                <div key={cand.id} className='rounded-lg p-2 shadow bg-white'>
+                  <div className='bg-zinc-200 p-2 space-y-1 rounded-lg'>
+                    <div className='flex p-2 bg-white rounded-t-lg'>
+                      <p className='font-semibold w-[10%] max-sm:w-[20%]'>
+                        Nome:
+                      </p>
+                      <p className='w-[90%]'> {userAssociado.nome}</p>
+                    </div>
+
+                    <div className='flex p-2 bg-white'>
+                      <p className='font-semibold w-[10%] max-sm:w-[20%]'>
+                        Email:
+                      </p>
+                      <p className='w-[90%]'> {userAssociado.email}</p>
+                    </div>
+
+                    <div className='flex p-2 bg-white rounded-b-lg'>
+                      <p className='font-semibold w-[10%] max-sm:w-[20%]'>
+                        Vaga:
+                      </p>
+                      <p className='w-[90%]'> {cand.vagaTitulo}</p>
+                    </div>
                   </div>
 
-                  <div className='flex p-2 bg-white'>
-                    <p className='font-semibold w-[10%] max-sm:w-[20%]'>
-                      Email:
-                    </p>
-                    <p className='w-[90%]'> {cand.email}</p>
-                  </div>
-
-                  <div className='flex p-2 bg-white rounded-b-lg'>
-                    <p className='font-semibold w-[10%] max-sm:w-[20%]'>
-                      Vaga:
-                    </p>
-                    <p className='w-[90%]'> {cand.vagaTitulo}</p>
-                  </div>
+                  <p className='mt-2'>
+                    <span className='font-semibold'>Status:</span>
+                  </p>
+                  <select
+                    className='border p-1 rounded w-full mt-1 cursor-pointer'
+                    value={cand.status || 'Em análise'}
+                    onChange={e => atualizarStatus(cand.id, e.target.value)}
+                  >
+                    {candidatosMap.options.map((opt, index) => (
+                      <option value={opt} key={index}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    className='bg-orange-500 hover:bg-orange-400 text-white px-3 py-2 rounded w-full mt-3 cursor-pointer'
+                    onClick={() => abrirModal(cand)}
+                  >
+                    Visualizar Currículo
+                  </button>
                 </div>
-
-                <p className='mt-2'>
-                  <span className='font-semibold'>Status:</span>
-                </p>
-                <select
-                  className='border p-1 rounded w-full mt-1 cursor-pointer'
-                  value={cand.status || 'Em análise'}
-                  onChange={e => atualizarStatus(cand.id, e.target.value)}
-                >
-                  {candidatosMap.options.map((opt, index) => (
-                    <option value={opt} key={index}>
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-                <button
-                  className='bg-orange-500 hover:bg-orange-400 text-white px-3 py-2 rounded w-full mt-3 cursor-pointer'
-                  onClick={() => abrirModal(cand)}
-                >
-                  Visualizar Currículo
-                </button>
-              </div>
-            ))}
+              )
+            })}
         </div>
       </div>
 
@@ -355,9 +361,8 @@ export default function Candidatos () {
                 <button
                   key={index}
                   onClick={() => setAba(abas)}
-                  className={`px-4 py-2 rounded-lg cursor-pointer ${
-                    aba === abas ? 'bg-orange-500 text-white' : 'bg-gray-200'
-                  }`}
+                  className={`px-4 py-2 rounded-lg cursor-pointer ${aba === abas ? 'bg-orange-500 text-white' : 'bg-gray-200'
+                    }`}
                 >
                   {abas.charAt(0).toUpperCase() + abas.slice(1)}
                 </button>
@@ -382,7 +387,7 @@ export default function Candidatos () {
                               {candidatoSelecionado.endereco[number]}
                               {number === 'cidade' ? ' - ' : ''}
                               {index < info.select.length - 1 &&
-                              number !== 'cidade'
+                                number !== 'cidade'
                                 ? ', '
                                 : ''}
                             </span>
@@ -397,8 +402,8 @@ export default function Candidatos () {
                         {info.select === 'data_nascimento'
                           ? formatarData()
                           : ['vagaTitulo', 'telefone'].includes(info.select)
-                          ? candidatoSelecionado[info.select]
-                          : userAssociado[info.select]}
+                            ? candidatoSelecionado[info.select]
+                            : userAssociado[info.select]}
                       </p>
                     )
                   } else if (info.isH3) {
