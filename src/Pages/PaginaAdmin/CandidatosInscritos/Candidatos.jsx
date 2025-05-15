@@ -304,7 +304,7 @@ export default function Candidatos() {
                       <p className='font-semibold w-[10%] max-sm:w-[20%]'>
                         Nome:
                       </p>
-                      <p className='w-[90%]'> {userAssociado.nome}</p>
+                      <p className='w-[90%]'> {userAssociado.name}</p>
                     </div>
 
                     <div className='flex p-2 bg-white'>
