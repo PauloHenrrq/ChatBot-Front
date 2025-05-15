@@ -215,7 +215,6 @@ export default function Candidatos () {
       </div>
       <div className='p-6 max-w-6xl mx-auto'>
         <h2 className='text-2xl font-semibold mb-4'>Candidatos Inscritos</h2>
-
         <div className='overflow-x-auto hidden md:block'>
           <table className='min-w-full border bg-white shadow-md rounded-lg overflow-hidden'>
             <thead className='bg-orange-500 text-white'>
@@ -253,7 +252,6 @@ export default function Candidatos () {
                         {cand.vagaTitulo}
                       </td>
 
-                      {/* Seletor de status */}
                       <td className='p-3 flex justify-center'>
                         <select
                           className='border p-1 rounded cursor-pointer'
@@ -285,60 +283,64 @@ export default function Candidatos () {
             </tbody>
           </table>
         </div>
-
-        {/* Layout em cards para telas pequenas */}
         <div className='md:hidden space-y-4'>
           {candidatos
             .filter(cand =>
               cand.vagaTitulo.toLowerCase().includes(busca.toLowerCase())
             )
-            .map(cand => (
-              <div key={cand.id} className='rounded-lg p-2 shadow bg-white'>
-                <div className='bg-zinc-200 p-2 space-y-1 rounded-lg'>
-                  <div className='flex p-2 bg-white rounded-t-lg'>
-                    <p className='font-semibold w-[10%] max-sm:w-[20%]'>
-                      Nome:
-                    </p>
-                    <p className='w-[90%]'> {cand.nome}</p>
+            .map(cand => {
+              const userAssociado = user.find(
+                user => user.id === cand.candidatoId
+              )
+
+              return (
+                <div key={cand.id} className='rounded-lg p-2 shadow bg-white'>
+                  <div className='bg-zinc-200 p-2 space-y-1 rounded-lg'>
+                    <div className='flex p-2 bg-white rounded-t-lg'>
+                      <p className='font-semibold w-[10%] max-sm:w-[20%]'>
+                        Nome:
+                      </p>
+                      <p className='w-[90%]'>{userAssociado.name}</p>
+                    </div>
+
+                    <div className='flex p-2 bg-white'>
+                      <p className='font-semibold w-[10%] max-sm:w-[20%]'>
+                        Email:
+                      </p>
+                      <p className='w-[90%]'> {userAssociado.email}</p>
+                    </div>
+
+                    <div className='flex p-2 bg-white rounded-b-lg'>
+                      <p className='font-semibold w-[10%] max-sm:w-[20%]'>
+                        Vaga:
+                      </p>
+                      <p className='w-[90%]'> {cand.vagaTitulo}</p>
+                    </div>
                   </div>
 
-                  <div className='flex p-2 bg-white'>
-                    <p className='font-semibold w-[10%] max-sm:w-[20%]'>
-                      Email:
-                    </p>
-                    <p className='w-[90%]'> {cand.email}</p>
-                  </div>
-
-                  <div className='flex p-2 bg-white rounded-b-lg'>
-                    <p className='font-semibold w-[10%] max-sm:w-[20%]'>
-                      Vaga:
-                    </p>
-                    <p className='w-[90%]'> {cand.vagaTitulo}</p>
-                  </div>
+                  <p className='mt-2'>
+                    <span className='font-semibold'>Status:</span>
+                  </p>
+                  <select
+                    className='border p-1 rounded w-full mt-1 cursor-pointer'
+                    value={cand.status || 'Em análise'}
+                    onChange={e => atualizarStatus(cand.id, e.target.value)}
+                  >
+                    {candidatosMap.options.map((opt, index) => (
+                      <option value={opt} key={index}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    className='bg-orange-500 hover:bg-orange-400 text-white px-3 py-2 rounded w-full mt-3 cursor-pointer'
+                    onClick={() => abrirModal(cand)}
+                  >
+                    Visualizar Currículo
+                  </button>
                 </div>
-
-                <p className='mt-2'>
-                  <span className='font-semibold'>Status:</span>
-                </p>
-                <select
-                  className='border p-1 rounded w-full mt-1 cursor-pointer'
-                  value={cand.status || 'Em análise'}
-                  onChange={e => atualizarStatus(cand.id, e.target.value)}
-                >
-                  {candidatosMap.options.map((opt, index) => (
-                    <option value={opt} key={index}>
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-                <button
-                  className='bg-orange-500 hover:bg-orange-400 text-white px-3 py-2 rounded w-full mt-3 cursor-pointer'
-                  onClick={() => abrirModal(cand)}
-                >
-                  Visualizar Currículo
-                </button>
-              </div>
-            ))}
+              )
+            })}
         </div>
       </div>
 
