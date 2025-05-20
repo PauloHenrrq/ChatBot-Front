@@ -4,7 +4,7 @@ import Header from '../../../Layout/Header.jsx'
 import BuscaVaga from '../../../Components/AreaAdmin/BuscaVaga.jsx'
 import FecharModal from '../../../Components/FecharModal.jsx'
 
-export default function Candidatos () {
+export default function Candidatos() {
   const formatarData = () => {
     const userAssociado = user.find(
       u => u.id === candidatoSelecionado.candidatoId
@@ -359,9 +359,8 @@ export default function Candidatos () {
                 <button
                   key={index}
                   onClick={() => setAba(abas)}
-                  className={`px-4 py-2 rounded-lg cursor-pointer ${
-                    aba === abas ? 'bg-orange-500 text-white' : 'bg-gray-200'
-                  }`}
+                  className={`px-4 py-2 rounded-lg cursor-pointer ${aba === abas ? 'bg-orange-500 text-white' : 'bg-gray-200'
+                    }`}
                 >
                   {abas.charAt(0).toUpperCase() + abas.slice(1)}
                 </button>
@@ -386,7 +385,7 @@ export default function Candidatos () {
                               {candidatoSelecionado.endereco[number]}
                               {number === 'cidade' ? ' - ' : ''}
                               {index < info.select.length - 1 &&
-                              number !== 'cidade'
+                                number !== 'cidade'
                                 ? ', '
                                 : ''}
                             </span>
@@ -401,8 +400,8 @@ export default function Candidatos () {
                         {info.select === 'data_nascimento'
                           ? formatarData()
                           : ['vagaTitulo', 'telefone'].includes(info.select)
-                          ? candidatoSelecionado[info.select]
-                          : userAssociado[info.select]}
+                            ? candidatoSelecionado[info.select]
+                            : userAssociado[info.select]}
                       </p>
                     )
                   } else if (info.isH3) {
