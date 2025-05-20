@@ -9,9 +9,15 @@ import {
   MenuItems,
   Transition
 } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import {
+  ArrowLeftEndOnRectangleIcon,
+  Bars3Icon,
+  BellIcon,
+  UserCircleIcon,
+  XMarkIcon
+} from '@heroicons/react/24/outline'
 import { Fragment, useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { api } from '../Routes/server/api'
 import { jwtDecode } from 'jwt-decode'
 import FecharModal from '../Components/FecharModal'
@@ -213,7 +219,7 @@ export default function HeaderCandidato () {
                               >
                                 <div className='flex'>
                                   <button
-                                    className='flex justify-center items-center absolute right-1.5 mt-3 w-5 h-5 bg-orange-800 rounded-2xl text-white font-bold cursor-pointer'
+                                    className='flex justify-center items-center absolute right-1.5 mt-3 w-6 h-6 bg-orange-800 rounded-2xl text-white font-bold cursor-pointer'
                                     onClick={() => {
                                       deleteNotificacao(n.id)
                                       setNotificacao(
@@ -313,27 +319,21 @@ export default function HeaderCandidato () {
                   className='absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 shadow-lg ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in'
                 >
                   <MenuItem>
-                    <a
-                      href='#'
-                      className='block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden'
+                    <Link
+                      to='/perfil'
+                      className='flex px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden'
                     >
-                      Your Profile
-                    </a>
-                  </MenuItem>
-                  <MenuItem>
-                    <a
-                      href='#'
-                      className='block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden'
-                    >
-                      Settings
-                    </a>
+                      <UserCircleIcon className='h-5.5 left-10 bottom-1.5' />
+                      &nbsp;Perfil
+                    </Link>
                   </MenuItem>
                   <MenuItem>
                     <button
                       onClick={removeLocalStorage}
-                      className='block w-full text-left cursor-pointer px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden'
+                      className='flex w-full text-left cursor-pointer px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden'
                     >
-                      Sign out
+                      <ArrowLeftEndOnRectangleIcon className='h-5.5 left-10 bottom-1.5' />
+                      &nbsp;Sair
                     </button>
                   </MenuItem>
                 </MenuItems>
@@ -369,8 +369,16 @@ export default function HeaderCandidato () {
             <FecharModal
               nomeModal={modal}
               setNomeModal={setModal}
-              className='bg-orange-500 max-w-1/2 max-md:max-w-2/3 text-wrap rounded-2xl p-6'
+              className='relative bg-orange-500 max-w-1/2 max-md:max-w-6/7 text-wrap rounded-2xl p-6'
             >
+              <button
+                className='absolute -right-3 -top-3 font-bold w-9 h-9 rounded-full bg-red-700 text-white cursor-pointer'
+                onClick={() => {
+                  setModal(false)
+                }}
+              >
+                X
+              </button>
               <h1
                 className='text-center text-white font-bold text-3xl'
                 style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}
@@ -391,7 +399,7 @@ export default function HeaderCandidato () {
               <hr className='text-white my-2' />
               <h3 className='text-center text-zinc-200 font-semibold'>
                 Vaga:{' '}
-                <span className='line-clamp-1'>
+                <span className='line-clamp-2'>
                   {notificacaoSelecionada.vagaEmpresa} -{' '}
                   {notificacaoSelecionada.vagaTitulo}
                 </span>

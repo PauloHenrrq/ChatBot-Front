@@ -22,7 +22,7 @@ export default function ProtectRoute () {
   }, [token])
 
   const rotasAdmin = ['/cadastro-adm', '/candidatos', '/vagas']
-  const rotasUser = ['/home', '/minhas-vagas']
+  const rotasUser = ['/home', '/minhas-vagas', '/perfil', '/candidatura/:id']
 
   const isAdmin = role === 'admin'
   const isUser = role === 'user'

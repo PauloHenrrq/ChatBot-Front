@@ -199,7 +199,7 @@ export default function HomeCandidato () {
         <BarraPesquisa onSearch={setVagas} />
       </div>
 
-      <div className='flex flex-col max-md:gap-6 md:flex-row min-h-screen bg-gray-100 p-4'>
+      <div className='flex flex-col max-md:gap-6 md:flex-row min-h-screen p-4'>
         {/* Lista de Vagas */}
         <div className='md:w-1/2 bg-white shadow-md rounded-lg p-4 overflow-auto min-h-64'>
           <div className='flex justify-between mb-4'>

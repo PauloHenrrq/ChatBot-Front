@@ -9,6 +9,8 @@ import CheckRoute from './CheckRoute.jsx'
 import Candidaturas from '../Pages/PaginaCandidato/Candidaturas.jsx'
 import ProcessoCandidatura from '../Pages/PaginaCandidato/ProcessoCandidatura.jsx'
 import NotFound from '../Pages/NotFound/NotFound.jsx'
+import Perfil from '../Pages/PaginaCandidato/Perfil.jsx'
+
 export default function AppRoute() {
   return (
     <>
@@ -23,9 +25,10 @@ export default function AppRoute() {
             <Route path='/vagas' element={<Vagas />} />
 
             <Route path='/home' element={<HomeCandidato />} />
+            <Route path='/perfil' element={<Perfil />} />
             <Route path='/minhas-vagas' element={<Candidaturas />} />
             <Route path='/candidatura/:id' element={<ProcessoCandidatura />} />
-            {/* Rota 404 - deve ficar por último */}
+            
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

@@ -64,7 +64,7 @@ export default function Candidaturas () {
                       to={`/candidatura/${candidatura.id}`}
                       className='group'
                     >
-                      <div className='w-full flex max-sm:flex-col items-center justify-between border rounded p-4 max-sm:gap-3 bg-zinc-50'>
+                      <div className='w-full flex max-sm:flex-col items-center justify-between rounded-lg p-4 max-sm:gap-3 bg-white'>
                         <div className='max-sm:w-full flex gap-7 max-sm:gap-2'>
                           <div className='border w-16 h-16 flex items-center justify-center rounded-full bg-white'>
                             <BuildingOffice2Icon className='w-10' />
