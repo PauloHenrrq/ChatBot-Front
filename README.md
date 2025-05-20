@@ -1,25 +1,16 @@
-# Site Candidatura com IA 
+# Site de Candidatura 
 <!-- Esperando imagens... -->
 ## 📍Objetivo
-> - Criação de um Site com o objetivo de empregabilidade (Candidato/Empresa) utilizando a implementação de uma IA.
+> - Criação de um Site com o objetivo de empregabilidade (Candidato/Empresa). 
 ## 🔌Clone e Utilização
 1. **Clonagem de Repositório**  
 ```git clone https://github.com/PauloHenrrq/ChatBot.git```
 
-3. **Entre no diretório | Execute-o**  
+2. **Entre no diretório | Execute-o**  
 ```cd ChatBot```
 
-4. **Instale as dependências**  
+3. **Instale as dependências**  
 ```npm install```
 
-5. **Selecione o Banco de Dados**  
-```cd backend```
-
-6. **Ative o Banco de Dados** <!-- Em breve será utilizado um BD externo -->  
-```npx json-server --watch db.json```
-
-7. **Retorne para o Projeto**
-```cd ..```
-
-9. **Execute o Projeto**  
+4. **Execute o Projeto**  
 ```npm run dev```
