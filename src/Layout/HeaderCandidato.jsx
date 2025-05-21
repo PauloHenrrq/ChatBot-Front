@@ -57,6 +57,15 @@ export default function HeaderCandidato () {
   }
 
   useEffect(() => {
+    const userInfo = async () => {
+      try {
+        const response = await api.get(`users/${userID}`)
+        setUser(response.data.details)
+      } catch (error) {
+        console.error('Não foi possível retornar as informações do usuário')
+      }
+    }
+
     const returnCandidaturas = async () => {
       try {
         const response = await api.get(`/candidaturas/candidatos/${userID}`)
@@ -79,6 +88,7 @@ export default function HeaderCandidato () {
       }
     }
 
+    userInfo()
     returnCandidaturas()
     notificacoes()
   }, [])
@@ -308,8 +318,12 @@ export default function HeaderCandidato () {
                   <MenuButton className='relative flex rounded-full cursor-pointer bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden'>
                     <span className='absolute -inset-1.5' />
                     <img
-                      alt=''
-                      src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+                      alt='Foto Perfil'
+                      src={
+                        user
+                          ? `https://chatbot-back-production-d852.up.railway.app/uploads/img/${user.img}`
+                          : 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+                      }
                       className='size-8 rounded-full'
                     />
                   </MenuButton>

@@ -44,7 +44,7 @@ export default function HomeCandidato () {
     const carregarVagas = async () => {
       try {
         const response = await api.get('/vagas')
-        if(response.data.details.length === 0) {
+        if (response.data.details.length === 0) {
           setErro('Nenhuma vaga encontrada!')
           return
         }
@@ -73,16 +73,16 @@ export default function HomeCandidato () {
 
   useEffect(() => {
     if (!vagaSelecionada) {
-      return 
+      return
     }
 
     const CEP = async () => {
       const isValidCEP = /^\d{5}-?\d{3}$/.test(vagaSelecionada.cep)
 
-    if (!isValidCEP) {
-      setCep({ logradouro: 'CPF não informado' }); 
-      return;
-    }
+      if (!isValidCEP) {
+        setCep({ logradouro: 'CPF não informado' })
+        return
+      }
 
       try {
         const response = await api.get(
@@ -261,10 +261,14 @@ export default function HomeCandidato () {
                 <h3 className='text-lg font-semibold'>📍 CEP</h3>
                 <p className='text-gray-600'>{cep.cep}</p>
                 <p className='text-gray-600'>
-                  {cep.logradouro === 'CPF não informado' ? cep.logradouro : `${cep.logradouro}, ${cep.bairro}`}
+                  {cep.erro
+                    ? vagaSelecionada.cep
+                    : `${cep.logradouro}, ${cep.bairro}`}
                 </p>
                 <p className='text-gray-600'>
-                  {cep.logradouro === 'CPF não informado' ? null : `${cep.localidade} - ${cep.uf}`}
+                  {cep.erro
+                    ? null
+                    : `${cep.localidade} - ${cep.uf}`}
                 </p>
               </div>
 
