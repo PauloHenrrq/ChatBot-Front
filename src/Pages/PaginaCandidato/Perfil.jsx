@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from 'formik'
 import HeaderCandidato from '../../Layout/HeaderCandidato'
-import { UserIcon } from '@heroicons/react/24/outline'
+import { TrashIcon, UserIcon } from '@heroicons/react/24/outline'
 import { useEffect, useRef, useState } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import { api } from '../../Routes/server/api'
@@ -19,11 +19,27 @@ export default function Perfil () {
   const decodeToken = jwtDecode(token)
   const userId = decodeToken.data.id
 
+  const testImageExists = url => {
+    return new Promise(resolve => {
+      const img = new Image()
+      img.src = url
+      img.onload = () => resolve(true)
+      img.onerror = () => resolve(false)
+    })
+  }
+
   useEffect(() => {
     const getCandidato = async () => {
       try {
         const response = await api.get(`/users/${userId}`)
-        console.log(response.data.details)
+
+        const imgUrl = `https://chatbot-back-production-d852.up.railway.app/uploads/img/${response.data.details.img}`
+        const imgExists = await testImageExists(imgUrl)
+
+        if (!imgExists) {
+          response.data.details.img = null
+        }
+
         setUser(response.data.details)
         setImg(response.data.details.img)
       } catch (error) {
@@ -34,7 +50,6 @@ export default function Perfil () {
     const getSocial = async () => {
       try {
         const response = await api.get(`/social/${userId}`)
-        console.log(response.data.details)
         setSocial(response.data.details)
       } catch (error) {
         return
@@ -53,12 +68,10 @@ export default function Perfil () {
       formData.append('email', values.email)
       formData.append('bio', values.bio)
 
-      if (fileInputRef.current.files[0]) {
+      if (!viewImg && !img) {
+        formData.append('img', '')
+      } else {
         formData.append('img', fileInputRef.current.files[0])
-      }
-
-      for (const pair of formData.entries()) {
-        console.log(pair[0], pair[1])
       }
 
       await api.put(`/users/${userId}`, formData, {
@@ -129,22 +142,22 @@ export default function Perfil () {
     <>
       <HeaderCandidato />
 
-      {(user && social) ? (
+      {user && social ? (
         <Formik initialValues={formData} onSubmit={handleSubmit}>
           <div className='mx-auto my-5 w-1/2 max-sm:w-11/12 max-md:w-5/6'>
             <Form className='px-10 py-5 flex flex-col flex-wrap bg-white rounded-lg'>
               <div className='flex flex-col gap-5'>
-                <div className='flex m-auto justify-center border w-41 h-41 rounded-full cursor-pointer'>
-                  {img ? (
+                <div className='relative flex m-auto justify-center border w-41 h-41 rounded-full cursor-pointer'>
+                  {viewImg ? (
                     <img
-                      src={`https://chatbot-back-production-d852.up.railway.app/uploads/img/${img}`}
+                      src={viewImg}
                       alt='Imagem-Perfil'
                       className='rounded-full w-full'
                       onClick={handleImageClick}
                     />
-                  ) : viewImg ? (
+                  ) : img ? (
                     <img
-                      src={viewImg}
+                      src={`https://chatbot-back-production-d852.up.railway.app/uploads/img/${img}`}
                       alt='Imagem-Perfil'
                       className='rounded-full w-full'
                       onClick={handleImageClick}
@@ -155,6 +168,14 @@ export default function Perfil () {
                       onClick={handleImageClick}
                     />
                   )}
+
+                  <TrashIcon
+                    className='absolute right-2.5 bottom-2.5 w-7 h-7 rounded-full bg-gray-200'
+                    onClick={() => {
+                      setViewImg(null)
+                      setImg(null)
+                    }}
+                  />
 
                   <input
                     type='file'
@@ -201,9 +222,7 @@ export default function Perfil () {
             </Form>
           </div>
         </Formik>
-      ) : (
-        null
-      )}
+      ) : null}
     </>
   )
 }

@@ -14,6 +14,7 @@ import {
   Bars3Icon,
   BellIcon,
   UserCircleIcon,
+  UserIcon,
   XMarkIcon
 } from '@heroicons/react/24/outline'
 import { Fragment, useEffect, useState } from 'react'
@@ -31,7 +32,8 @@ export default function HeaderCandidato () {
   const [candidaturas, setCandidaturas] = useState([])
   const [notificacao, setNotificacao] = useState([])
   const [notificacaoSelecionada, setNotificacaoSelecionada] = useState([])
-  const [user, setUser] = useState([])
+  const [user, setUser] = useState(null)
+  const [img, setImg] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
   const [modal, setModal] = useState(false)
 
@@ -56,11 +58,29 @@ export default function HeaderCandidato () {
     navigate('/')
   }
 
+  const testImageExists = url => {
+    return new Promise(resolve => {
+      const img = new Image()
+      img.src = url
+      img.onload = () => resolve(true)
+      img.onerror = () => resolve(false)
+    })
+  }
+
   useEffect(() => {
     const userInfo = async () => {
       try {
         const response = await api.get(`users/${userID}`)
+
+        const imgUrl = `https://chatbot-back-production-d852.up.railway.app/uploads/img/${response.data.details.img}`
+        const imgExists = await testImageExists(imgUrl)
+
+        if (!imgExists) {
+          response.data.details.img = ''
+        }
+
         setUser(response.data.details)
+        setImg(response.data.details.img)
       } catch (error) {
         console.error('Não foi possível retornar as informações do usuário')
       }
@@ -248,7 +268,7 @@ export default function HeaderCandidato () {
                                       }}
                                     >
                                       <p>
-                                        Olá {user.name}, infelizmente decidimos
+                                        Olá {user?.name}, infelizmente decidimos
                                         prosseguir...
                                       </p>
                                       <p className='truncate font-semibold'>
@@ -317,15 +337,15 @@ export default function HeaderCandidato () {
                 <div>
                   <MenuButton className='relative flex rounded-full cursor-pointer bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden'>
                     <span className='absolute -inset-1.5' />
-                    <img
-                      alt='Foto Perfil'
-                      src={
-                        user
-                          ? `https://chatbot-back-production-d852.up.railway.app/uploads/img/${user.img}`
-                          : 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-                      }
-                      className='size-8 rounded-full'
-                    />
+                    {img ? (
+                      <img
+                        alt='Foto Perfil'
+                        src={`https://chatbot-back-production-d852.up.railway.app/uploads/img/${user.img}`}
+                        className='size-8 rounded-full'
+                      />
+                    ) : (
+                      <UserIcon className='size-8 rounded-full bg-white stroke-gray-400' />
+                    )}
                   </MenuButton>
                 </div>
                 <MenuItems
@@ -361,7 +381,6 @@ export default function HeaderCandidato () {
             {navigation.map(item => (
               <DisclosureButton
                 key={item.name}
-                as='a'
                 href={item.href}
                 aria-current={item.current ? 'page' : undefined}
                 className={classNames(
