@@ -1,5 +1,5 @@
 # Site de Candidatura 
-<img src='src/assets/Home-page.jpeg'/>
+<img src='src/assets/Home-page.jpeg' alt='Página Inicial' style='width: 64; height: 64'/>
 ## 📍Objetivo
 > - Criação de um Site com o objetivo de empregabilidade (Candidato/Empresa). 
 ## 🔌Clone e Utilização
