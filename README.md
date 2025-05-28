@@ -1,5 +1,5 @@
 # Site de Candidatura 
-<!-- Esperando imagens... -->
+<img src='src/assets/Home-page.jpeg' alt='Página Inicial' width="75%"/>  <br> 
 ## 📍Objetivo
 > - Criação de um Site com o objetivo de empregabilidade (Candidato/Empresa). 
 ## 🔌Clone e Utilização
@@ -14,3 +14,21 @@
 
 4. **Execute o Projeto**  
 ```npm run dev```
+
+## 📡Tecnologias utilizadas  
+### Front-End:  
+- React  
+- TailwindCSS  
+- Formik  
+- Axios  
+- YUP  
+### Back-End:
+- NodeJS
+- Sequelize
+- Express
+- Nodemon
+- MySQL
+- JsonWebToken
+- cors
+- bcrypt
+- multer
