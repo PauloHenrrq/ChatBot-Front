@@ -14,3 +14,21 @@
 
 4. **Execute o Projeto**  
 ```npm run dev```
+
+## 📡Tecnologias utilizadas  
+### Front-End:  
+- React  
+- TailwindCSS  
+- Formik  
+- Axios  
+- YUP  
+### Back-End:
+- NodeJS
+- Sequelize
+- Express
+- Nodemon
+- MySQL
+- JsonWebToken
+- cors
+- bcrypt
+- multer
