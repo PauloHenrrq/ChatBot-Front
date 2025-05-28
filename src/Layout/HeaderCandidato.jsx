@@ -116,6 +116,14 @@ export default function HeaderCandidato () {
   const deleteNotificacao = async id => {
     try {
       await api.delete(`/notificacao/${id}`)
+      const NotificacaoAtt = notificacao.filter(not => not.id !== id)
+      console.log(NotificacaoAtt)
+
+      if (NotificacaoAtt.length === 0) {
+        setNotificacao('Sem notificações por aqui 😅')
+      } else {
+        setNotificacao(NotificacaoAtt)
+      }
     } catch (error) {
       console.error('Houve um erro ao excluir a notificação', error)
     }
@@ -226,7 +234,7 @@ export default function HeaderCandidato () {
                         leaveFrom='translate-x-0'
                         leaveTo='translate-x-full'
                       >
-                        <MenuItems className='fixed z-10 top-0 right-0 bg-gradient-to-b from-orange-700 via-orange-600 to-orange-500 border-l border-white w-60 h-screen'>
+                        <MenuItems className='fixed z-10 top-0 right-0 bg-gradient-to-b from-orange-700 via-orange-600 to-orange-500 border-l border-white w-65 h-screen overflow-y-scroll overflow-x-hidden'>
                           <MenuItem>
                             <div className='flex justify-end border-b border-white'>
                               <CloseButton className='w-8 h-8 m-3 bg-white rounded-md hover:scale-110 transition-all'>
@@ -249,12 +257,9 @@ export default function HeaderCandidato () {
                               >
                                 <div className='flex'>
                                   <button
-                                    className='flex justify-center items-center absolute right-1.5 mt-3 w-6 h-6 bg-orange-800 rounded-2xl text-white font-bold cursor-pointer'
+                                    className='flex justify-center items-center absolute right-2.5 mt-2 w-6 h-6 bg-orange-800 rounded-2xl text-white font-bold cursor-pointer'
                                     onClick={() => {
                                       deleteNotificacao(n.id)
-                                      setNotificacao(
-                                        'Sem notificações por aqui 😅'
-                                      )
                                     }}
                                   >
                                     X

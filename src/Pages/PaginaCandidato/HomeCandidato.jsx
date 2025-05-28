@@ -41,6 +41,24 @@ export default function HomeCandidato () {
   })
 
   useEffect(() => {
+    if (!modalAberto) {
+      setFormData({
+        telefone: '',
+        endereco: {
+          rua: '',
+          numero: '',
+          bairro: '',
+          cidade: '',
+          estado: '',
+          cep: ''
+        },
+        descricao: '',
+        curriculo: null
+      })
+    }
+  }, [modalAberto])
+
+  useEffect(() => {
     const carregarVagas = async () => {
       try {
         const response = await api.get('/vagas')
@@ -115,6 +133,7 @@ export default function HomeCandidato () {
       }
 
       nested[keys[keys.length - 1]] = value
+      console.log(updated)
       return updated
     })
   }
@@ -266,9 +285,7 @@ export default function HomeCandidato () {
                     : `${cep.logradouro}, ${cep.bairro}`}
                 </p>
                 <p className='text-gray-600'>
-                  {cep.erro
-                    ? null
-                    : `${cep.localidade} - ${cep.uf}`}
+                  {cep.erro ? null : `${cep.localidade} - ${cep.uf}`}
                 </p>
               </div>
 
@@ -337,9 +354,6 @@ export default function HomeCandidato () {
             setNomeModal={() => {
               setModalAberto(false)
               setFormData({
-                nome: '',
-                email: '',
-                dataNascimento: '',
                 telefone: '',
                 endereco: {
                   rua: '',
