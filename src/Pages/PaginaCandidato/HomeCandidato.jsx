@@ -133,7 +133,6 @@ export default function HomeCandidato () {
       }
 
       nested[keys[keys.length - 1]] = value
-      console.log(updated)
       return updated
     })
   }

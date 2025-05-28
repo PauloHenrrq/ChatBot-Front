@@ -117,7 +117,6 @@ export default function HeaderCandidato () {
     try {
       await api.delete(`/notificacao/${id}`)
       const NotificacaoAtt = notificacao.filter(not => not.id !== id)
-      console.log(NotificacaoAtt)
 
       if (NotificacaoAtt.length === 0) {
         setNotificacao('Sem notificações por aqui 😅')
@@ -234,7 +233,13 @@ export default function HeaderCandidato () {
                         leaveFrom='translate-x-0'
                         leaveTo='translate-x-full'
                       >
-                        <MenuItems className='fixed z-10 top-0 right-0 bg-gradient-to-b from-orange-700 via-orange-600 to-orange-500 border-l border-white w-65 h-screen overflow-y-scroll overflow-x-hidden'>
+                        <MenuItems
+                          className={`fixed z-10 top-0 right-0 bg-gradient-to-b from-orange-700 via-orange-600 to-orange-500 border-l border-white w-65 h-screen ${
+                            notificacao.length > 3
+                              ? 'overflow-y-hidden'
+                              : 'overflow-y-scroll'
+                          } overflow-x-hidden`}
+                        >
                           <MenuItem>
                             <div className='flex justify-end border-b border-white'>
                               <CloseButton className='w-8 h-8 m-3 bg-white rounded-md hover:scale-110 transition-all'>
