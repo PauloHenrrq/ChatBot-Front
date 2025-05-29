@@ -96,7 +96,7 @@ export default function LoginAdmin () {
 
   return (
     <div className='flex items-center justify-center min-h-screen bg-gradient-to-b from-orange-500 to-orange-400'>
-      <div className='bg-white rounded-xl shadow-lg flex max-lg:flex-col w-[50%] max-sm:w-[70%] transition-all overflow-hidden'>
+      <div className='bg-white rounded-xl shadow-lg flex max-lg:flex-col w-[50%] max-sm:w-[90%] transition-all overflow-hidden'>
         <div className='w-1/2 max-lg:w-full px-8 py-12'>
           <div className='flex justify-center gap-4 mb-6'>
             {loginMap.button.map((button, index) => (
