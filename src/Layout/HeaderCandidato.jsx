@@ -150,7 +150,7 @@ export default function HeaderCandidato () {
           )
 
           const vagasValidas = vagas.filter(vaga => vaga !== null)
-          setVaga(vagasValidas)
+          setCandidaturas(vagasValidas)
         } catch (error) {
           console.error('Erro ao buscar candidaturas ou vagas:', error)
         }
@@ -184,25 +184,6 @@ export default function HeaderCandidato () {
             <div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-start'>
               <div className='flex shrink-0 items-center text-white text-2xl font-semibold'>
                 <h1>Painel Vagas</h1>
-              </div>
-              <div className='hidden sm:ml-6 sm:block'>
-                <div className='flex space-x-4 text-white'>
-                  {navigation.map(item => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      aria-current={item.current ? 'page' : undefined}
-                      className={classNames(
-                        item.current
-                          ? 'bg-orange-600 text-white'
-                          : 'text-zinc-100 hover:bg-orange-600 hover:text-white',
-                        'g px-3 py-2 text-sm font-medium rounded-lg'
-                      )}
-                    >
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
               </div>
             </div>
             <div className='absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
@@ -387,21 +368,21 @@ export default function HeaderCandidato () {
         </div>
 
         <DisclosurePanel className='sm:hidden'>
-          <div className='space-y-1 px-2 pt-2 pb-3'>
+          <div className='flex gap-2 space-y-1 px-2 pt-2 pb-3 text-white  items-center'>
             {navigation.map(item => (
-              <DisclosureButton
+              <Link
                 key={item.name}
-                href={item.href}
+                to={item.href}
                 aria-current={item.current ? 'page' : undefined}
                 className={classNames(
                   item.current
-                    ? 'bg-orange-600 text-white px-3 py-2 text-sm font-medium rounded-lg'
-                    : 'text-white hover:bg-orange-600 hover:text-white',
-                  'block rounded-md px-3 py-2 mx-2 text-base font-medium'
+                    ? 'bg-orange-600 text-white'
+                    : 'text-zinc-100 hover:bg-orange-600',
+                  'g px-3 py-2 text-sm font-medium rounded-lg m-0'
                 )}
               >
                 {item.name}
-              </DisclosureButton>
+              </Link>
             ))}
           </div>
         </DisclosurePanel>
