@@ -185,6 +185,23 @@ export default function HeaderCandidato () {
               <div className='flex shrink-0 items-center text-white text-2xl font-semibold'>
                 <h1>Painel Vagas</h1>
               </div>
+              <div className='flex gap-2 space-y-1 ml-10 px-2 pt-2 pb-3 text-white  items-center'>
+                {navigation.map(item => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    aria-current={item.current ? 'page' : undefined}
+                    className={classNames(
+                      item.current
+                        ? 'bg-orange-600 text-white'
+                        : 'text-zinc-100 hover:bg-orange-600',
+                      'g px-3 py-2 text-sm font-medium rounded-lg m-0'
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
             </div>
             <div className='absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
               <Menu as='div' className='relative ml-3'>
